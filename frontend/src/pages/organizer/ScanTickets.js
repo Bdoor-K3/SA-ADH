@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import QrScanner from 'react-qr-scanner'; // Install this library
-import { validateTicket } from '../../services/api'; // Add API call
+import QrScanner from 'react-qr-scanner';
+import { validateTicket } from '../../services/api';
 import './ScanTickets.css';
 
 function ScanTickets() {
@@ -13,7 +13,6 @@ function ScanTickets() {
       setScanResult(data);
 
       try {
-        // Validate ticket by sending QR code data and event ID to the backend
         const eventId = window.location.pathname.split('/').pop(); // Get event ID from URL
         const response = await validateTicket(data.text, eventId);
 
@@ -36,12 +35,17 @@ function ScanTickets() {
     width: 320,
   };
 
+  const videoConstraints = {
+    facingMode: { exact: 'environment' }, // Use the back camera
+  };
+
   return (
     <div className="scan-tickets">
       <h1>Scan Tickets</h1>
       <QrScanner
         delay={300}
         style={previewStyle}
+        constraints={{ video: videoConstraints }}
         onError={handleError}
         onScan={handleScan}
       />
