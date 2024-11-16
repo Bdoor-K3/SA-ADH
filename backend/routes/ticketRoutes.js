@@ -73,6 +73,7 @@ const newTicket = new Ticket({
 });
 
 // Validate Ticket by QR Code
+// Validate Ticket by QR Code
 router.post('/validate', authenticateToken, async (req, res) => {
   const { qrCodeData, eventId } = req.body;
 
@@ -99,6 +100,24 @@ router.post('/validate', authenticateToken, async (req, res) => {
     ticket.useDate = new Date();
     await ticket.save();
 
+    // Update the user's purchase history
+    const user = await User.findById(ticket.buyerId);
+    if (!user) {
+      logger.error('User not found for the validated ticket.');
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    const purchaseHistoryEntry = user.purchaseHistory.find(
+      (entry) => entry.ticketId.toString() === ticket._id.toString()
+    );
+    if (purchaseHistoryEntry) {
+      purchaseHistoryEntry.used = true;
+      purchaseHistoryEntry.useDate = ticket.useDate;
+      await user.save();
+    } else {
+      logger.warn('No matching purchase history entry found for the validated ticket.');
+    }
+
     logger.info('Ticket validated successfully.');
     res.status(200).json({ message: 'Ticket validated successfully.', ticket });
   } catch (error) {
@@ -106,5 +125,6 @@ router.post('/validate', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error validating ticket.', error: error.message });
   }
 });
+
 
 module.exports = router;
