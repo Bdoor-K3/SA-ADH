@@ -30,8 +30,9 @@ router.post('/purchase', authenticateToken, async (req, res) => {
     }
 
     // Generate QR code data
-    const qrCodeData = `Event: ${event.name}, Buyer: ${user.email}, PurchaseDate: ${new Date().toISOString()}`;
-    const qrCodeImage = await QRCode.toDataURL(qrCodeData); // Generate QR code as a base64 string
+    const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`;
+    const qrCodeImage = await QRCode.toDataURL(qrCodeData);
+    
 
     // Create a new ticket
     const newTicket = new Ticket({
