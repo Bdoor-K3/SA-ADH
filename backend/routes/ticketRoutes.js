@@ -56,7 +56,6 @@ router.post('/purchase', authenticateToken, async (req, res) => {
   }
 });
 
-// Validate Ticket by QR Code
 router.post('/validate', authenticateToken, async (req, res) => {
   const { qrCodeData, eventId } = req.body;
 
@@ -70,7 +69,6 @@ router.post('/validate', authenticateToken, async (req, res) => {
       });
     }
 
-    // Check if the ticket is already used
     if (ticket.used) {
       return res.status(400).json({
         message: 'This ticket has already been used.',
@@ -78,22 +76,16 @@ router.post('/validate', authenticateToken, async (req, res) => {
       });
     }
 
-    // Update the ticket to mark it as used
     ticket.used = true;
     ticket.useDate = new Date();
     await ticket.save();
 
-    res.status(200).json({
-      message: 'Ticket validated successfully.',
-      ticket,
-    });
+    res.status(200).json({ message: 'Ticket validated successfully.', ticket });
   } catch (error) {
-    res.status(500).json({
-      message: 'Error validating ticket.',
-      error: error.message,
-    });
+    res.status(500).json({ message: 'Error validating ticket.', error: error.message });
   }
 });
+
 
 
 

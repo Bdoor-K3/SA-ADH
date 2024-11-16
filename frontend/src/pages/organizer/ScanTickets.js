@@ -9,26 +9,20 @@ function ScanTickets() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleScan = async (data) => {
-    if (data && data !== scanResult) {
+    if (data) {
       setScanResult(data);
 
       try {
         const eventId = window.location.pathname.split('/').pop(); // Get event ID from URL
-        const response = await validateTicket(data.text, eventId);
+        const response = await validateTicket(data, eventId);
 
         setValidationMessage(response.message);
-        setErrorMessage(''); // Clear error message
+        setErrorMessage('');
+        setScanResult(''); // Clear scanResult to allow new scans
       } catch (error) {
-        setValidationMessage(''); // Clear validation message
+        setValidationMessage('');
         setErrorMessage(error.response?.data?.message || 'Error validating ticket.');
       }
-
-      // Reset scanner for next scan
-      setTimeout(() => {
-        setScanResult('');
-        setValidationMessage('');
-        setErrorMessage('');
-      }, 3000); // Reset after 3 seconds for the next scan
     }
   };
 
@@ -43,7 +37,7 @@ function ScanTickets() {
   };
 
   const videoConstraints = {
-    facingMode: { exact: 'environment' }, // Use the back camera
+    facingMode: { exact: 'environment' }, // Use back camera
   };
 
   return (
@@ -56,7 +50,6 @@ function ScanTickets() {
         onError={handleError}
         onScan={handleScan}
       />
-      {scanResult && <p>Scanned Data: {scanResult}</p>}
       {validationMessage && <p className="success">{validationMessage}</p>}
       {errorMessage && <p className="error">{errorMessage}</p>}
     </div>
