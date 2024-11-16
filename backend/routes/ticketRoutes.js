@@ -83,6 +83,7 @@ router.post('/validate', authenticateToken, async (req, res) => {
     res.status(200).json({ message: 'Ticket validated successfully.', ticket });
   } catch (error) {
     res.status(500).json({ message: 'Error validating ticket.', error: error.message });
+    print(error)
   }
 });
 
