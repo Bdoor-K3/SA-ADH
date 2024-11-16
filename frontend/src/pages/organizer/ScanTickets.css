@@ -1,0 +1,43 @@
+.scan-tickets {
+    text-align: center;
+    color: #f1f1f1;
+    background-color: #23272a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .scan-tickets h1 {
+    color: #7289da;
+    margin-bottom: 20px;
+  }
+  
+  .next-scan-button {
+    background-color: #7289da;
+    color: #f1f1f1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .next-scan-button:hover {
+    background-color: #5b6eae;
+  }
+  
+  .success {
+    color: #43b581;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  .error {
+    color: #f04747;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
