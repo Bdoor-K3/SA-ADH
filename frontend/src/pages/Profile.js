@@ -33,7 +33,12 @@ function Profile() {
         <p><strong>Name:</strong> {user.fullName}</p>
         <p><strong>Email:</strong> {user.email}</p>
         <p><strong>Phone:</strong> {user.phoneNumber}</p>
-        <p><strong>Address:</strong> {`${user.address.address1}, ${user.address.city}, ${user.address.region}`}</p>
+        <p>
+          <strong>Address:</strong>{' '}
+          {user.address
+            ? `${user.address.address1}, ${user.address.city}, ${user.address.region}`
+            : 'No address provided.'}
+        </p>
         <p><strong>Age:</strong> {user.age}</p>
         <p><strong>Gender:</strong> {user.gender}</p>
         <p><strong>Role:</strong> {user.role}</p>
@@ -41,24 +46,48 @@ function Profile() {
 
       <div className="purchase-history">
         <h2>Purchase History</h2>
-        {user.purchaseHistory.length === 0 ? (
+        {(!user.purchaseHistory || user.purchaseHistory.length === 0) ? (
           <p>No tickets purchased yet.</p>
         ) : (
           <ul>
-            {user.purchaseHistory.map((history) => (
-              <li key={history.ticketId._id}>
-                <p><strong>Event:</strong> {history.ticketId.eventId.name}</p>
-                <p><strong>Date:</strong> {new Date(history.ticketId.eventId.dateOfEvent).toLocaleDateString()}</p>
-                <p><strong>Purchase Date:</strong> {new Date(history.purchaseDate).toLocaleDateString()}</p>
-                <p><strong>Used:</strong> {history.used ? 'Yes' : 'No'}</p>
-                {history.ticketId.QRCodeImage && (
-                  <div>
-                    <p><strong>QR Code:</strong></p>
-                    <img src={history.ticketId.QRCodeImage} alt="QR Code" style={{ width: '200px', height: '200px' }} />
-                  </div>
-                )}
-              </li>
-            ))}
+            {user.purchaseHistory.map((history, index) => {
+              // Safeguard against missing nested data
+              const event = history.ticketId?.eventId;
+              const qrCodeImage = history.ticketId?.QRCodeImage;
+
+              return (
+                <li key={index}>
+                  <p>
+                    <strong>Event:</strong> {event?.name || 'Event name not available'}
+                  </p>
+                  <p>
+                    <strong>Date:</strong>{' '}
+                    {event?.dateOfEvent
+                      ? new Date(event.dateOfEvent).toLocaleDateString()
+                      : 'Date not available'}
+                  </p>
+                  <p>
+                    <strong>Purchase Date:</strong>{' '}
+                    {history.purchaseDate
+                      ? new Date(history.purchaseDate).toLocaleDateString()
+                      : 'Purchase date not available'}
+                  </p>
+                  <p>
+                    <strong>Used:</strong> {history.used ? 'Yes' : 'No'}
+                  </p>
+                  {qrCodeImage && (
+                    <div>
+                      <p><strong>QR Code:</strong></p>
+                      <img
+                        src={qrCodeImage}
+                        alt="QR Code"
+                        style={{ width: '200px', height: '200px' }}
+                      />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
