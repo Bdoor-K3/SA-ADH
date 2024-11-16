@@ -5,6 +5,7 @@ import './Profile.css';
 function Profile() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const loadUserProfile = async () => {
@@ -14,33 +15,42 @@ function Profile() {
       } catch (err) {
         setError('Error fetching profile data.');
         console.error(err);
+      } finally {
+        setIsLoading(false); // Set loading to false after API call
       }
     };
 
     loadUserProfile();
   }, []);
 
+  if (isLoading) {
+    return <p>Loading profile...</p>; // Show loading state until data is fully fetched
+  }
+
+  if (error) {
+    return <p className="error">{error}</p>; // Display error message if API call fails
+  }
+
   if (!user) {
-    return <p>Loading profile...</p>;
+    return <p>No user data available.</p>; // Handle case where user is null
   }
 
   return (
     <div className="profile">
       <h1>Profile</h1>
-      {error && <p className="error">{error}</p>}
       <div className="profile-details">
         <h2>Personal Details</h2>
         <p><strong>Name:</strong> {user.fullName}</p>
         <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Phone:</strong> {user.phoneNumber}</p>
+        <p><strong>Phone:</strong> {user.phoneNumber || 'No phone number provided.'}</p>
         <p>
           <strong>Address:</strong>{' '}
           {user.address
             ? `${user.address.address1}, ${user.address.city}, ${user.address.region}`
             : 'No address provided.'}
         </p>
-        <p><strong>Age:</strong> {user.age}</p>
-        <p><strong>Gender:</strong> {user.gender}</p>
+        <p><strong>Age:</strong> {user.age || 'Not provided'}</p>
+        <p><strong>Gender:</strong> {user.gender || 'Not provided'}</p>
         <p><strong>Role:</strong> {user.role}</p>
       </div>
 
@@ -52,17 +62,23 @@ function Profile() {
           <ul>
             {user.purchaseHistory.map((history, index) => {
               // Safeguard against missing nested data
-              const event = history.ticketId?.eventId;
-              const qrCodeImage = history.ticketId?.QRCodeImage;
+              const ticket = history.ticketId;
+              const event = ticket?.eventId;
+              const qrCodeImage = ticket?.QRCodeImage;
+
+              if (!ticket || !event) {
+                // Skip entries with incomplete data
+                return null;
+              }
 
               return (
                 <li key={index}>
                   <p>
-                    <strong>Event:</strong> {event?.name || 'Event name not available'}
+                    <strong>Event:</strong> {event.name || 'Event name not available'}
                   </p>
                   <p>
                     <strong>Date:</strong>{' '}
-                    {event?.dateOfEvent
+                    {event.dateOfEvent
                       ? new Date(event.dateOfEvent).toLocaleDateString()
                       : 'Date not available'}
                   </p>
