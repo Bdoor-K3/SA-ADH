@@ -1,0 +1,36 @@
+.profile {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .profile h1 {
+    text-align: center;
+  }
+  
+  .profile-details,
+  .purchase-history {
+    margin-top: 20px;
+  }
+  
+  .profile-details p,
+  .purchase-history p {
+    margin: 5px 0;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  

@@ -1,0 +1,17 @@
+:root {
+  --font-color: #333333;
+  --button-color: #1a73e8;
+  --background-color: #f4f4f4;
+  --card-background-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--font-color);
+  background-color: var(--background-color);
+}
+
+.App {
+  text-align: center;
+}
