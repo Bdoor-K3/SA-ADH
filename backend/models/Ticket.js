@@ -7,7 +7,7 @@ const ticketSchema = new mongoose.Schema(
     purchaseDate: { type: Date, default: Date.now },
     used: { type: Boolean, default: false },
     useDate: { type: Date },
-    QRCode: { type: String }, // Stores the QR code data or path
+    QRCode: { type: String, unique: true }, // Ensure QRCode is unique
   },
   { timestamps: true }
 );

@@ -9,7 +9,7 @@ function ScanTickets() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleScan = async (data) => {
-    if (data) {
+    if (data && data !== scanResult) {
       setScanResult(data);
 
       try {
@@ -22,6 +22,13 @@ function ScanTickets() {
         setValidationMessage(''); // Clear validation message
         setErrorMessage(error.response?.data?.message || 'Error validating ticket.');
       }
+
+      // Reset scanner for next scan
+      setTimeout(() => {
+        setScanResult('');
+        setValidationMessage('');
+        setErrorMessage('');
+      }, 3000); // Reset after 3 seconds for the next scan
     }
   };
 

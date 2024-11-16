@@ -65,7 +65,9 @@ router.post('/validate', authenticateToken, async (req, res) => {
     const ticket = await Ticket.findOne({ QRCode: qrCodeData, eventId });
 
     if (!ticket) {
-      return res.status(404).json({ message: 'Ticket not found or does not match the event.' });
+      return res.status(404).json({
+        message: 'Invalid ticket. No matching ticket found for this event.',
+      });
     }
 
     // Check if the ticket is already used
@@ -81,11 +83,18 @@ router.post('/validate', authenticateToken, async (req, res) => {
     ticket.useDate = new Date();
     await ticket.save();
 
-    res.status(200).json({ message: 'Ticket validated successfully.', ticket });
+    res.status(200).json({
+      message: 'Ticket validated successfully.',
+      ticket,
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Error validating ticket.', error: error.message });
+    res.status(500).json({
+      message: 'Error validating ticket.',
+      error: error.message,
+    });
   }
 });
+
 
 
 module.exports = router;
