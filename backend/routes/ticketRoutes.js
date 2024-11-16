@@ -43,16 +43,18 @@ router.post('/purchase', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Generate raw QR code data
-    const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`;
-    const qrCodeImage = await QRCode.toDataURL(qrCodeData); // Optional: Keep generating the base64 image for UI display
+  // Generate QR code as text and Base64 image
+const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`; // Raw QR code data
+const qrCodeImage = await QRCode.toDataURL(qrCodeData); // Base64 image for frontend display
 
-    // Create a new ticket
-    const newTicket = new Ticket({
-      eventId: event._id,
-      buyerId: user._id,
-      QRCode: qrCodeData, // Save the raw text QR code data
-    });
+// Save raw text data for validation and Base64 image for UI
+const newTicket = new Ticket({
+  eventId: event._id,
+  buyerId: user._id,
+  QRCode: qrCodeData, // Save raw text QR code data
+  QRCodeImage: qrCodeImage, // Optional: Save Base64 image for UI
+});
+
     const savedTicket = await newTicket.save();
 
     // Update the user's purchase history
@@ -75,19 +77,17 @@ router.post('/validate', authenticateToken, async (req, res) => {
   const { qrCodeData, eventId } = req.body;
 
   try {
-    // Log incoming validation request
-    console.log(`Validation request received for QRCode: ${qrCodeData}, eventId: ${eventId}`);
+    logger.info(`Validation request received for QRCode: ${qrCodeData}, eventId: ${eventId}`);
 
-    // Find the ticket based on the raw QR code data and event ID
+    // Validate ticket
     const ticket = await Ticket.findOne({ QRCode: qrCodeData, eventId });
-
     if (!ticket) {
-      return res.status(404).json({
-        message: 'Invalid ticket. No matching ticket found for this event.',
-      });
+      logger.warn('Invalid ticket. No matching ticket found.');
+      return res.status(404).json({ message: 'Invalid ticket. No matching ticket found.' });
     }
 
     if (ticket.used) {
+      logger.warn('Ticket already used.');
       return res.status(400).json({
         message: 'This ticket has already been used.',
         useDate: ticket.useDate,
@@ -99,9 +99,10 @@ router.post('/validate', authenticateToken, async (req, res) => {
     ticket.useDate = new Date();
     await ticket.save();
 
+    logger.info('Ticket validated successfully.');
     res.status(200).json({ message: 'Ticket validated successfully.', ticket });
   } catch (error) {
-    console.error(`Error validating ticket: ${error.message}`);
+    logger.error(`Error validating ticket: ${error.message}`);
     res.status(500).json({ message: 'Error validating ticket.', error: error.message });
   }
 });

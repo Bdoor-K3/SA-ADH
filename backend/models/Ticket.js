@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema(
   {
-    eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true }, // References Event
-    buyerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // References User
-    purchaseDate: { type: Date, default: Date.now },
+    eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
+    buyerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    QRCode: { type: String, required: true }, // Raw QR code data for validation
+    QRCodeImage: { type: String }, // Base64 image (optional for UI)
     used: { type: Boolean, default: false },
     useDate: { type: Date },
-    QRCode: { type: String, required: true }, // Store raw text data, not the image
+    purchaseDate: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );

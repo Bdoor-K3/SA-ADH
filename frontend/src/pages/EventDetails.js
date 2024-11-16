@@ -6,7 +6,7 @@ function EventDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [event, setEvent] = useState(null);
-  const [qrCode, setQrCode] = useState(null);
+  const [qrCodeImage, setQrCodeImage] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function EventDetails() {
         const data = await getEventById(id);
         setEvent(data);
       } catch (err) {
-        setError('Error fetching event details');
+        setError('Error fetching event details.');
         console.error(err);
       }
     };
@@ -27,9 +27,9 @@ function EventDetails() {
     try {
       const response = await purchaseTicket(id);
       alert('Ticket purchased successfully!');
-      setQrCode(response.ticket.QRCode); // Set the QR code from the response
+      setQrCodeImage(response.ticket.QRCodeImage); // Set the QR code image from the response
     } catch (err) {
-      setError(err.response?.data?.message || 'Error purchasing ticket');
+      setError(err.response?.data?.message || 'Error purchasing ticket.');
     }
   };
 
@@ -50,10 +50,10 @@ function EventDetails() {
       <button onClick={handlePurchaseTicket}>Buy Ticket</button>
       {error && <p className="error">{error}</p>}
 
-      {qrCode && (
+      {qrCodeImage && (
         <div>
           <h2>Your Ticket QR Code</h2>
-          <img src={qrCode} alt="QR Code" />
+          <img src={qrCodeImage} alt="QR Code" style={{ width: '200px', height: '200px' }} />
         </div>
       )}
     </div>

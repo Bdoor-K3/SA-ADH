@@ -51,10 +51,10 @@ function Profile() {
                 <p><strong>Date:</strong> {new Date(history.ticketId.eventId.dateOfEvent).toLocaleDateString()}</p>
                 <p><strong>Purchase Date:</strong> {new Date(history.purchaseDate).toLocaleDateString()}</p>
                 <p><strong>Used:</strong> {history.used ? 'Yes' : 'No'}</p>
-                {history.ticketId.QRCode && (
+                {history.ticketId.QRCodeImage && (
                   <div>
                     <p><strong>QR Code:</strong></p>
-                    <img src={history.ticketId.QRCode} alt="QR Code" />
+                    <img src={history.ticketId.QRCodeImage} alt="QR Code" style={{ width: '200px', height: '200px' }} />
                   </div>
                 )}
               </li>

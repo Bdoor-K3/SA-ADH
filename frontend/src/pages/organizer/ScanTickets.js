@@ -11,21 +11,20 @@ function ScanTickets() {
 
   const handleScan = async (data) => {
     if (data) {
-      setScanResult(data);
-
       try {
-        const eventId = window.location.pathname.split('/').pop(); // Get event ID from URL
-        const response = await validateTicket(data.text || data, eventId); // Validate ticket with backend
-
+        const eventId = window.location.pathname.split('/').pop();
+        const response = await validateTicket(data.text || data, eventId);
+  
         setValidationMessage(response.message);
         setErrorMessage('');
-        setShowNextScanButton(true); // Show "Scan Next" button after a successful scan
+        setShowNextScanButton(true); // Show "Scan Next" button for another scan
       } catch (error) {
         setValidationMessage('');
         setErrorMessage(error.response?.data?.message || 'Error validating ticket.');
       }
     }
   };
+  
 
   const handleError = (err) => {
     console.error('Error scanning QR code:', err);
