@@ -7,6 +7,7 @@ function ScanTickets() {
   const [scanResult, setScanResult] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showNextScanButton, setShowNextScanButton] = useState(false); // Control visibility of "Scan Next" button
 
   const handleScan = async (data) => {
     if (data) {
@@ -14,11 +15,11 @@ function ScanTickets() {
 
       try {
         const eventId = window.location.pathname.split('/').pop(); // Get event ID from URL
-        const response = await validateTicket(data, eventId);
+        const response = await validateTicket(data.text || data, eventId); // Validate ticket with backend
 
         setValidationMessage(response.message);
         setErrorMessage('');
-        setScanResult(''); // Clear scanResult to allow new scans
+        setShowNextScanButton(true); // Show "Scan Next" button after a successful scan
       } catch (error) {
         setValidationMessage('');
         setErrorMessage(error.response?.data?.message || 'Error validating ticket.');
@@ -29,6 +30,13 @@ function ScanTickets() {
   const handleError = (err) => {
     console.error('Error scanning QR code:', err);
     setErrorMessage('Error scanning QR code. Please try again.');
+  };
+
+  const handleNextScan = () => {
+    setScanResult(''); // Clear previous scan result
+    setValidationMessage(''); // Clear validation message
+    setErrorMessage(''); // Clear error message
+    setShowNextScanButton(false); // Hide "Scan Next" button to allow a new scan
   };
 
   const previewStyle = {
@@ -43,15 +51,23 @@ function ScanTickets() {
   return (
     <div className="scan-tickets">
       <h1>Scan Tickets</h1>
-      <QrScanner
-        delay={300}
-        style={previewStyle}
-        constraints={{ video: videoConstraints }}
-        onError={handleError}
-        onScan={handleScan}
-      />
+      {!showNextScanButton && (
+        <QrScanner
+          delay={300}
+          style={previewStyle}
+          constraints={{ video: videoConstraints }}
+          onError={handleError}
+          onScan={handleScan}
+        />
+      )}
       {validationMessage && <p className="success">{validationMessage}</p>}
       {errorMessage && <p className="error">{errorMessage}</p>}
+
+      {showNextScanButton && (
+        <button onClick={handleNextScan} className="next-scan-button">
+          Scan Next Ticket
+        </button>
+      )}
     </div>
   );
 }
