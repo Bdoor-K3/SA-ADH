@@ -1,0 +1,115 @@
+.event-details {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-background-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    color: var(--font-color);
+  }
+  
+  .event-details h1 {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--button-color);
+    font-size: 2rem;
+  }
+  
+  .event-details p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  .event-details button {
+    display: block;
+    margin: 2rem auto 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: white;
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .event-details button:hover {
+    background-color: #155cb0;
+    transform: translateY(-2px);
+  }
+  
+  .event-details button:active {
+    transform: translateY(0);
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+  
+  .qr-code {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .qr-code img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  .qr-code h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--button-color);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .event-details {
+      padding: 1.5rem;
+    }
+  
+    .event-details h1 {
+      font-size: 1.8rem;
+    }
+  
+    .event-details p {
+      font-size: 0.95rem;
+    }
+  
+    .event-details button {
+      font-size: 0.9rem;
+      padding: 0.6rem 1.2rem;
+    }
+  
+    .qr-code img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .event-details h1 {
+      font-size: 1.5rem;
+    }
+  
+    .event-details p {
+      font-size: 0.9rem;
+    }
+  
+    .qr-code img {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .event-details button {
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+  

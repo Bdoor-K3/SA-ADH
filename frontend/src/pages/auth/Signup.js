@@ -25,9 +25,9 @@ function Signup() {
       setError('Passwords do not match');
       return;
     }
-  
+
     try {
-      console.log('Submitting form data:', formData); // Debug
+      console.log('Submitting form data:', formData);
       await registerUser({
         fullName: formData.fullName,
         email: formData.email,
@@ -44,11 +44,10 @@ function Signup() {
       });
       alert('Registration successful! Please log in.');
     } catch (err) {
-      console.error('API Error:', err.response?.data || err.message); // Debug API error
+      console.error('API Error:', err.response?.data || err.message);
       setError('Registration failed. Please try again.');
     }
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,7 +112,7 @@ function Signup() {
         <input
           type="text"
           name="address.address1"
-          placeholder="Address 1"
+          placeholder="Address Line 1"
           value={formData.address.address1}
           onChange={handleChange}
           required
@@ -121,7 +120,7 @@ function Signup() {
         <input
           type="text"
           name="address.address2"
-          placeholder="Address 2 (optional)"
+          placeholder="Address Line 2 (optional)"
           value={formData.address.address2}
           onChange={handleChange}
         />

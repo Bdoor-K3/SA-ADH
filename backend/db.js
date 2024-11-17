@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const connectDB = async () => {
   try {
-    const dbUri = process.env.MONGO_URI;
+    const dbUri = process.env.MONGO_URI ;
     if (!dbUri) {
       console.error('MONGO_URI is not defined in the .env file.');
       process.exit(1);

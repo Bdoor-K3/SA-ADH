@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getEventById, purchaseTicket } from '../services/api';
+import './EventDetails.css';
 
 function EventDetails() {
   const { id } = useParams();
@@ -24,17 +25,24 @@ function EventDetails() {
   }, [id]);
 
   const handlePurchaseTicket = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please login or sign up to purchase a ticket.');
+      navigate('/login');
+      return;
+    }
+
     try {
       const response = await purchaseTicket(id);
       alert('Ticket purchased successfully!');
-      setQrCodeImage(response.ticket.QRCodeImage); // Set the QR code image from the response
+      setQrCodeImage(response.ticket.QRCodeImage);
     } catch (err) {
       setError(err.response?.data?.message || 'Error purchasing ticket.');
     }
   };
 
   if (!event) {
-    return <p>Loading event details...</p>;
+    return <p className="loading">Loading event details...</p>;
   }
 
   return (
@@ -51,9 +59,9 @@ function EventDetails() {
       {error && <p className="error">{error}</p>}
 
       {qrCodeImage && (
-        <div>
+        <div className="qr-code">
           <h2>Your Ticket QR Code</h2>
-          <img src={qrCodeImage} alt="QR Code" style={{ width: '200px', height: '200px' }} />
+          <img src={qrCodeImage} alt="QR Code" />
         </div>
       )}
     </div>

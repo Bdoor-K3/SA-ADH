@@ -28,7 +28,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="/event/:id" element={<EventDetails />} /> {/* Publicly accessible */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
@@ -48,14 +48,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-  path="/organizer/scan/:eventId"
-  element={
-    <ProtectedRoute role="organizer">
-      <ScanTickets />
-    </ProtectedRoute>
-  }
-/>
       </Routes>
     </Router>
   );

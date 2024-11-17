@@ -1,43 +1,68 @@
 .scan-tickets {
-    text-align: center;
-    color: #f1f1f1;
-    background-color: #23272a;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 80%;
-    max-width: 500px;
-    margin: 0 auto;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  background-color: var(--card-background-color);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.scan-tickets h1 {
+  margin-bottom: 1.5rem;
+  color: var(--button-color);
+  font-size: 1.8rem;
+}
+
+.scan-tickets .success,
+.scan-tickets .error {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.scan-tickets .success {
+  color: #28a745;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.scan-tickets .error {
+  color: #d9534f;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.next-scan-button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--button-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.next-scan-button:hover {
+  background-color: #155cb0;
+  transform: translateY(-2px);
+}
+
+.next-scan-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .scan-tickets {
+    padding: 1.5rem;
   }
-  
-  .scan-tickets h1 {
-    color: #7289da;
-    margin-bottom: 20px;
-  }
-  
+
   .next-scan-button {
-    background-color: #7289da;
-    color: #f1f1f1;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
+    width: 100%;
+    padding: 0.65rem;
   }
-  
-  .next-scan-button:hover {
-    background-color: #5b6eae;
-  }
-  
-  .success {
-    color: #43b581;
-    font-weight: bold;
-    margin-top: 15px;
-  }
-  
-  .error {
-    color: #f04747;
-    font-weight: bold;
-    margin-top: 15px;
-  }
-  
+}

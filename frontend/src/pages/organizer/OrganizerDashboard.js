@@ -28,15 +28,19 @@ function OrganizerDashboard() {
     <div className="organizer-dashboard">
       <h1>Organizer Dashboard</h1>
       <h2>Assigned Events</h2>
-      <ul>
-        {events.map((event) => (
-          <li key={event._id}>
-            <h3>{event.name}</h3>
-            <p>Date: {new Date(event.dateOfEvent).toLocaleDateString()}</p>
-            <button onClick={() => handleScanTickets(event._id)}>Scan Tickets</button>
-          </li>
-        ))}
-      </ul>
+      {events.length > 0 ? (
+        <ul className="event-list">
+          {events.map((event) => (
+            <li key={event._id} className="event-item">
+              <h3>{event.name}</h3>
+              <p>Date: {new Date(event.dateOfEvent).toLocaleDateString()}</p>
+              <button onClick={() => handleScanTickets(event._id)}>Scan Tickets</button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="no-events">No assigned events found.</p>
+      )}
     </div>
   );
 }

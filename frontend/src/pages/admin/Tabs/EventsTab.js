@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchEvents, createEvent, updateEvent, deleteEvent, fetchOrganizers } from '../../../services/api';
+import './EventsTab.css';
 
 function EventsTab() {
   const [events, setEvents] = useState([]);
@@ -42,7 +43,6 @@ function EventsTab() {
   const handleEventSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate that at least one organizer is selected
     if (formData.organizers.length === 0) {
       alert('Please select at least one organizer for the event.');
       return;
@@ -57,7 +57,6 @@ function EventsTab() {
         alert('Event created successfully!');
       }
 
-      // Reset form after submission
       setFormData({
         name: '',
         description: '',
@@ -87,7 +86,7 @@ function EventsTab() {
       ticketsAvailable: event.ticketsAvailable,
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
       purchaseEndDate: event.purchaseEndDate.slice(0, 10),
-      organizers: event.organizers, // Ensure organizers are directly mapped as IDs
+      organizers: event.organizers,
     });
   };
 
@@ -104,26 +103,24 @@ function EventsTab() {
   const handleOrganizerSelection = (organizerId) => {
     setFormData((prevFormData) => {
       const organizers = prevFormData.organizers.includes(organizerId)
-        ? prevFormData.organizers.filter((id) => id !== organizerId) // Remove organizer if unchecked
-        : [...prevFormData.organizers, organizerId]; // Add organizer if checked
+        ? prevFormData.organizers.filter((id) => id !== organizerId)
+        : [...prevFormData.organizers, organizerId];
       return { ...prevFormData, organizers };
     });
   };
 
   return (
-    <div>
-      <h2>{editEventId ? 'Edit Event' : 'Create Event'}</h2>
-      <form onSubmit={handleEventSubmit}>
+    <div className="events-tab">
+      <h2 className="tab-title">{editEventId ? 'Edit Event' : 'Create Event'}</h2>
+      <form className="event-form" onSubmit={handleEventSubmit}>
         <input
           type="text"
-          name="name"
           placeholder="Event Name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
         />
         <textarea
-          name="description"
           placeholder="Description"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -131,14 +128,12 @@ function EventsTab() {
         />
         <input
           type="date"
-          name="dateOfEvent"
           value={formData.dateOfEvent}
           onChange={(e) => setFormData({ ...formData, dateOfEvent: e.target.value })}
           required
         />
         <input
           type="number"
-          name="price"
           placeholder="Price"
           value={formData.price}
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -146,7 +141,6 @@ function EventsTab() {
         />
         <input
           type="number"
-          name="ticketsAvailable"
           placeholder="Tickets Available"
           value={formData.ticketsAvailable}
           onChange={(e) => setFormData({ ...formData, ticketsAvailable: e.target.value })}
@@ -154,44 +148,48 @@ function EventsTab() {
         />
         <input
           type="date"
-          name="purchaseStartDate"
           value={formData.purchaseStartDate}
           onChange={(e) => setFormData({ ...formData, purchaseStartDate: e.target.value })}
           required
         />
         <input
           type="date"
-          name="purchaseEndDate"
           value={formData.purchaseEndDate}
           onChange={(e) => setFormData({ ...formData, purchaseEndDate: e.target.value })}
           required
         />
-        <div>
+        <div className="organizers-container">
           <label>Organizers:</label>
           {organizers.map((organizer) => (
-            <div key={organizer._id}>
+            <div key={organizer._id} className="organizer-item">
               <input
                 type="checkbox"
                 value={organizer._id}
-                checked={formData.organizers.includes(organizer._id)} // Check if the organizer is already selected
-                onChange={() => handleOrganizerSelection(organizer._id)} // Handle the change event
+                checked={formData.organizers.includes(organizer._id)}
+                onChange={() => handleOrganizerSelection(organizer._id)}
               />
-              <label>
+              <span>
                 {organizer.fullName} ({organizer.email})
-              </label>
+              </span>
             </div>
           ))}
         </div>
-        <button type="submit">{editEventId ? 'Update Event' : 'Create Event'}</button>
+        <button type="submit" className="submit-button">
+          {editEventId ? 'Update Event' : 'Create Event'}
+        </button>
       </form>
 
-      <h2>Existing Events</h2>
-      <ul>
+      <h2 className="tab-title">Existing Events</h2>
+      <ul className="events-list">
         {events.map((event) => (
-          <li key={event._id}>
+          <li key={event._id} className="event-item">
             <h3>{event.name}</h3>
-            <button onClick={() => handleEditEvent(event)}>Edit</button>
-            <button onClick={() => handleDeleteEvent(event._id)}>Delete</button>
+            <button onClick={() => handleEditEvent(event)} className="edit-button">
+              Edit
+            </button>
+            <button onClick={() => handleDeleteEvent(event._id)} className="delete-button">
+              Delete
+            </button>
           </li>
         ))}
       </ul>

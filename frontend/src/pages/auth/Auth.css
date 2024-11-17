@@ -1,54 +1,82 @@
 .auth-container {
-    width: 300px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: var(--card-background-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .auth-container h2 {
-    margin-bottom: 1rem;
-  }
-  
-  .auth-container input {
-    width: 100%;
-    padding: 0.75rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .auth-container .error {
-    color: red;
-    font-size: 0.9rem;
-  }
-  
-  .auth-container button {
-    width: 100%;
-    padding: 0.75rem;
-    color: #ffffff;
-    background-color: var(--button-color);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .auth-container input,
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--card-background-color);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 1.5rem;
+  color: var(--font-color);
+  font-size: 1.5rem;
+}
+
+.auth-container input,
 .auth-container select {
   width: 100%;
   padding: 0.75rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin: 0.75rem 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.auth-container input:focus,
+.auth-container select:focus {
+  border-color: var(--button-color);
+  outline: none;
+  box-shadow: 0 0 4px var(--button-color);
+}
+
+.auth-container .error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .auth-container button {
   width: 100%;
   padding: 0.75rem;
-  color: #ffffff;
+  font-size: 1rem;
+  color: white;
   background-color: var(--button-color);
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.auth-container button:hover {
+  background-color: #155cb0;
+  transform: translateY(-2px);
+}
+
+.auth-container button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1.5rem;
+  }
+
+  .auth-container h2 {
+    font-size: 1.25rem;
+  }
+
+  .auth-container input,
+  .auth-container select {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+
+  .auth-container button {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
 }

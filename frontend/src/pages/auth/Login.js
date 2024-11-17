@@ -7,23 +7,22 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Initialize navigation hook
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
     try {
       const response = await loginUser({ email, password });
-      console.log('Login Successful:', response.data); // Debug log
+      console.log('Login Successful:', response.data);
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('role', response.data.user.role); // Store user role
+      localStorage.setItem('role', response.data.user.role);
       navigate('/');
     } catch (err) {
-      console.error('Login Error:', err.response?.data || err.message); // Debug log
+      console.error('Login Error:', err.response?.data || err.message);
       setError(err.response?.data?.message || 'Invalid email or password');
     }
   };
-  
 
   return (
     <div className="auth-container">

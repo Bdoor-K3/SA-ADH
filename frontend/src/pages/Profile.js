@@ -24,7 +24,7 @@ function Profile() {
   }, []);
 
   if (isLoading) {
-    return <p>Loading profile...</p>;
+    return <p className="loading">Loading profile...</p>;
   }
 
   if (error) {
@@ -32,7 +32,7 @@ function Profile() {
   }
 
   if (!user) {
-    return <p>No user data available.</p>;
+    return <p className="no-data">No user data available.</p>;
   }
 
   return (

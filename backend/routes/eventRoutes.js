@@ -50,7 +50,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
 
 
 // Get All Events
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
     res.status(200).json(events);
@@ -60,7 +60,7 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 // Get Event by ID
-router.get('/:id', authenticateToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
     if (!event) return res.status(404).json({ message: 'Event not found' });

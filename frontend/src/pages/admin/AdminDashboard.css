@@ -1,22 +1,86 @@
 .admin-dashboard {
-    padding: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--card-background-color);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  color: var(--font-color);
+  text-align: center;
+}
+
+.admin-dashboard h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--button-color);
+}
+
+.admin-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-tabs button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--font-color);
+  border: 2px solid var(--button-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-tabs button:hover {
+  background-color: var(--button-color);
+  color: white;
+}
+
+.admin-tabs button:active {
+  transform: scale(0.95);
+}
+
+.admin-tabs button.active {
+  background-color: var(--button-color);
+  color: white;
+  border-color: var(--button-color);
+  pointer-events: none;
+}
+
+.tab-content {
+  padding: 2rem;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .admin-tabs {
+    gap: 0.5rem;
   }
-  
-  .admin-dashboard form {
-    margin-bottom: 2rem;
-  }
-  
-  .admin-dashboard input {
-    display: block;
-    margin-bottom: 1rem;
+
+  .admin-tabs button {
+    flex: 1 1 calc(50% - 1rem);
+    font-size: 0.9rem;
     padding: 0.5rem;
-    width: 100%;
-    max-width: 400px;
   }
-  
-  .admin-dashboard button {
-    margin-right: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .admin-tabs button {
+    flex: 1 1 100%;
+    font-size: 0.85rem;
+    padding: 0.5rem;
   }
-  
+
+  .tab-content {
+    padding: 1.5rem;
+  }
+
+  .admin-dashboard h1 {
+    font-size: 1.5rem;
+  }
+}

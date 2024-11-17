@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchUsers, updateUser, deleteUser } from '../../../services/api';
+import './UsersTab.css';
 
 function UsersTab() {
   const [users, setUsers] = useState([]);
@@ -34,6 +35,8 @@ function UsersTab() {
       if (editUserId) {
         await updateUser(editUserId, userFormData);
         alert('User updated successfully!');
+      } else {
+        alert('New user added successfully!');
       }
       setUserFormData({
         fullName: '',
@@ -83,17 +86,16 @@ function UsersTab() {
       age: user.age,
       gender: user.gender,
       role: user.role,
-      password: '', // For security reasons, the password field is left blank
+      password: '',
     });
   };
 
   return (
-    <div>
-      <h2>{editUserId ? 'Edit User' : 'Manage Users'}</h2>
-      <form onSubmit={handleUserSubmit}>
+    <div className="users-tab">
+      <h2 className="tab-title">{editUserId ? 'Edit User' : 'Manage Users'}</h2>
+      <form className="user-form" onSubmit={handleUserSubmit}>
         <input
           type="text"
-          name="fullName"
           placeholder="Full Name"
           value={userFormData.fullName}
           onChange={(e) => setUserFormData({ ...userFormData, fullName: e.target.value })}
@@ -101,7 +103,6 @@ function UsersTab() {
         />
         <input
           type="email"
-          name="email"
           placeholder="Email"
           value={userFormData.email}
           onChange={(e) => setUserFormData({ ...userFormData, email: e.target.value })}
@@ -109,7 +110,6 @@ function UsersTab() {
         />
         <input
           type="text"
-          name="phoneNumber"
           placeholder="Phone Number"
           value={userFormData.phoneNumber}
           onChange={(e) => setUserFormData({ ...userFormData, phoneNumber: e.target.value })}
@@ -117,65 +117,47 @@ function UsersTab() {
         />
         <input
           type="text"
-          name="address.city"
           placeholder="City"
           value={userFormData.address.city}
           onChange={(e) =>
-            setUserFormData({
-              ...userFormData,
-              address: { ...userFormData.address, city: e.target.value },
-            })
+            setUserFormData({ ...userFormData, address: { ...userFormData.address, city: e.target.value } })
           }
           required
         />
         <input
           type="text"
-          name="address.region"
           placeholder="Region"
           value={userFormData.address.region}
           onChange={(e) =>
-            setUserFormData({
-              ...userFormData,
-              address: { ...userFormData.address, region: e.target.value },
-            })
+            setUserFormData({ ...userFormData, address: { ...userFormData.address, region: e.target.value } })
           }
           required
         />
         <input
           type="text"
-          name="address.address1"
           placeholder="Address Line 1"
           value={userFormData.address.address1}
           onChange={(e) =>
-            setUserFormData({
-              ...userFormData,
-              address: { ...userFormData.address, address1: e.target.value },
-            })
+            setUserFormData({ ...userFormData, address: { ...userFormData.address, address1: e.target.value } })
           }
           required
         />
         <input
           type="text"
-          name="address.address2"
           placeholder="Address Line 2 (optional)"
           value={userFormData.address.address2}
           onChange={(e) =>
-            setUserFormData({
-              ...userFormData,
-              address: { ...userFormData.address, address2: e.target.value },
-            })
+            setUserFormData({ ...userFormData, address: { ...userFormData.address, address2: e.target.value } })
           }
         />
         <input
           type="number"
-          name="age"
           placeholder="Age"
           value={userFormData.age}
           onChange={(e) => setUserFormData({ ...userFormData, age: e.target.value })}
           required
         />
         <select
-          name="gender"
           value={userFormData.gender}
           onChange={(e) => setUserFormData({ ...userFormData, gender: e.target.value })}
           required
@@ -186,7 +168,6 @@ function UsersTab() {
           <option value="other">Other</option>
         </select>
         <select
-          name="role"
           value={userFormData.role}
           onChange={(e) => setUserFormData({ ...userFormData, role: e.target.value })}
           required
@@ -198,7 +179,6 @@ function UsersTab() {
         </select>
         <input
           type="password"
-          name="password"
           placeholder="Password"
           value={userFormData.password}
           onChange={(e) => setUserFormData({ ...userFormData, password: e.target.value })}
@@ -206,10 +186,10 @@ function UsersTab() {
         <button type="submit">{editUserId ? 'Update User' : 'Add User'}</button>
       </form>
 
-      <h2>Existing Users</h2>
-      <ul>
+      <h2 className="tab-title">Existing Users</h2>
+      <ul className="users-list">
         {users.map((user) => (
-          <li key={user._id}>
+          <li key={user._id} className="user-item">
             <h3>{user.fullName}</h3>
             <p>Email: {user.email}</p>
             <p>Phone: {user.phoneNumber}</p>
@@ -220,18 +200,12 @@ function UsersTab() {
             <p>Age: {user.age}</p>
             <p>Gender: {user.gender}</p>
             <p>Role: {user.role}</p>
-            <h4>Purchase History:</h4>
-            <ul>
-              {user.purchaseHistory.map((history, index) => (
-                <li key={index}>
-                  Ticket ID: {history.ticketId._id || history.ticketId}, Purchase Date:{' '}
-                  {new Date(history.purchaseDate).toLocaleString()}, Used:{' '}
-                  {history.used ? 'Yes' : 'No'}
-                </li>
-              ))}
-            </ul>
-            <button onClick={() => handleEditUser(user)}>Edit</button>
-            <button onClick={() => handleDeleteUser(user._id)}>Delete</button>
+            <button onClick={() => handleEditUser(user)} className="edit-button">
+              Edit
+            </button>
+            <button onClick={() => handleDeleteUser(user._id)} className="delete-button">
+              Delete
+            </button>
           </li>
         ))}
       </ul>
