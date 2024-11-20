@@ -180,27 +180,27 @@
 }
 
 .auth-button.login {
-  background: #2196f3; /* Blue for login */
+  background: #aa2c67; /* Blue for login */
 }
 
 .auth-button.login:hover {
-  background: #1e88e5;
+  background: #aa2c67;
 }
 
 .auth-button.signup {
-  background: #4caf50; /* Green for sign up */
+  background: #aa2c67; /* Green for sign up */
 }
 
 .auth-button.signup:hover {
-  background: #43a047;
+  background: #aa2c67;
 }
 
 .auth-button.logout {
-  background: #d9534f; /* Red for logout */
+  background: #aa336a; /* Red for logout */
 }
 
 .auth-button.logout:hover {
-  background: #c9302c;
+  background: #aa2c67;
 }
 
 .lang-button {
