@@ -35,9 +35,8 @@ function Header() {
           ☰
         </button>
         <nav className={`header-auth-buttons ${menuOpen ? 'open' : ''}`}>
-          <a href="#events" onClick={() => handleScroll('events')} className="nav-link">
-            Events
-          </a>
+        <Link to="/events" className="nav-link">Events</Link>
+
           <a href="#about" onClick={() => handleScroll('about')} className="nav-link">
             About Us
           </a>

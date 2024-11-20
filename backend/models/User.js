@@ -15,14 +15,6 @@ const userSchema = new mongoose.Schema(
     gender: { type: String, enum: ['male', 'female', 'other'], required: true },
     role: { type: String, default: 'customer', enum: ['customer', 'admin', 'organizer'] },
     password: { type: String, required: true },
-    purchaseHistory: [
-      {
-        ticketId: { type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' },
-        purchaseDate: { type: Date, default: Date.now },
-        used: { type: Boolean, default: false },
-        useDate: { type: Date },
-      },
-    ],
   },
   { timestamps: true }
 );

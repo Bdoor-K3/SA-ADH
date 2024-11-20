@@ -1,3 +1,7 @@
+
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 :root {
   --font-color: #333333;
   --button-color: #1a73e8;

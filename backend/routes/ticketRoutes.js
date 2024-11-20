@@ -31,7 +31,7 @@ router.post('/purchase', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    // Count tickets already purchased for this event
+    // Check if tickets are available
     const ticketsSold = await Ticket.countDocuments({ eventId });
     if (ticketsSold >= event.ticketsAvailable) {
       return res.status(400).json({ message: 'No tickets available for this event' });
@@ -43,44 +43,46 @@ router.post('/purchase', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-  // Generate QR code as text and Base64 image
-const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`; // Raw QR code data
-const qrCodeImage = await QRCode.toDataURL(qrCodeData); // Base64 image for frontend display
+    // Generate QR code for the ticket
+    const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`;
+    const qrCodeImage = await QRCode.toDataURL(qrCodeData);
 
-// Save raw text data for validation and Base64 image for UI
-const newTicket = new Ticket({
-  eventId: event._id,
-  buyerId: user._id,
-  QRCode: qrCodeData, // Save raw text QR code data
-  QRCodeImage: qrCodeImage, // Optional: Save Base64 image for UI
-});
+    // Create a new ticket
+    const newTicket = new Ticket({
+      eventId: event._id,
+      buyerId: user._id,
+      QRCode: qrCodeData,
+      QRCodeImage: qrCodeImage,
+    });
 
     const savedTicket = await newTicket.save();
 
-    // Update the user's purchase history
-    user.purchaseHistory.push({
+    // Create a new purchase
+    const newPurchase = new Purchase({
+      userId: user._id,
       ticketId: savedTicket._id,
-      purchaseDate: savedTicket.purchaseDate,
-      used: false,
-      useDate: null,
+      eventId: event._id,
+      amount: event.price,
+      currency: event.currency, // Use the event's currency
+      paid: true,
     });
-    await user.save();
 
-    res.status(201).json({ message: 'Ticket purchased successfully', ticket: savedTicket });
+    const savedPurchase = await newPurchase.save();
+
+    res.status(201).json({ message: 'Ticket purchased successfully', ticket: savedTicket, purchase: savedPurchase });
   } catch (error) {
     res.status(500).json({ message: 'Error purchasing ticket', error: error.message });
   }
 });
 
-// Validate Ticket by QR Code
-// Validate Ticket by QR Code
+// Validate Ticket
 router.post('/validate', authenticateToken, async (req, res) => {
   const { qrCodeData, eventId } = req.body;
 
   try {
     logger.info(`Validation request received for QRCode: ${qrCodeData}, eventId: ${eventId}`);
 
-    // Validate ticket
+    // Find the ticket
     const ticket = await Ticket.findOne({ QRCode: qrCodeData, eventId });
     if (!ticket) {
       logger.warn('Invalid ticket. No matching ticket found.');
@@ -100,22 +102,12 @@ router.post('/validate', authenticateToken, async (req, res) => {
     ticket.useDate = new Date();
     await ticket.save();
 
-    // Update the user's purchase history
-    const user = await User.findById(ticket.buyerId);
-    if (!user) {
-      logger.error('User not found for the validated ticket.');
-      return res.status(404).json({ message: 'User not found.' });
-    }
-
-    const purchaseHistoryEntry = user.purchaseHistory.find(
-      (entry) => entry.ticketId.toString() === ticket._id.toString()
-    );
-    if (purchaseHistoryEntry) {
-      purchaseHistoryEntry.used = true;
-      purchaseHistoryEntry.useDate = ticket.useDate;
-      await user.save();
-    } else {
-      logger.warn('No matching purchase history entry found for the validated ticket.');
+    // Update the purchase record
+    const purchase = await Purchase.findOne({ ticketId: ticket._id });
+    if (purchase) {
+      purchase.used = true;
+      purchase.useDate = new Date();
+      await purchase.save();
     }
 
     logger.info('Ticket validated successfully.');
@@ -125,6 +117,7 @@ router.post('/validate', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error validating ticket.', error: error.message });
   }
 });
+
 
 
 module.exports = router;

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchEvents } from '../services/api';
+import EventsSection from './Sections/EventsSection';
+import AboutSection from './Sections/AboutSection';
+import ContactSection from './Sections/ContactSection';
+import QASection from './Sections/QASection';
 import './Home.css';
+import Slider from 'react-slick';
 
 function Home() {
   const [events, setEvents] = useState([]);
@@ -24,54 +29,47 @@ function Home() {
     navigate(`/event/${id}`);
   };
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+  };
+
   return (
     <div className="home">
-      {/* Events Section */}
-      <section id="events">
+<div className="home">
+      {/* Events Slider Section */}
+      <section id="events-slider">
         <h2>Upcoming Events</h2>
-        <div className="event-cards">
+        <Slider {...sliderSettings}>
           {events.map((event) => (
-            <div
-              className="event-card"
-              key={event._id}
-              onClick={() => handleViewDetails(event._id)}
-            >
-              <div className="card-header">
+            <div key={event._id} className="slider-card">
+              <img
+                src={event.image} // Ensure your events have an image property
+                alt={event.name}
+                className="event-image"
+              />
+              <div className="slider-content">
                 <h3>{event.name}</h3>
-              </div>
-              <div className="card-body">
                 <p>{event.description}</p>
                 <p>Date: {new Date(event.dateOfEvent).toLocaleDateString()}</p>
-                <p>Price: ${event.price}</p>
+                <button onClick={() => handleViewDetails(event._id)}>
+                  More Details
+                </button>
               </div>
             </div>
           ))}
-        </div>
+        </Slider>
       </section>
-
-      {/* About Us Section */}
-      <section id="about">
-        <h2>About Us</h2>
-        <p>
-          Welcome to Event Ticketing! We provide a platform for seamless ticketing
-          solutions for events of all sizes. Whether you're an organizer or a
-          customer, we've got you covered.
-        </p>
-      </section>
-
-      {/* Contact Us Section */}
-      <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: support@eventticketing.com</p>
-        <p>Phone: +1 234 567 890</p>
-        <p>Address: 123 Event Street, Ticket City, TX</p>
-      </section>
-
-      {/* Q&A Section */}
-      <section id="qa">
-        <h2>Q&A</h2>
-        <p>Have questions? Visit our FAQ page or contact us for more information.</p>
-      </section>
+    </div>
+       <AboutSection />
+      <ContactSection />
+      <QASection />
     </div>
   );
 }

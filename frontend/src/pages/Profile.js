@@ -4,6 +4,7 @@ import './Profile.css';
 
 function Profile() {
   const [user, setUser] = useState(null);
+  const [purchases, setPurchases] = useState([]); // Store purchases separately
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -11,7 +12,8 @@ function Profile() {
     const loadUserProfile = async () => {
       try {
         const data = await fetchUserProfile();
-        setUser(data);
+        setUser(data.user); // Assuming the backend sends { user, purchases }
+        setPurchases(data.purchases || []); // Separate purchases from user data
       } catch (err) {
         setError('Error fetching profile data.');
         console.error(err);
@@ -57,13 +59,13 @@ function Profile() {
 
         <div className="purchase-history">
           <h2>Purchase History</h2>
-          {(!user.purchaseHistory || user.purchaseHistory.length === 0) ? (
+          {purchases.length === 0 ? (
             <p>No tickets purchased yet.</p>
           ) : (
             <ul className="ticket-list">
-              {user.purchaseHistory.map((history, index) => {
-                const ticket = history.ticketId;
-                const event = ticket?.eventId;
+              {purchases.map((purchase, index) => {
+                const ticket = purchase.ticketId;
+                const event = purchase.eventId;
                 const qrCodeImage = ticket?.QRCodeImage;
 
                 if (!ticket || !event) {
@@ -74,8 +76,10 @@ function Profile() {
                   <li key={index} className="ticket-item">
                     <p><strong>Event:</strong> {event.name || 'Event name not available'}</p>
                     <p><strong>Date:</strong> {new Date(event.dateOfEvent).toLocaleDateString()}</p>
-                    <p><strong>Purchase Date:</strong> {new Date(history.purchaseDate).toLocaleDateString()}</p>
-                    <p><strong>Used:</strong> {history.used ? 'Yes' : 'No'}</p>
+                    <p><strong>Purchase Date:</strong> {new Date(purchase.purchaseDate).toLocaleDateString()}</p>
+                    <p><strong>Amount:</strong> {`${purchase.amount} ${purchase.currency}`}</p>
+                    <p><strong>Paid:</strong> {purchase.paid ? 'Yes' : 'No'}</p>
+                    <p><strong>Used:</strong> {purchase.used ? 'Yes' : 'No'}</p>
                     {qrCodeImage && (
                       <div>
                         <p><strong>QR Code:</strong></p>

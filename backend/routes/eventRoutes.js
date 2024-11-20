@@ -6,13 +6,14 @@ const router = express.Router();
 // Create Event
 router.post('/', authenticateToken, authorizeAdmin, async (req, res) => {
   try {
-    const { name, description, dateOfEvent, price, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers } = req.body;
+    const { name, description, dateOfEvent, price, currency, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers } = req.body;
 
     const newEvent = new Event({
       name,
       description,
       dateOfEvent,
       price,
+      currency, // New currency field
       ticketsAvailable,
       purchaseStartDate,
       purchaseEndDate,
@@ -30,11 +31,11 @@ router.post('/', authenticateToken, authorizeAdmin, async (req, res) => {
 
 router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
   try {
-    const { name, description, dateOfEvent, price, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers } = req.body;
+    const { name, description, dateOfEvent, price, currency, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers } = req.body;
 
     const updatedEvent = await Event.findByIdAndUpdate(
       req.params.id,
-      { name, description, dateOfEvent, price, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers },
+      { name, description, dateOfEvent, price, currency, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers },
       { new: true }
     );
 
@@ -47,6 +48,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 // Get All Events
@@ -84,7 +86,6 @@ router.get('/:id', authenticateToken, async (req, res) => {
 });
 
 
-// Update Event
 
 
 // Delete Event

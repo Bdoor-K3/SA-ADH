@@ -50,6 +50,7 @@ function EventDetails() {
       <h1>{event.name}</h1>
       <p>{event.description}</p>
       <p>Date of Event: {new Date(event.dateOfEvent).toLocaleDateString()}</p>
+      <p>currency: {event.currency}</p>
       <p>Price: ${event.price}</p>
       <p>Tickets Available: {event.ticketsAvailable}</p>
       <p>Purchase Start Date: {new Date(event.purchaseStartDate).toLocaleDateString()}</p>

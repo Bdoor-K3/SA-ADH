@@ -1,17 +1,32 @@
 const express = require('express');
 const User = require('../models/User');
+const Ticket = require('../models/Ticket');
+const Purchase = require('../models/Purchase');
 const { authenticateToken, authorizeAdmin } = require('../middleware/auth');
 const bcrypt = require('bcryptjs');
-const Ticket = require('../models/Ticket');
-const router = express.Router();
 
+
+const router = express.Router();
 
 // Get All Users
 router.get('/', authenticateToken, authorizeAdmin, async (req, res) => {
   try {
-    const users = await User.find().populate('purchaseHistory.ticketId');
-    res.status(200).json(users);
+    const users = await User.find(); // Fetch all users without purchaseHistory
+
+    // Fetch purchases for each user and attach them
+    const usersWithPurchases = await Promise.all(
+      users.map(async (user) => {
+        const purchases = await Purchase.find({ userId: user._id })
+          .populate('ticketId') // Populate ticket details
+          .populate('eventId'); // Populate event details
+
+        return { ...user._doc, purchaseHistory: purchases }; // Attach purchaseHistory dynamically
+      })
+    );
+
+    res.status(200).json(usersWithPurchases);
   } catch (error) {
+    console.error('Error fetching users:', error.message);
     res.status(500).json({ message: error.message });
   }
 });
@@ -19,13 +34,25 @@ router.get('/', authenticateToken, authorizeAdmin, async (req, res) => {
 // Get User by Email
 router.get('/email/:email', authenticateToken, authorizeAdmin, async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.params.email }).populate('purchaseHistory.ticketId');
-    if (!user) return res.status(404).json({ message: 'User not found' });
-    res.status(200).json(user);
+    // Find the user by email
+    const user = await User.findOne({ email: req.params.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Fetch the user's purchases
+    const purchases = await Purchase.find({ userId: user._id })
+      .populate('ticketId') // Populate ticket details
+      .populate('eventId'); // Populate event details
+
+    res.status(200).json({ user, purchaseHistory: purchases });
   } catch (error) {
+    console.error('Error fetching user by email:', error.message);
     res.status(500).json({ message: error.message });
   }
 });
+
 
 // Update User
 router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
@@ -63,24 +90,25 @@ router.delete('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
 
 
 
-// Get User Profile
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
-    // Find the user by ID
-    const user = await User.findById(req.user.userId).populate({
-      path: 'purchaseHistory.ticketId',
-      populate: { path: 'eventId', select: 'name dateOfEvent' }, // Populate event details
-    });
+    const user = await User.findById(req.user.userId);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.status(200).json(user);
+    // Fetch purchases for the user
+    const purchases = await Purchase.find({ userId: user._id })
+      .populate('ticketId')
+      .populate('eventId');
+
+    res.status(200).json({ user, purchaseHistory: purchases });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user profile', error: error.message });
   }
 });
+
 
 // Get All Organizers
 router.get('/organizers', authenticateToken, authorizeAdmin, async (req, res) => {

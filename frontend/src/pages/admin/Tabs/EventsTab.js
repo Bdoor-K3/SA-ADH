@@ -10,6 +10,7 @@ function EventsTab() {
     description: '',
     dateOfEvent: '',
     price: '',
+    currency: 'SAR', // Default currency
     ticketsAvailable: '',
     purchaseStartDate: '',
     purchaseEndDate: '',
@@ -62,6 +63,7 @@ function EventsTab() {
         description: '',
         dateOfEvent: '',
         price: '',
+        currency: 'SAR', // Reset to default currency
         ticketsAvailable: '',
         purchaseStartDate: '',
         purchaseEndDate: '',
@@ -83,6 +85,7 @@ function EventsTab() {
       description: event.description,
       dateOfEvent: event.dateOfEvent.slice(0, 10),
       price: event.price,
+      currency: event.currency, // Pre-fill currency
       ticketsAvailable: event.ticketsAvailable,
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
       purchaseEndDate: event.purchaseEndDate.slice(0, 10),
@@ -139,6 +142,18 @@ function EventsTab() {
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           required
         />
+        <select
+          value={formData.currency}
+          onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
+          required
+        >
+          <option value="SAR">SAR</option>
+          <option value="AED">AED</option>
+          <option value="KWD">KWD</option>
+          <option value="BHD">BHD</option>
+          <option value="OMR">OMR</option>
+          <option value="QAR">QAR</option>
+        </select>
         <input
           type="number"
           placeholder="Tickets Available"
@@ -184,6 +199,7 @@ function EventsTab() {
         {events.map((event) => (
           <li key={event._id} className="event-item">
             <h3>{event.name}</h3>
+            <p>Currency: {event.currency}</p>
             <button onClick={() => handleEditEvent(event)} className="edit-button">
               Edit
             </button>
