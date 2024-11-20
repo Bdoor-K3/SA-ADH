@@ -1,29 +1,32 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './Footer.css';
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3>About Tathaker</h3>
+          <h3>{t('footer.about')}</h3>
           <ul>
-            <li>📍 8273 Riyadh, Saudi Arabia</li>
-            <li>📧 info@tathaker.net</li>
-            <li>📞 +59 123456789121</li>
+            <li>{t('footer.address')}</li>
+            <li>{t('footer.email')}</li>
+            <li>{t('footer.phone')}</li>
           </ul>
         </div>
         <div className="footer-section">
-          <h3>Direct Links</h3>
+          <h3>{t('footer.links')}</h3>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#home">{t('footer.home')}</a></li>
+            <li><a href="#events">{t('footer.events')}</a></li>
+            <li><a href="#about">{t('footer.aboutUs')}</a></li>
+            <li><a href="#contact">{t('footer.contact')}</a></li>
           </ul>
         </div>
         <div className="footer-section">
-          <h3>Social Media</h3>
+          <h3>{t('footer.social')}</h3>
           <div className="social-icons">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-facebook-f"></i>
@@ -38,8 +41,11 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>©2019 <a href="https://tathaker.net">Tathaker.com</a>. All rights reserved</p>
-        <p>Powered by <span role="img" aria-label="heart">❤️</span> Your Vision</p>
+        <p>
+          {t('footer.copyright')}{' '}
+          <a href="https://tathaker.net">Tathaker.com</a>.
+        </p>
+        <p>{t('footer.poweredBy')}</p>
       </div>
     </footer>
   );

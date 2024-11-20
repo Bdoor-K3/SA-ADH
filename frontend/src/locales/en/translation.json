@@ -1,0 +1,301 @@
+{
+    "header": {
+      "home": "Home",
+      "events": "Events",
+      "about": "About Us",
+      "faqs": "FAQs",
+      "contact": "Contact Us",
+      "profile": "Profile",
+      "login": "Login",
+      "signup": "Sign Up",
+      "logout": "Logout",
+      "find_us_on":" Find us here "
+
+    },"footer": {
+    "about": "About Tathaker",
+    "address": "📍 8273 Riyadh, Saudi Arabia",
+    "email": "📧 info@tathaker.net",
+    "phone": "📞 +59 123456789121",
+    "links": "Direct Links",
+    "home": "Home",
+    "events": "Events",
+    "aboutUs": "About Us",
+    "contact": "Contact Us",
+    "social": "Social Media",
+    "copyright": "©2019 Tathaker.com. All rights reserved",
+    "poweredBy": "Powered by ❤️ Your Vision"
+  },  "adminDashboard": {
+    "title": "Admin Dashboard",
+    "tabs": {
+      "events": "Manage Events",
+      "users": "Manage Users",
+      "tickets": "Manage Tickets",
+      "logs": "View Logs"
+    }
+  },  "eventsTab": {
+    "title": {
+      "edit": "Edit Event",
+      "create": "Create Event",
+      "existing": "Existing Events"
+    },
+    "form": {
+      "eventName": "Event Name",
+      "description": "Description",
+      "dateOfEvent": "Date of Event",
+      "price": "Price",
+      "currency": "Currency",
+      "ticketsAvailable": "Tickets Available",
+      "purchaseStartDate": "Purchase Start Date",
+      "purchaseEndDate": "Purchase End Date",
+      "organizers": "Organizers",
+      "submit": {
+        "create": "Create Event",
+        "update": "Update Event"
+      }
+    },
+    "event": {
+      "currency": "Currency"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "alerts": {
+      "selectOrganizer": "Please select at least one organizer for the event.",
+      "created": "Event created successfully!",
+      "updated": "Event updated successfully!",
+      "deleted": "Event deleted successfully!"
+    }
+  },  "usersTab": {
+    "title": {
+      "edit": "Edit User",
+      "manage": "Manage Users",
+      "existing": "Existing Users"
+    },
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "city": "City",
+      "region": "Region",
+      "address1": "Address Line 1",
+      "address2": "Address Line 2 (optional)",
+      "age": "Age",
+      "gender": "Select Gender",
+      "genderOptions": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "role": "Select Role",
+      "roleOptions": {
+        "customer": "Customer",
+        "admin": "Admin",
+        "organizer": "Organizer"
+      },
+      "password": "Password",
+      "submit": {
+        "add": "Add User",
+        "update": "Update User"
+      }
+    },
+    "user": {
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "age": "Age",
+      "gender": "Gender",
+      "role": "Role"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "alerts": {
+      "updated": "User updated successfully!",
+      "deleted": "User deleted successfully!",
+      "added": "New user added successfully!",
+      "submitError": "Error creating/updating user."
+    }
+  },  "login": {
+    "title": "Login",
+    "form": {
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "submitButton": "Login"
+    },
+    "error": {
+      "invalidCredentials": "Invalid email or password"
+    }
+  },  "signup": {
+    "title": "Sign Up",
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "city": "City",
+      "region": "Region",
+      "address1": "Address Line 1",
+      "address2": "Address Line 2 (optional)",
+      "age": "Age",
+      "gender": "Select Gender",
+      "genderOptions": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submitButton": "Sign Up"
+    },
+    "messages": {
+      "passwordMismatch": "Passwords do not match",
+      "success": "Registration successful! Please log in.",
+      "failure": "Registration failed. Please try again."
+    }
+  }, "eventDetails": {
+    "loading": "Loading event details...",
+    "dateOfEvent": "Date of Event",
+    "currency": "Currency",
+    "price": "Price",
+    "ticketsAvailable": "Tickets Available",
+    "purchaseStartDate": "Purchase Start Date",
+    "purchaseEndDate": "Purchase End Date",
+    "paymentProcessing": "Processing payment, please wait...",
+    "purchaseSuccess": "Ticket Purchased Successfully!",
+    "purchaseSuccessMessage": "Your ticket has been issued. Use the QR code below to access the event:",
+    "buyTicket": "Buy Ticket",
+    "loginPrompt": "Please login or sign up to purchase a ticket.",
+    "error": {
+      "fetchDetails": "Error fetching event details.",
+      "verifyPayment": "Error verifying payment or completing the purchase.",
+      "purchaseTicket": "Error purchasing ticket.",
+      "noPaymentUrl": "Error: No payment URL received."
+    }
+  } ,   "eventsPage": { "title": "Search Events",
+  "results": "Search results",
+  "eventCard": {
+    "date": "Date",
+    "booking": "Booking"
+  }
+},  "home": {
+  "sections": {
+    "eventsSlider": {
+      "title": "Upcoming Events",
+      "date": "Date",
+      "moreDetails": "More Details"
+    }
+  }
+}, "profile": {
+  "title": "Profile",
+  "sections": {
+    "personalDetails": "Personal Details",
+    "purchaseHistory": "Purchase History"
+  },
+  "labels": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "age": "Age",
+    "gender": "Gender",
+    "role": "Role",
+    "event": "Event",
+    "date": "Date",
+    "purchaseDate": "Purchase Date",
+    "amount": "Amount",
+    "paid": "Paid",
+    "used": "Used",
+    "qrCode": "QR Code"
+  },
+  "placeholders": {
+    "noPhone": "No phone number provided.",
+    "noAddress": "No address provided.",
+    "noAge": "Not provided",
+    "noTickets": "No tickets purchased yet."
+  },
+  "loading": "Loading profile...",
+  "error": "Error fetching profile data.",
+  "noData": "No user data available."
+} ,"about": {
+    "title": "About Us",
+    "breadcrumb": {
+      "home": "Home",
+      "aboutUs": "About Us"
+    },
+    "tabs": {
+      "whoWeAre": "Who are we?",
+      "whyChooseUs": "Why choose us?",
+      "ourVision": "Our vision"
+    },
+    "content": {
+      "whoWeAre": {
+        "part1": "We are a trusted platform connecting event organizers with attendees.",
+        "part2": "Our mission is to make event management seamless and enjoyable."
+      }
+    },
+    "imageAlt": "About Us",
+    "stats": {
+      "title": "Awesome Facts",
+      "description": "Here are some impressive statistics about our platform:",
+      "events": "Events Hosted",
+      "ticketsSold": "Tickets Sold",
+      "categories": "Event Categories",
+      "partyOperators": "Party Operators"
+    }
+  },  "contact": {
+    "title": "Contact Us",
+    "breadcrumb": {
+      "home": "Home",
+      "contactUs": "Contact Us"
+    },
+    "map": {
+      "title": "Location Map"
+    },
+    "form": {
+      "title": "Get in touch With Us",
+      "namePlaceholder": "Your Name *",
+      "emailPlaceholder": "Email Address *",
+      "phonePlaceholder": "Phone Number *",
+      "messagePlaceholder": "Message *",
+      "submitButton": "Contact Us"
+    },
+    "info": {
+      "title": "Our Contact Info",
+      "addressLabel": "Address",
+      "address": "8273 Riyadh, Saudi Arabia",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone"
+    }
+  }, "eventsSection": {
+    "title": "Upcoming Events",
+    "labels": {
+      "date": "Date",
+      "currency": "Currency",
+      "price": "Price"
+    }
+  }
+,  "qaSection": {
+  "title": "Find Your Answers",
+  "subtitle": "Tathaker FAQs",
+  "answerLabel": "Answer",
+  "faqs": {
+    "howToBuyTicket": {
+      "question": "How to Buy a Ticket?",
+      "answer": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+    },
+    "howToCreateEvent": {
+      "question": "How to make a new event?",
+      "answer": "To make a new event, go to your dashboard, click on 'Create Event,' and fill out the required details."
+    },
+    "howToSetNameAndDate": {
+      "question": "How to set the event name & date?",
+      "answer": "Event names and dates can be set while creating or editing an event from the organizer’s dashboard."
+    },
+    "howToSetPrice": {
+      "question": "Set price for ticket?",
+      "answer": "Ticket prices can be added during the event creation process or updated later from the event management tab."
+    }
+  }
+}
+}

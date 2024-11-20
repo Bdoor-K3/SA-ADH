@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { fetchEvents, createEvent, updateEvent, deleteEvent, fetchOrganizers } from '../../../services/api';
 import './EventsTab.css';
 
 function EventsTab() {
+  const { t } = useTranslation();
   const [events, setEvents] = useState([]);
   const [organizers, setOrganizers] = useState([]);
   const [formData, setFormData] = useState({
@@ -24,7 +26,7 @@ function EventsTab() {
         const data = await fetchEvents();
         setEvents(data);
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error(t('eventsTab.alerts.fetchError'), error);
       }
     };
 
@@ -33,29 +35,29 @@ function EventsTab() {
         const data = await fetchOrganizers();
         setOrganizers(data);
       } catch (error) {
-        console.error('Error fetching organizers:', error);
+        console.error(t('eventsTab.alerts.fetchOrganizersError'), error);
       }
     };
 
     loadEvents();
     loadOrganizers();
-  }, []);
+  }, [t]);
 
   const handleEventSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.organizers.length === 0) {
-      alert('Please select at least one organizer for the event.');
+      alert(t('eventsTab.alerts.selectOrganizer'));
       return;
     }
 
     try {
       if (editEventId) {
         await updateEvent(editEventId, formData);
-        alert('Event updated successfully!');
+        alert(t('eventsTab.alerts.updated'));
       } else {
         await createEvent(formData);
-        alert('Event created successfully!');
+        alert(t('eventsTab.alerts.created'));
       }
 
       setFormData({
@@ -63,7 +65,7 @@ function EventsTab() {
         description: '',
         dateOfEvent: '',
         price: '',
-        currency: 'SAR', // Reset to default currency
+        currency: 'SAR',
         ticketsAvailable: '',
         purchaseStartDate: '',
         purchaseEndDate: '',
@@ -74,7 +76,7 @@ function EventsTab() {
       const updatedEvents = await fetchEvents();
       setEvents(updatedEvents);
     } catch (error) {
-      console.error('Error creating/updating event:', error);
+      console.error(t('eventsTab.alerts.submitError'), error);
     }
   };
 
@@ -85,7 +87,7 @@ function EventsTab() {
       description: event.description,
       dateOfEvent: event.dateOfEvent.slice(0, 10),
       price: event.price,
-      currency: event.currency, // Pre-fill currency
+      currency: event.currency,
       ticketsAvailable: event.ticketsAvailable,
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
       purchaseEndDate: event.purchaseEndDate.slice(0, 10),
@@ -96,10 +98,10 @@ function EventsTab() {
   const handleDeleteEvent = async (id) => {
     try {
       await deleteEvent(id);
-      alert('Event deleted successfully!');
+      alert(t('eventsTab.alerts.deleted'));
       setEvents(events.filter((event) => event._id !== id));
     } catch (error) {
-      console.error('Error deleting event:', error);
+      console.error(t('eventsTab.alerts.deleteError'), error);
     }
   };
 
@@ -114,17 +116,17 @@ function EventsTab() {
 
   return (
     <div className="events-tab">
-      <h2 className="tab-title">{editEventId ? 'Edit Event' : 'Create Event'}</h2>
+      <h2 className="tab-title">{t(editEventId ? 'eventsTab.title.edit' : 'eventsTab.title.create')}</h2>
       <form className="event-form" onSubmit={handleEventSubmit}>
         <input
           type="text"
-          placeholder="Event Name"
+          placeholder={t('eventsTab.form.eventName')}
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
         />
         <textarea
-          placeholder="Description"
+          placeholder={t('eventsTab.form.description')}
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           required
@@ -137,7 +139,7 @@ function EventsTab() {
         />
         <input
           type="number"
-          placeholder="Price"
+          placeholder={t('eventsTab.form.price')}
           value={formData.price}
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           required
@@ -156,7 +158,7 @@ function EventsTab() {
         </select>
         <input
           type="number"
-          placeholder="Tickets Available"
+          placeholder={t('eventsTab.form.ticketsAvailable')}
           value={formData.ticketsAvailable}
           onChange={(e) => setFormData({ ...formData, ticketsAvailable: e.target.value })}
           required
@@ -174,7 +176,7 @@ function EventsTab() {
           required
         />
         <div className="organizers-container">
-          <label>Organizers:</label>
+          <label>{t('eventsTab.form.organizers')}</label>
           {organizers.map((organizer) => (
             <div key={organizer._id} className="organizer-item">
               <input
@@ -190,21 +192,21 @@ function EventsTab() {
           ))}
         </div>
         <button type="submit" className="submit-button">
-          {editEventId ? 'Update Event' : 'Create Event'}
+          {t(editEventId ? 'eventsTab.form.submit.update' : 'eventsTab.form.submit.create')}
         </button>
       </form>
 
-      <h2 className="tab-title">Existing Events</h2>
+      <h2 className="tab-title">{t('eventsTab.title.existing')}</h2>
       <ul className="events-list">
         {events.map((event) => (
           <li key={event._id} className="event-item">
             <h3>{event.name}</h3>
-            <p>Currency: {event.currency}</p>
+            <p>{t('eventsTab.event.currency')}: {event.currency}</p>
             <button onClick={() => handleEditEvent(event)} className="edit-button">
-              Edit
+              {t('eventsTab.actions.edit')}
             </button>
             <button onClick={() => handleDeleteEvent(event._id)} className="delete-button">
-              Delete
+              {t('eventsTab.actions.delete')}
             </button>
           </li>
         ))}

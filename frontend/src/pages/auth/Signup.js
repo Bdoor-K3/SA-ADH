@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { registerUser } from '../../services/api';
 import './Auth.css';
 
 function Signup() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
@@ -22,12 +24,12 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('signup.messages.passwordMismatch'));
       return;
     }
 
     try {
-      console.log('Submitting form data:', formData);
+      console.log(t('signup.messages.submitting'), formData);
       await registerUser({
         fullName: formData.fullName,
         email: formData.email,
@@ -42,10 +44,10 @@ function Signup() {
         gender: formData.gender,
         password: formData.password,
       });
-      alert('Registration successful! Please log in.');
+      alert(t('signup.messages.success'));
     } catch (err) {
       console.error('API Error:', err.response?.data || err.message);
-      setError('Registration failed. Please try again.');
+      setError(t('signup.messages.failure'));
     }
   };
 
@@ -67,12 +69,12 @@ function Signup() {
 
   return (
     <div className="auth-container">
-      <h2>Sign Up</h2>
+      <h2>{t('signup.title')}</h2>
       <form onSubmit={handleSignup}>
         <input
           type="text"
           name="fullName"
-          placeholder="Full Name"
+          placeholder={t('signup.form.fullName')}
           value={formData.fullName}
           onChange={handleChange}
           required
@@ -80,7 +82,7 @@ function Signup() {
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder={t('signup.form.email')}
           value={formData.email}
           onChange={handleChange}
           required
@@ -88,7 +90,7 @@ function Signup() {
         <input
           type="text"
           name="phoneNumber"
-          placeholder="Phone Number"
+          placeholder={t('signup.form.phoneNumber')}
           value={formData.phoneNumber}
           onChange={handleChange}
           required
@@ -96,7 +98,7 @@ function Signup() {
         <input
           type="text"
           name="address.city"
-          placeholder="City"
+          placeholder={t('signup.form.city')}
           value={formData.address.city}
           onChange={handleChange}
           required
@@ -104,7 +106,7 @@ function Signup() {
         <input
           type="text"
           name="address.region"
-          placeholder="Region"
+          placeholder={t('signup.form.region')}
           value={formData.address.region}
           onChange={handleChange}
           required
@@ -112,7 +114,7 @@ function Signup() {
         <input
           type="text"
           name="address.address1"
-          placeholder="Address Line 1"
+          placeholder={t('signup.form.address1')}
           value={formData.address.address1}
           onChange={handleChange}
           required
@@ -120,28 +122,28 @@ function Signup() {
         <input
           type="text"
           name="address.address2"
-          placeholder="Address Line 2 (optional)"
+          placeholder={t('signup.form.address2')}
           value={formData.address.address2}
           onChange={handleChange}
         />
         <input
           type="number"
           name="age"
-          placeholder="Age"
+          placeholder={t('signup.form.age')}
           value={formData.age}
           onChange={handleChange}
           required
         />
         <select name="gender" value={formData.gender} onChange={handleChange} required>
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
+          <option value="">{t('signup.form.gender')}</option>
+          <option value="male">{t('signup.form.genderOptions.male')}</option>
+          <option value="female">{t('signup.form.genderOptions.female')}</option>
+          <option value="other">{t('signup.form.genderOptions.other')}</option>
         </select>
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder={t('signup.form.password')}
           value={formData.password}
           onChange={handleChange}
           required
@@ -149,13 +151,13 @@ function Signup() {
         <input
           type="password"
           name="confirmPassword"
-          placeholder="Confirm Password"
+          placeholder={t('signup.form.confirmPassword')}
           value={formData.confirmPassword}
           onChange={handleChange}
           required
         />
         {error && <p className="error">{error}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit">{t('signup.form.submitButton')}</button>
       </form>
     </div>
   );

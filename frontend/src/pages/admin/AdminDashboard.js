@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import EventsTab from './Tabs/EventsTab';
 import UsersTab from './Tabs/UsersTab';
 import TicketsTab from './Tabs/TicketsTab';
@@ -7,17 +8,18 @@ import './AdminDashboard.css';
 
 function AdminDashboard() {
   const [currentTab, setCurrentTab] = useState('events'); // 'events', 'users', 'tickets', 'logs'
+  const { t } = useTranslation();
 
   const tabs = [
-    { key: 'events', label: 'Manage Events' },
-    { key: 'users', label: 'Manage Users' },
-    { key: 'tickets', label: 'Manage Tickets' },
-    { key: 'logs', label: 'View Logs' },
+    { key: 'events', label: t('adminDashboard.tabs.events') },
+    { key: 'users', label: t('adminDashboard.tabs.users') },
+    { key: 'tickets', label: t('adminDashboard.tabs.tickets') },
+    { key: 'logs', label: t('adminDashboard.tabs.logs') },
   ];
 
   return (
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+      <h1>{t('adminDashboard.title')}</h1>
 
       {/* Tabs for Navigation */}
       <div className="admin-tabs">

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { fetchUsers, updateUser, deleteUser } from '../../../services/api';
 import './UsersTab.css';
 
 function UsersTab() {
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [userFormData, setUserFormData] = useState({
     fullName: '',
@@ -34,9 +36,9 @@ function UsersTab() {
     try {
       if (editUserId) {
         await updateUser(editUserId, userFormData);
-        alert('User updated successfully!');
+        alert(t('usersTab.alerts.updated'));
       } else {
-        alert('New user added successfully!');
+        alert(t('usersTab.alerts.added'));
       }
       setUserFormData({
         fullName: '',
@@ -57,14 +59,14 @@ function UsersTab() {
       const updatedUsers = await fetchUsers();
       setUsers(updatedUsers);
     } catch (error) {
-      console.error('Error creating/updating user:', error);
+      console.error(t('usersTab.alerts.submitError'), error);
     }
   };
 
   const handleDeleteUser = async (id) => {
     try {
       await deleteUser(id);
-      alert('User deleted successfully!');
+      alert(t('usersTab.alerts.deleted'));
       setUsers(users.filter((user) => user._id !== id));
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -92,32 +94,32 @@ function UsersTab() {
 
   return (
     <div className="users-tab">
-      <h2 className="tab-title">{editUserId ? 'Edit User' : 'Manage Users'}</h2>
+      <h2 className="tab-title">{t(editUserId ? 'usersTab.title.edit' : 'usersTab.title.manage')}</h2>
       <form className="user-form" onSubmit={handleUserSubmit}>
         <input
           type="text"
-          placeholder="Full Name"
+          placeholder={t('usersTab.form.fullName')}
           value={userFormData.fullName}
           onChange={(e) => setUserFormData({ ...userFormData, fullName: e.target.value })}
           required
         />
         <input
           type="email"
-          placeholder="Email"
+          placeholder={t('usersTab.form.email')}
           value={userFormData.email}
           onChange={(e) => setUserFormData({ ...userFormData, email: e.target.value })}
           required
         />
         <input
           type="text"
-          placeholder="Phone Number"
+          placeholder={t('usersTab.form.phoneNumber')}
           value={userFormData.phoneNumber}
           onChange={(e) => setUserFormData({ ...userFormData, phoneNumber: e.target.value })}
           required
         />
         <input
           type="text"
-          placeholder="City"
+          placeholder={t('usersTab.form.city')}
           value={userFormData.address.city}
           onChange={(e) =>
             setUserFormData({ ...userFormData, address: { ...userFormData.address, city: e.target.value } })
@@ -126,7 +128,7 @@ function UsersTab() {
         />
         <input
           type="text"
-          placeholder="Region"
+          placeholder={t('usersTab.form.region')}
           value={userFormData.address.region}
           onChange={(e) =>
             setUserFormData({ ...userFormData, address: { ...userFormData.address, region: e.target.value } })
@@ -135,7 +137,7 @@ function UsersTab() {
         />
         <input
           type="text"
-          placeholder="Address Line 1"
+          placeholder={t('usersTab.form.address1')}
           value={userFormData.address.address1}
           onChange={(e) =>
             setUserFormData({ ...userFormData, address: { ...userFormData.address, address1: e.target.value } })
@@ -144,7 +146,7 @@ function UsersTab() {
         />
         <input
           type="text"
-          placeholder="Address Line 2 (optional)"
+          placeholder={t('usersTab.form.address2')}
           value={userFormData.address.address2}
           onChange={(e) =>
             setUserFormData({ ...userFormData, address: { ...userFormData.address, address2: e.target.value } })
@@ -152,7 +154,7 @@ function UsersTab() {
         />
         <input
           type="number"
-          placeholder="Age"
+          placeholder={t('usersTab.form.age')}
           value={userFormData.age}
           onChange={(e) => setUserFormData({ ...userFormData, age: e.target.value })}
           required
@@ -162,49 +164,49 @@ function UsersTab() {
           onChange={(e) => setUserFormData({ ...userFormData, gender: e.target.value })}
           required
         >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
+          <option value="">{t('usersTab.form.gender')}</option>
+          <option value="male">{t('usersTab.form.genderOptions.male')}</option>
+          <option value="female">{t('usersTab.form.genderOptions.female')}</option>
+          <option value="other">{t('usersTab.form.genderOptions.other')}</option>
         </select>
         <select
           value={userFormData.role}
           onChange={(e) => setUserFormData({ ...userFormData, role: e.target.value })}
           required
         >
-          <option value="">Select Role</option>
-          <option value="customer">Customer</option>
-          <option value="admin">Admin</option>
-          <option value="organizer">Organizer</option>
+          <option value="">{t('usersTab.form.role')}</option>
+          <option value="customer">{t('usersTab.form.roleOptions.customer')}</option>
+          <option value="admin">{t('usersTab.form.roleOptions.admin')}</option>
+          <option value="organizer">{t('usersTab.form.roleOptions.organizer')}</option>
         </select>
         <input
           type="password"
-          placeholder="Password"
+          placeholder={t('usersTab.form.password')}
           value={userFormData.password}
           onChange={(e) => setUserFormData({ ...userFormData, password: e.target.value })}
         />
-        <button type="submit">{editUserId ? 'Update User' : 'Add User'}</button>
+        <button type="submit">{t(editUserId ? 'usersTab.form.submit.update' : 'usersTab.form.submit.add')}</button>
       </form>
 
-      <h2 className="tab-title">Existing Users</h2>
+      <h2 className="tab-title">{t('usersTab.title.existing')}</h2>
       <ul className="users-list">
         {users.map((user) => (
           <li key={user._id} className="user-item">
             <h3>{user.fullName}</h3>
-            <p>Email: {user.email}</p>
-            <p>Phone: {user.phoneNumber}</p>
+            <p>{t('usersTab.user.email')}: {user.email}</p>
+            <p>{t('usersTab.user.phone')}: {user.phoneNumber}</p>
             <p>
-              Address: {user.address.city}, {user.address.region}, {user.address.address1}
+              {t('usersTab.user.address')}: {user.address.city}, {user.address.region}, {user.address.address1}
               {user.address.address2 ? `, ${user.address.address2}` : ''}
             </p>
-            <p>Age: {user.age}</p>
-            <p>Gender: {user.gender}</p>
-            <p>Role: {user.role}</p>
+            <p>{t('usersTab.user.age')}: {user.age}</p>
+            <p>{t('usersTab.user.gender')}: {user.gender}</p>
+            <p>{t('usersTab.user.role')}: {user.role}</p>
             <button onClick={() => handleEditUser(user)} className="edit-button">
-              Edit
+              {t('usersTab.actions.edit')}
             </button>
             <button onClick={() => handleDeleteUser(user._id)} className="delete-button">
-              Delete
+              {t('usersTab.actions.delete')}
             </button>
           </li>
         ))}

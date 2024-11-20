@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getEventById, purchaseTicket, verifyPayment } from '../services/api';
 import './EventDetails.css';
 
@@ -7,6 +8,7 @@ function EventDetails() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [event, setEvent] = useState(null);
   const [ticket, setTicket] = useState(null); // To hold ticket details (QR code, etc.)
@@ -20,44 +22,41 @@ function EventDetails() {
         const data = await getEventById(id);
         setEvent(data);
       } catch (err) {
-        setError('Error fetching event details.');
+        setError(t('eventDetails.error.fetchDetails'));
         console.error(err);
       }
     };
 
     fetchEventDetails();
-  }, [id]);
+  }, [id, t]);
 
   // Handle payment verification if `tap_id` exists in the query string
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const tap_id = queryParams.get('tap_id'); // Get `tap_id` from the query string
-    console.log('Redirected with tap_id:', tap_id); // Debug log
-  
+
     if (tap_id) {
       setLoading(true);
       const verifyPaymentStatus = async () => {
         try {
           const response = await verifyPayment(tap_id); // Call backend to verify payment
-          console.log('Payment verification response:', response); // Debug log
           setTicket(response.ticket); // Set ticket details to display QR code
         } catch (err) {
           console.error('Error verifying payment:', err);
-          setError('Error verifying payment or completing the purchase.');
+          setError(t('eventDetails.error.verifyPayment'));
         } finally {
           setLoading(false);
         }
       };
-  
+
       verifyPaymentStatus();
     }
-  }, [location.search]);
-  
+  }, [location.search, t]);
 
   const handlePurchaseTicket = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('Please login or sign up to purchase a ticket.');
+      alert(t('eventDetails.loginPrompt'));
       navigate('/login');
       return;
     }
@@ -68,45 +67,68 @@ function EventDetails() {
         // Redirect the user to Tap Payments page
         window.location.href = response.url;
       } else {
-        alert('Error: No payment URL received.');
+        alert(t('eventDetails.error.noPaymentUrl'));
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Error purchasing ticket.');
+      setError(err.response?.data?.message || t('eventDetails.error.purchaseTicket'));
     }
   };
 
   if (!event) {
-    return <p className="loading">Loading event details...</p>;
+    return <p className="loading">{t('eventDetails.loading')}</p>;
   }
-  
+
   return (
     <div className="event-details">
-      <h1>{event.name}</h1>
-      <p>{event.description}</p>
-      <p>Date of Event: {new Date(event.dateOfEvent).toLocaleDateString()}</p>
-      <p>Currency: {event.currency}</p>
-      <p>Price: ${event.price}</p>
-      <p>Tickets Available: {event.ticketsAvailable}</p>
-      <p>Purchase Start Date: {new Date(event.purchaseStartDate).toLocaleDateString()}</p>
-      <p>Purchase End Date: {new Date(event.purchaseEndDate).toLocaleDateString()}</p>
+      <header className="event-header">
+        <div className="event-header-content">
+          <div>
+            <h1 className="event-title">{event.name}</h1>
+            <p>{t('eventDetails.organizedBy')}: {event.organizer}</p>
+          </div>
+          <div className="social-links">
+            <a href="#facebook" className="social-link">F</a>
+            <a href="#twitter" className="social-link">T</a>
+            <a href="#instagram" className="social-link">I</a>
+          </div>
+        </div>
+      </header>
   
-      {loading ? (
-        <p>Processing payment, please wait...</p>
-      ) : ticket ? (
+      <div className="event-card">
+        <div className="event-dates">
+          <div className="date-item">
+            <span>{new Date(event.startDate).getDate()}</span>
+            {new Date(event.startDate).toLocaleString('default', { month: 'short' })}
+          </div>
+          <div className="date-item">
+            <span>{new Date(event.endDate).getDate()}</span>
+            {new Date(event.endDate).toLocaleString('default', { month: 'short' })}
+          </div>
+        </div>
+        <h2>{event.details}</h2>
+        <p>{event.description}</p>
+        <div className="ticket-info">
+          <p>{t('eventDetails.ticketsAvailable')}: {event.ticketsAvailable}</p>
+          <p>{t('eventDetails.price')}: ${event.price}</p>
+        </div>
+        <button
+          onClick={handlePurchaseTicket}
+          className="buy-ticket-button"
+          disabled={loading}
+        >
+          {t('eventDetails.buyTicket')}
+        </button>
+      </div>
+      {ticket && (
         <div className="ticket-details">
-          <h2>Ticket Purchased Successfully!</h2>
-          <p>Your ticket has been issued. Use the QR code below to access the event:</p>
+          <h2>{t('eventDetails.purchaseSuccess')}</h2>
           <img src={ticket.QRCodeImage} alt="Ticket QR Code" />
         </div>
-      ) : (
-        <button onClick={handlePurchaseTicket} disabled={loading}>
-          Buy Ticket
-        </button>
       )}
-  
       {error && <p className="error">{error}</p>}
     </div>
   );
-  }
+  
+}
 
 export default EventDetails;

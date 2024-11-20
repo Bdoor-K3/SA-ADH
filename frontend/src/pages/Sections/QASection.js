@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './QASection.css';
 
 function QASection() {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(null);
 
   const faqs = [
     {
-      question: 'How to Buy a Ticket?',
-      answer:
-        'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+      question: t('qaSection.faqs.howToBuyTicket.question'),
+      answer: t('qaSection.faqs.howToBuyTicket.answer'),
     },
     {
-      question: 'How to make a new event?',
-      answer:
-        'To make a new event, go to your dashboard, click on "Create Event," and fill out the required details.',
+      question: t('qaSection.faqs.howToCreateEvent.question'),
+      answer: t('qaSection.faqs.howToCreateEvent.answer'),
     },
     {
-      question: 'How to set the event name & date?',
-      answer:
-        'Event names and dates can be set while creating or editing an event from the organizer’s dashboard.',
+      question: t('qaSection.faqs.howToSetNameAndDate.question'),
+      answer: t('qaSection.faqs.howToSetNameAndDate.answer'),
     },
     {
-      question: 'Set price for ticket?',
-      answer:
-        'Ticket prices can be added during the event creation process or updated later from the event management tab.',
+      question: t('qaSection.faqs.howToSetPrice.question'),
+      answer: t('qaSection.faqs.howToSetPrice.answer'),
     },
   ];
 
@@ -34,8 +32,8 @@ function QASection() {
   return (
     <section className="qa-section">
       <div className="container">
-        <h2 className="qa-title">Find Your Answers</h2>
-        <h3 className="qa-subtitle">Tathaker FAQs</h3>
+        <h2 className="qa-title">{t('qaSection.title')}</h2>
+        <h3 className="qa-subtitle">{t('qaSection.subtitle')}</h3>
 
         <div className="faq-list">
           {faqs.map((faq, index) => (
@@ -52,7 +50,7 @@ function QASection() {
               </div>
               {activeIndex === index && (
                 <div className="faq-answer">
-                  <strong>Answer</strong>
+                  <strong>{t('qaSection.answerLabel')}</strong>
                   <p>{faq.answer}</p>
                 </div>
               )}

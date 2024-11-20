@@ -1,116 +1,99 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .profile {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: var(--font-color);
-  background-color: var(--background-color);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 
 .profile h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #3f1651;
   text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  color: var(--button-color);
+  margin-bottom: 30px;
 }
 
 .profile-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 20px;
+  justify-content: space-between;
 }
 
-.profile-details,
-.purchase-history {
-  flex: 1;
-  min-width: 300px;
-  background-color: var(--card-background-color);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+.profile-details, .purchase-history {
+  flex: 1 1 45%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-.profile-details h2,
-.purchase-history h2 {
-  margin-bottom: 1rem;
-  color: var(--button-color);
+.profile-details h2, .purchase-history h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #aa336a;
+  margin-bottom: 20px;
 }
 
-.profile-details p,
-.purchase-history p {
-  margin: 0.5rem 0;
-  line-height: 1.5;
+.profile-details p, .purchase-history p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.profile-details strong, .purchase-history strong {
+  color: #3f1651;
 }
 
 .ticket-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .ticket-item {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.ticket-item:last-child {
+  border-bottom: none;
 }
 
 .ticket-item p {
-  margin: 0.5rem 0;
+  margin-bottom: 5px;
 }
 
 .qr-code {
-  margin-top: 0.5rem;
-  max-width: 150px;
-  height: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
 }
 
-.error,
-.no-data,
-.loading {
+/* Loading and Error Messages */
+.loading, .error, .no-data {
+  font-size: 16px;
   text-align: center;
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  color: #777;
+  color: #555;
 }
 
-.error {
-  color: red;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
   .profile-container {
     flex-direction: column;
   }
 
-  .profile-details,
-  .purchase-history {
-    padding: 1rem;
-  }
-
-  .ticket-item {
-    padding: 0.75rem;
-  }
-
-  .qr-code {
-    max-width: 100px;
-  }
-}
-
-@media (max-width: 480px) {
-  .profile h1 {
-    font-size: 1.5rem;
-  }
-
-  .profile-details h2,
-  .purchase-history h2 {
-    font-size: 1.25rem;
-  }
-
-  .profile-details p,
-  .purchase-history p {
-    font-size: 0.9rem;
+  .profile-details, .purchase-history {
+    flex: 1 1 100%;
   }
 }

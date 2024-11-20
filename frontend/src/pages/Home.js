@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { fetchEvents } from '../services/api';
-import EventsSection from './Sections/EventsSection';
 import AboutSection from './Sections/AboutSection';
 import ContactSection from './Sections/ContactSection';
 import QASection from './Sections/QASection';
-import './Home.css';
 import Slider from 'react-slick';
+import './Home.css';
 
 function Home() {
+  const { t } = useTranslation();
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
@@ -42,10 +43,9 @@ function Home() {
 
   return (
     <div className="home">
-<div className="home">
       {/* Events Slider Section */}
       <section id="events-slider">
-        <h2>Upcoming Events</h2>
+        <h2>{t('home.sections.eventsSlider.title')}</h2>
         <Slider {...sliderSettings}>
           {events.map((event) => (
             <div key={event._id} className="slider-card">
@@ -57,19 +57,36 @@ function Home() {
               <div className="slider-content">
                 <h3>{event.name}</h3>
                 <p>{event.description}</p>
-                <p>Date: {new Date(event.dateOfEvent).toLocaleDateString()}</p>
+                <p>
+                  {t('home.sections.eventsSlider.date')}: {new Date(event.dateOfEvent).toLocaleDateString()}
+                </p>
                 <button onClick={() => handleViewDetails(event._id)}>
-                  More Details
+                  {t('home.sections.eventsSlider.moreDetails')}
                 </button>
               </div>
             </div>
           ))}
         </Slider>
+        <div id="event-list">
+          {events.map((event) => (
+            <div key={event._id} className="event-card">
+              <img src={event.image} alt={event.name} />
+              <div className="event-content">
+                <h3>{event.name}</h3>
+                <p>{new Date(event.dateOfEvent).toLocaleDateString()}</p>
+                <button onClick={() => handleViewDetails(event._id)}>
+                  {t('home.sections.eventsSlider.moreDetails')}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
-    </div>
-       <AboutSection />
-      <ContactSection />
+
+      {/* Other Sections */}
+      <AboutSection />
       <QASection />
+      <ContactSection />
     </div>
   );
 }
