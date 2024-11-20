@@ -1,2 +1,16 @@
 2024-11-20T11:27:54.727Z [ERROR]: Error initiating payment: Request failed with status code 401
 2024-11-20T11:28:17.658Z [ERROR]: Error initiating payment: Request failed with status code 401
+2024-11-20T20:04:47.120Z [ERROR]: Error sending email: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor ffacd0b85a97d-38254910583sm3015264f8f.45 - gsmtp
+2024-11-20T20:04:48.205Z [ERROR]: Error sending email: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 5b1f17b1804b1-433b45bd4d1sm30591525e9.12 - gsmtp
+2024-11-20T20:11:38.243Z [INFO]: Email sent: 250 2.0.0 OK  1732133528 5b1f17b1804b1-433b01e115asm31803155e9.6 - gsmtp
+2024-11-20T20:11:40.281Z [INFO]: Email sent: 250 2.0.0 OK  1732133530 ffacd0b85a97d-38254933c6dsm3011665f8f.73 - gsmtp
+2024-11-20T20:21:44.545Z [ERROR]: Error processing payment callback: ticket is not defined
+2024-11-20T20:21:46.024Z [ERROR]: Error processing payment callback: ticket is not defined
+2024-11-20T20:22:43.888Z [ERROR]: Error processing payment callback: ticket is not defined
+2024-11-20T20:22:45.595Z [ERROR]: Error processing payment callback: ticket is not defined
+2024-11-20T20:23:41.182Z [ERROR]: Error processing payment callback: ticket is not defined
+2024-11-20T20:23:42.473Z [ERROR]: Error processing payment callback: ticket is not defined
+2024-11-20T20:26:38.835Z [INFO]: Email sent: 250 2.0.0 OK  1732134429 5b1f17b1804b1-433b4643100sm31300635e9.39 - gsmtp
+2024-11-20T20:26:40.124Z [INFO]: Email sent: 250 2.0.0 OK  1732134430 5b1f17b1804b1-433b463ab5fsm31531105e9.27 - gsmtp

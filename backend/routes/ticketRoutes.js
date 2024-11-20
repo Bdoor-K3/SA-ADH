@@ -7,6 +7,8 @@ const User = require('../models/User');
 const Purchase = require('../models/Purchase'); // Assuming a Purchase model exists
 const { authenticateToken } = require('../middleware/auth');
 const winston = require('winston');
+const nodemailer = require('nodemailer');
+require('dotenv').config(); // Import and configure dotenv
 
 const router = express.Router();
 
@@ -86,12 +88,19 @@ router.post('/purchase', authenticateToken, async (req, res) => {
 });
 
 
+// Configure NodeMailer transporter
+const transporter = nodemailer.createTransport({
+  service: 'Gmail', // Replace with your email provider
+  auth: {
+    user: process.env.EMAIL_USER, // Use email user from .env
+    pass: process.env.EMAIL_PASS, // Use email password from .env // Your email password or app password
+  },
+});
+
 router.get('/payment/callback', async (req, res) => {
   const { tap_id } = req.query;
 
   try {
-    console.log('Received tap_id:', tap_id); // Debug log
-
     const response = await axios.get(`${TAP_API_BASE_URL}/${tap_id}`, {
       headers: {
         Authorization: `Bearer ${TAP_SECRET_KEY}`,
@@ -99,7 +108,6 @@ router.get('/payment/callback', async (req, res) => {
       },
     });
 
-    console.log('Tap Payments charge details:', response.data); // Debug log
     const chargeDetails = response.data;
 
     if (chargeDetails.status !== 'CAPTURED') {
@@ -108,19 +116,20 @@ router.get('/payment/callback', async (req, res) => {
     }
 
     const { eventId, userId } = chargeDetails.metadata;
-    console.log(`Event ID: ${eventId}, User ID: ${userId}`); // Debug log
 
     const event = await Event.findById(eventId);
     const user = await User.findById(userId);
 
     if (!event || !user) {
-      console.error('Event or User not found.');
+      logger.error('Event or User not found.');
       return res.status(404).json({ message: 'Event or User not found.' });
     }
 
+    // Generate QR code for the ticket
     const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`;
     const qrCodeImage = await QRCode.toDataURL(qrCodeData);
 
+    // Create a new ticket
     const newTicket = new Ticket({
       eventId: event._id,
       buyerId: user._id,
@@ -129,8 +138,8 @@ router.get('/payment/callback', async (req, res) => {
     });
 
     const savedTicket = await newTicket.save();
-    console.log('Saved ticket:', savedTicket); // Debug log
 
+    // Create a new purchase record
     const newPurchase = new Purchase({
       userId: user._id,
       ticketId: savedTicket._id,
@@ -141,15 +150,83 @@ router.get('/payment/callback', async (req, res) => {
     });
 
     const savedPurchase = await newPurchase.save();
-    console.log('Saved purchase:', savedPurchase); // Debug log
+    const emailContent = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.5; color: #333;">
+      <div style="max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
+        <!-- Header -->
+        <div style="background-color: #aa336a; color: #fff; padding: 20px; text-align: center;">
+          <h1 style="margin: 0; font-size: 24px;">Your Ticket for ${event.name}</h1>
+          <h1 style="margin: 0; font-size: 24px;">تذكرتك لـ ${event.name}</h1>
+        </div>
+    
+        <!-- Body -->
+        <div style="padding: 20px;">
+          <!-- English Section -->
+          <div>
+            <h2 style="font-size: 18px;">Thank you for your purchase!</h2>
+            <p style="font-size: 16px;">Here are your ticket details:</p>
+            <ul style="padding: 0; list-style: none; margin: 0;">
+              <li style="margin: 10px 0; font-size: 16px;"><strong>Event:</strong> ${event.name}</li>
+              <li style="margin: 10px 0; font-size: 16px;"><strong>Date:</strong> ${new Date(event.dateOfEvent).toLocaleDateString()}</li>
+              <li style="margin: 10px 0; font-size: 16px;"><strong>Price:</strong> ${event.price} ${event.currency}</li>
+              <li style="margin: 10px 0; font-size: 16px;"><strong>Purchase Date:</strong> ${new Date().toLocaleDateString()}</li>
+            </ul>
+            <p style="margin: 20px 0; font-size: 16px;">Please scan the QR code below at the event entrance:</p>
+            <div style="text-align: center; margin: 20px 0;">
+              <img src="${savedTicket.QRCodeImage}" alt="QR Code" style="width: 200px; height: 200px; border: 1px solid #ddd; border-radius: 5px;" />
+            </div>
+            <p style="margin: 20px 0; font-size: 16px;">We look forward to seeing you at the event!</p>
+          </div>
+
+          <!-- Arabic Section -->
+          <div style="direction: rtl; text-align: right; margin-top: 30px;">
+            <h2 style="font-size: 18px;">شكراً لشرائك!</h2>
+            <p style="font-size: 16px;">فيما يلي تفاصيل تذكرتك:</p>
+            <ul style="padding: 0; list-style: none; margin: 0;">
+              <li style="margin: 10px 0; font-size: 16px;"><strong>الفعالية:</strong> ${event.name}</li>
+              <li style="margin: 10px 0; font-size: 16px;"><strong>التاريخ:</strong> ${new Date(event.dateOfEvent).toLocaleDateString()}</li>
+              <li style="margin: 10px 0; font-size: 16px;"><strong>السعر:</strong> ${event.price} ${event.currency}</li>
+              <li style="margin: 10px 0; font-size: 16px;"><strong>تاريخ الشراء:</strong> ${new Date().toLocaleDateString()}</li>
+            </ul>
+            <p style="margin: 20px 0; font-size: 16px;">يرجى مسح رمز الاستجابة السريعة أدناه عند مدخل الفعالية:</p>
+            <div style="text-align: center; margin: 20px 0;">
+              <img src="${savedTicket.QRCodeImage}" alt="رمز الاستجابة السريعة" style="width: 200px; height: 200px; border: 1px solid #ddd; border-radius: 5px;" />
+            </div>
+            <p style="margin: 20px 0; font-size: 16px;">نتطلع لرؤيتك في الفعالية!</p>
+          </div>
+        </div>
+    
+        <!-- Footer -->
+        <div style="background-color: #f8f8f8; color: #666; padding: 20px; text-align: center; border-top: 1px solid #ddd;">
+          <p style="margin: 0; font-size: 14px;">If you have any questions, please contact us at <a href="mailto:val1ion@gmail.com" style="color: #aa336a; text-decoration: none;">val1ion@gmail.com</a>.</p>
+          <p style="margin: 0; font-size: 14px;">إذا كانت لديك أي أسئلة، يرجى التواصل معنا على <a href="mailto:val1ion@gmail.com" style="color: #aa336a; text-decoration: none;">val1ion@gmail.com</a>.</p>
+          <p style="margin: 10px 0 0; font-size: 14px;">&copy; ${new Date().getFullYear()} Event Ticketing</p>
+        </div>
+      </div>
+    </div>
+    `;  
+    // Send the QR code to the user's email
+    const mailOptions = {
+      from: 'your-email@gmail.com',
+      to: user.email,
+      subject: `Your Ticket for ${event.name}`,
+      html: emailContent,
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        logger.error(`Error sending email: ${err.message}`);
+      } else {
+        logger.info(`Email sent: ${info.response}`);
+      }
+    });
 
     res.status(200).json({ ticket: savedTicket });
   } catch (error) {
-    console.error(`Error processing payment callback: ${error.message}`);
+    logger.error(`Error processing payment callback: ${error.message}`);
     res.status(500).json({ message: 'Error processing payment callback', error: error.message });
   }
 });
-
 
 // Validate Ticket
 router.post('/validate', authenticateToken, async (req, res) => {
