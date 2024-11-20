@@ -4,7 +4,7 @@ import './Profile.css';
 
 function Profile() {
   const [user, setUser] = useState(null);
-  const [purchases, setPurchases] = useState([]); // Store purchases separately
+  const [purchaseHistory, setPurchaseHistory] = useState([]); // Correctly named to match API
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,8 +12,8 @@ function Profile() {
     const loadUserProfile = async () => {
       try {
         const data = await fetchUserProfile();
-        setUser(data.user); // Assuming the backend sends { user, purchases }
-        setPurchases(data.purchases || []); // Separate purchases from user data
+        setUser(data.user); // Set user details
+        setPurchaseHistory(data.purchaseHistory || []); // Correctly set purchase history
       } catch (err) {
         setError('Error fetching profile data.');
         console.error(err);
@@ -41,6 +41,7 @@ function Profile() {
     <div className="profile">
       <h1>Profile</h1>
       <div className="profile-container">
+        {/* Personal Details */}
         <div className="profile-details">
           <h2>Personal Details</h2>
           <p><strong>Name:</strong> {user.fullName}</p>
@@ -57,19 +58,19 @@ function Profile() {
           <p><strong>Role:</strong> {user.role}</p>
         </div>
 
+        {/* Purchase History */}
         <div className="purchase-history">
           <h2>Purchase History</h2>
-          {purchases.length === 0 ? (
+          {purchaseHistory.length === 0 ? (
             <p>No tickets purchased yet.</p>
           ) : (
             <ul className="ticket-list">
-              {purchases.map((purchase, index) => {
+              {purchaseHistory.map((purchase, index) => {
                 const ticket = purchase.ticketId;
                 const event = purchase.eventId;
-                const qrCodeImage = ticket?.QRCodeImage;
 
                 if (!ticket || !event) {
-                  return null;
+                  return null; // Skip invalid entries
                 }
 
                 return (
@@ -80,10 +81,10 @@ function Profile() {
                     <p><strong>Amount:</strong> {`${purchase.amount} ${purchase.currency}`}</p>
                     <p><strong>Paid:</strong> {purchase.paid ? 'Yes' : 'No'}</p>
                     <p><strong>Used:</strong> {purchase.used ? 'Yes' : 'No'}</p>
-                    {qrCodeImage && (
+                    {ticket.QRCodeImage && (
                       <div>
                         <p><strong>QR Code:</strong></p>
-                        <img src={qrCodeImage} alt="QR Code" className="qr-code" />
+                        <img src={ticket.QRCodeImage} alt="QR Code" className="qr-code" />
                       </div>
                     )}
                   </li>

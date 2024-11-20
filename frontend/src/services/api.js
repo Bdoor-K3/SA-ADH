@@ -170,6 +170,15 @@ export const validateTicket = async (qrCodeData, eventId) => {
   }
 };
 
+export const verifyPayment = async (tapId) => {
+  try {
+    const response = await api.get(`/api/tickets/payment/callback?tap_id=${tapId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error verifying payment:', error);
+    throw error;
+  }
+};
 
   // Export the instance for custom requests if needed
 export default api;

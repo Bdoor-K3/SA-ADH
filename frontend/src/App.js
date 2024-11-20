@@ -32,6 +32,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/event/:id" element={<EventDetails />} /> {/* Publicly accessible */}
+        <Route path="/events/:id" element={<EventDetails />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/events" element={<Events />} />
