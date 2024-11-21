@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { FaBars, FaTimes } from 'react-icons/fa'; // Icons for menu toggle
+import logo from '../pages/assets/saada.png';
 import './Header.css';
 
 function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const token = localStorage.getItem('token'); // Check if user is logged in
+  const [menuVisible, setMenuVisible] = useState(window.innerWidth > 768); // Open on PC, closed on mobile
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
@@ -14,14 +16,21 @@ function Header() {
     i18n.changeLanguage(savedLanguage);
   }, [i18n]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setMenuVisible(window.innerWidth > 768); // Open menu by default on larger screens
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     navigate('/login');
-  };
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
   };
 
   const toggleLanguage = () => {
@@ -30,14 +39,18 @@ function Header() {
     localStorage.setItem('language', newLanguage);
   };
 
+  const toggleMenu = () => {
+    setMenuVisible((prev) => !prev);
+  };
+
   return (
-    <header className="header">
+    <header className={`header ${i18n.language === 'ar' ? 'rtl' : ''}`}>
       {/* Top Header */}
       <div className="top_header">
         <div className="header-container">
           <div className="logo_site">
             <Link to="/">
-              <img src="/path-to-logo.png" alt="Logo" />
+              <img src={logo} alt="Logo" />
             </Link>
           </div>
           <div className="find_us_block">
@@ -63,8 +76,13 @@ function Header() {
         </div>
       </div>
 
+      {/* Mobile Toggle Button */}
+      <button className="menu-toggle" onClick={toggleMenu}>
+        {menuVisible ? <FaTimes /> : <FaBars />}
+      </button>
+
       {/* Bottom Header */}
-      <div className="bottom_header">
+      <div className={`bottom_header ${menuVisible ? 'visible' : 'hidden'}`}>
         <div className="header-container">
           <ul className="main_menu">
             <li>
@@ -78,23 +96,23 @@ function Header() {
               </Link>
             </li>
             <li>
-              <a href="#about" onClick={() => toggleMenu()} className="nav-link">
+              <Link to="/about" className="nav-link">
                 {t('header.about')}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#faq" onClick={() => toggleMenu()} className="nav-link">
+              <Link to="/faqs" className="nav-link">
                 {t('header.faqs')}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#contact" onClick={() => toggleMenu()} className="nav-link">
+              <Link to="/contact" className="nav-link">
                 {t('header.contact')}
-              </a>
+              </Link>
             </li>
             {token && (
               <li>
-                <Link to="/profile" className="nav-link profile-button">
+                <Link to="/profile" className="profile-button">
                   {t('header.profile')}
                 </Link>
               </li>

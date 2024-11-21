@@ -10,9 +10,12 @@ import Footer from './components/Footer';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import EventDetails from './pages/EventDetails';
 import Profile from './pages/Profile';
+import OrganizerDashboard from './pages/organizer/OrganizerDashboard';
 import './App.css';
-import OrganizerDashboard from './pages/organizer/OrganizerDashboard'; // New organizer page
-import ScanTickets from './pages/organizer/ScanTickets'; // Import the ScanTickets component
+// Import the sections
+import About from './pages/Sections/AboutSection';
+import FAQs from './pages/Sections/QASection';
+import Contact from './pages/Sections/ContactSection';
 
 const ProtectedRoute = ({ children, role }) => {
   const token = localStorage.getItem('token');
@@ -31,13 +34,19 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/event/:id" element={<EventDetails />} /> {/* Publicly accessible */}
-        <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="/events" element={<Events />} />
+
+        {/* Section-specific routes */}
+        <Route path="/about" element={<About />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/events" element={<Events />} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+
+        {/* Admin and Organizer routes */}
         <Route
           path="/admin"
           element={

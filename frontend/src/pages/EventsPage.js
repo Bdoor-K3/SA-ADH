@@ -11,12 +11,8 @@ function EventsPage() {
 
   useEffect(() => {
     const getEvents = async () => {
-      try {
-        const data = await fetchEvents();
-        setEvents(data);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
+      const data = await fetchEvents();
+      setEvents(data);
     };
 
     getEvents();
@@ -30,23 +26,20 @@ function EventsPage() {
     <div className="events-page">
       <div className="events-header">
         <h1>{t("eventsPage.title")}</h1>
-        <p>
-          {events.length} {t("eventsPage.results")}
-        </p>
+        <p>{events.length} {t("eventsPage.results")}</p>
       </div>
       <div className="events-grid">
         {events.map((event) => (
           <div className="event-card" key={event._id}>
             <img
-              src={event.image || "/assets/default-event.jpg"} // Use the event image or fallback
+              src={event.image || "/assets/default-event.jpg"} // Add a default image if no image exists
               alt={event.name}
               className="event-image"
             />
             <div className="event-info">
               <h3>{event.name}</h3>
               <p className="event-date">
-                {t("eventsPage.eventCard.date")}:{" "}
-                {new Date(event.dateOfEvent).toLocaleDateString()}
+                {t("eventsPage.eventCard.date")}: {new Date(event.dateOfEvent).toLocaleDateString()}
               </p>
               <p className="event-description">{event.description}</p>
               <button
