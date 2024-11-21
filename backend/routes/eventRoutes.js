@@ -1,23 +1,47 @@
 const express = require('express');
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../cloudinary'); // Cloudinary configuration
 const Event = require('../models/Event');
-const { authenticateToken, authorizeAdmin  ,authorizeOrganizer } = require('../middleware/auth');
+const { authenticateToken, authorizeAdmin, authorizeOrganizer } = require('../middleware/auth');
 const router = express.Router();
 
+// Configure Cloudinary Storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'events', // Cloudinary folder name
+    allowed_formats: ['jpg', 'jpeg', 'png'], // Allowed image formats
+  },
+});
+
+const upload = multer({ storage });
 // Create Event
-router.post('/', authenticateToken, authorizeAdmin, async (req, res) => {
+router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
   try {
-    const { name, description, dateOfEvent, price, currency, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers } = req.body;
+    const {
+      name,
+      description,
+      dateOfEvent,
+      price,
+      currency,
+      ticketsAvailable,
+      purchaseStartDate,
+      purchaseEndDate,
+      organizers,
+    } = req.body;
 
     const newEvent = new Event({
       name,
       description,
       dateOfEvent,
       price,
-      currency, // New currency field
+      currency,
       ticketsAvailable,
       purchaseStartDate,
       purchaseEndDate,
       organizers,
+      image: req.file ? req.file.path : null, // Store Cloudinary URL
     });
 
     const savedEvent = await newEvent.save();
@@ -28,17 +52,37 @@ router.post('/', authenticateToken, authorizeAdmin, async (req, res) => {
 });
 
 // Update Event
-
-router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
+router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
   try {
-    const { name, description, dateOfEvent, price, currency, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers } = req.body;
+    const {
+      name,
+      description,
+      dateOfEvent,
+      price,
+      currency,
+      ticketsAvailable,
+      purchaseStartDate,
+      purchaseEndDate,
+      organizers,
+    } = req.body;
 
-    const updatedEvent = await Event.findByIdAndUpdate(
-      req.params.id,
-      { name, description, dateOfEvent, price, currency, ticketsAvailable, purchaseStartDate, purchaseEndDate, organizers },
-      { new: true }
-    );
+    const updateFields = {
+      name,
+      description,
+      dateOfEvent,
+      price,
+      currency,
+      ticketsAvailable,
+      purchaseStartDate,
+      purchaseEndDate,
+      organizers,
+    };
 
+    if (req.file) {
+      updateFields.image = req.file.path; // Update Cloudinary URL if new image is uploaded
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateFields, { new: true });
     if (!updatedEvent) {
       return res.status(404).json({ message: 'Event not found' });
     }
@@ -48,7 +92,6 @@ router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 
 // Get All Events
@@ -71,6 +114,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 // Get Event with Tickets
 router.get('/:id', authenticateToken, async (req, res) => {
@@ -98,6 +142,7 @@ router.delete('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 // Get Events Assigned to Organizer
 router.get('/organizer/events', authenticateToken, authorizeOrganizer, async (req, res) => {

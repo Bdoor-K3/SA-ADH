@@ -5,26 +5,33 @@ import './EventsTab.css';
 
 function EventsTab() {
   const { t } = useTranslation();
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]); // Ensure events is initialized as an array
   const [organizers, setOrganizers] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     dateOfEvent: '',
     price: '',
-    currency: 'SAR', // Default currency
+    currency: 'SAR',
     ticketsAvailable: '',
     purchaseStartDate: '',
     purchaseEndDate: '',
     organizers: [],
+    image: null,
   });
   const [editEventId, setEditEventId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadEvents = async () => {
       try {
         const data = await fetchEvents();
-        setEvents(data);
+        if (Array.isArray(data)) {
+          setEvents(data);
+        } else {
+          console.error('Expected array but got:', data);
+          setEvents([]); // Fallback to an empty array
+        }
       } catch (error) {
         console.error(t('eventsTab.alerts.fetchError'), error);
       }
@@ -51,33 +58,51 @@ function EventsTab() {
       return;
     }
 
-    try {
-      if (editEventId) {
-        await updateEvent(editEventId, formData);
-        alert(t('eventsTab.alerts.updated'));
+    const eventData = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === 'organizers') {
+        formData.organizers.forEach((organizer, index) => {
+          eventData.append(`organizers[${index}]`, organizer);
+        });
       } else {
-        await createEvent(formData);
-        alert(t('eventsTab.alerts.created'));
+        eventData.append(key, formData[key]);
       }
+    });
 
-      setFormData({
-        name: '',
-        description: '',
-        dateOfEvent: '',
-        price: '',
-        currency: 'SAR',
-        ticketsAvailable: '',
-        purchaseStartDate: '',
-        purchaseEndDate: '',
-        organizers: [],
-      });
+    setLoading(true);
+    try {
+      const response = await (editEventId
+        ? updateEvent(editEventId, eventData)
+        : createEvent(eventData));
 
-      setEditEventId(null);
-      const updatedEvents = await fetchEvents();
-      setEvents(updatedEvents);
+      if (Array.isArray(response)) {
+        setEvents(response);
+      } else {
+        console.error('Expected array but got:', response);
+      }
+      alert(editEventId ? t('eventsTab.alerts.updated') : t('eventsTab.alerts.created'));
+      resetForm();
     } catch (error) {
       console.error(t('eventsTab.alerts.submitError'), error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      description: '',
+      dateOfEvent: '',
+      price: '',
+      currency: 'SAR',
+      ticketsAvailable: '',
+      purchaseStartDate: '',
+      purchaseEndDate: '',
+      organizers: [],
+      image: null,
+    });
+    setEditEventId(null);
   };
 
   const handleEditEvent = (event) => {
@@ -92,16 +117,21 @@ function EventsTab() {
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
       purchaseEndDate: event.purchaseEndDate.slice(0, 10),
       organizers: event.organizers,
+      image: null,
     });
   };
 
   const handleDeleteEvent = async (id) => {
+    if (!window.confirm(t('eventsTab.alerts.confirmDelete'))) return;
+    setLoading(true);
     try {
       await deleteEvent(id);
       alert(t('eventsTab.alerts.deleted'));
       setEvents(events.filter((event) => event._id !== id));
     } catch (error) {
       console.error(t('eventsTab.alerts.deleteError'), error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,6 +142,11 @@ function EventsTab() {
         : [...prevFormData.organizers, organizerId];
       return { ...prevFormData, organizers };
     });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file });
   };
 
   return (
@@ -175,6 +210,12 @@ function EventsTab() {
           onChange={(e) => setFormData({ ...formData, purchaseEndDate: e.target.value })}
           required
         />
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        {formData.image && (
+          <div className="image-preview">
+            <p>{formData.image.name}</p>
+          </div>
+        )}
         <div className="organizers-container">
           <label>{t('eventsTab.form.organizers')}</label>
           {organizers.map((organizer) => (
@@ -191,26 +232,37 @@ function EventsTab() {
             </div>
           ))}
         </div>
-        <button type="submit" className="submit-button">
-          {t(editEventId ? 'eventsTab.form.submit.update' : 'eventsTab.form.submit.create')}
+        <button type="submit" className="submit-button" disabled={loading}>
+          {loading ? t('eventsTab.alerts.loading') : t(editEventId ? 'eventsTab.form.submit.update' : 'eventsTab.form.submit.create')}
         </button>
       </form>
 
       <h2 className="tab-title">{t('eventsTab.title.existing')}</h2>
-      <ul className="events-list">
-        {events.map((event) => (
-          <li key={event._id} className="event-item">
-            <h3>{event.name}</h3>
-            <p>{t('eventsTab.event.currency')}: {event.currency}</p>
-            <button onClick={() => handleEditEvent(event)} className="edit-button">
-              {t('eventsTab.actions.edit')}
-            </button>
-            <button onClick={() => handleDeleteEvent(event._id)} className="delete-button">
-              {t('eventsTab.actions.delete')}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {Array.isArray(events) ? (
+        <ul className="events-list">
+          {events.map((event) => (
+            <li key={event._id} className="event-item">
+              <img
+                src={event.image || '/default-image.jpg'}
+                alt={event.name}
+                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+              />
+              <h3>{event.name}</h3>
+              <p>
+                {t('eventsTab.event.currency')}: {event.currency}
+              </p>
+              <button onClick={() => handleEditEvent(event)} className="edit-button">
+                {t('eventsTab.actions.edit')}
+              </button>
+              <button onClick={() => handleDeleteEvent(event._id)} className="delete-button">
+                {t('eventsTab.actions.delete')}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>{t('eventsTab.alerts.noEvents')}</p>
+      )}
     </div>
   );
 }
