@@ -3,8 +3,9 @@ import axios from 'axios';
 
 // Set up a base instance with the backend URL from .env
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000',
+  baseURL:   process.env.REACT_APP_BACKEND_URL,
 });
+
 // Add a request interceptor to include the Authorization header
 api.interceptors.request.use(
   (config) => {
@@ -30,24 +31,23 @@ export const fetchEvents = async () => {
   }
 };
 
-  export const registerUser = async (userData) => {
-    return await api.post('/api/auth/register', userData);
-  };
-  
-  export const loginUser = async (credentials) => {
-    return await api.post('/api/auth/login', credentials);
-  };
+export const registerUser = async (userData) => {
+  return await api.post('/api/auth/register', userData);
+};
 
+export const loginUser = async (credentials) => {
+  return await api.post('/api/auth/login', credentials);
+};
 
-  export const createEvent = async (eventData) => {
-    try {
-      const response = await api.post('/api/events', eventData);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating event:', error);
-      throw error;
-    }
-  };
+export const createEvent = async (eventData) => {
+  try {
+    const response = await api.post('/api/events', eventData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating event:', error);
+    throw error;
+  }
+};
 
 // Get Event by ID
 export const getEventById = async (id) => {
@@ -74,7 +74,6 @@ export const updateEvent = async (eventId, updates) => {
 export const deleteEvent = async (eventId) => {
   return await api.delete(`/api/events/${eventId}`);
 };
-
 
 // Fetch Logs
 export const fetchLogs = async () => {
@@ -170,17 +169,44 @@ export const validateTicket = async (qrCodeData, eventId) => {
   }
 };
 
-export const verifyPayment = async (tapId) => {
+export const verifyPayment = async (tap_id) => {
+  const response = await fetch(`/api/payment/callback?tap_id=${tap_id}`);
+  if (!response.ok) {
+    console.log(response);
+    throw new Error('Failed to verify payment');
+  }
+  return response.json();
+};
+
+// Forgot Password
+export const forgotPassword = async (data) => {
   try {
-    const response = await api.get(`/api/tickets/payment/callback?tap_id=${tapId}`);
+    const response = await api.post('/api/auth/forgot-password', data);
     return response.data;
   } catch (error) {
-    console.error('Error verifying payment:', error);
+    console.error('Error sending forgot password email:', error);
     throw error;
   }
 };
 
-  // Export the instance for custom requests if needed
+// Reset Password
+export const resetPassword = async ({ token, password }) => {
+  try {
+    const response = await api.post('/api/auth/reset-password', { token, password });
+    return response; // Return the response from the server
+  } catch (error) {
+    throw error; // Pass any errors to the caller
+  }
+};
+export const fetchTickets = async (queryParams = '') => {
+  try {
+    const response = await api.get(`/api/tickets?${queryParams}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+    throw error;
+  }
+};
+
+// Export the instance for custom requests if needed
 export default api;
-
-

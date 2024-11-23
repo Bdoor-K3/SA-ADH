@@ -117,17 +117,19 @@
       "added": "تمت إضافة مستخدم جديد بنجاح!",
       "submitError": "حدث خطأ أثناء إنشاء/تحديث المستخدم."
     }
-  },  "login": {
+  },   "login": {
     "title": "تسجيل الدخول",
     "form": {
       "emailPlaceholder": "البريد الإلكتروني",
+      "forgotPassword":"نسيت كلمة المرور",
       "passwordPlaceholder": "كلمة المرور",
       "submitButton": "تسجيل الدخول"
     },
+    "success": "تم تسجيل الدخول بنجاح!",
     "error": {
       "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة"
     }
-  }  ,"signup": {
+  } ,  "signup": {
     "title": "إنشاء حساب",
     "form": {
       "fullName": "الاسم الكامل",
@@ -151,20 +153,23 @@
     "messages": {
       "passwordMismatch": "كلمتا المرور غير متطابقتين",
       "success": "تم التسجيل بنجاح! يرجى تسجيل الدخول.",
-      "failure": "فشل التسجيل. حاول مرة أخرى."
+      "failure": "فشل التسجيل. حاول مرة أخرى.",
+      "submitting": "جارٍ إرسال بياناتك..."
     }
-  },  "eventDetails": {
+  },"eventDetails": {
     "loading": "جارٍ تحميل تفاصيل الفعالية...",
-    "dateOfEvent": "تاريخ الفعالية",
-    "currency": "العملة",
-    "price": "السعر",
+    "organizedBy": "منظم بواسطة",
     "ticketsAvailable": "التذاكر المتاحة",
-    "purchaseStartDate": "تاريخ بدء الشراء",
-    "purchaseEndDate": "تاريخ انتهاء الشراء",
-    "paymentProcessing": "جارٍ معالجة الدفع، يرجى الانتظار...",
-    "purchaseSuccess": "تم شراء التذكرة بنجاح!",
-    "purchaseSuccessMessage": "تم إصدار تذكرتك. استخدم رمز الاستجابة السريعة أدناه للوصول إلى الفعالية:",
+    "price": "السعر",
     "buyTicket": "شراء التذكرة",
+    "paymentSuccess": "تمت الموافقة على الدفع!",
+    "paymentFailed": "فشل الدفع",
+    "thankYou": "شكرًا لشرائك!",
+    "invoice": "تفاصيل الفاتورة",
+    "event": "الفعالية",
+    "date": "التاريخ",
+    "reason": "السبب",
+    "unknownError": "حدث خطأ غير معروف.",
     "loginPrompt": "يرجى تسجيل الدخول أو إنشاء حساب لشراء التذكرة.",
     "error": {
       "fetchDetails": "حدث خطأ أثناء تحميل تفاصيل الفعالية.",
@@ -172,55 +177,55 @@
       "purchaseTicket": "حدث خطأ أثناء شراء التذكرة.",
       "noPaymentUrl": "خطأ: لم يتم استلام رابط الدفع."
     }
-  } ,"eventsPage": {
-      "title": "البحث عن الفعاليات",
-      "results": "نتائج البحث",
-      "eventCard": {
-        "date": "التاريخ",
-        "booking": "حجز"
-      }
-    
-  }, "home": {
-
-    "sections": {
-      "eventsSlider": {
-        "title": "الفعاليات القادمة",
-        "date": "التاريخ",
-        "moreDetails": "المزيد من التفاصيل"
-      }
-    }
-  },  "profile": {
-    "title": "الملف الشخصي",
-    "sections": {
-      "personalDetails": "البيانات الشخصية",
-      "purchaseHistory": "سجل المشتريات"
-    },
-    "labels": {
-      "name": "الاسم",
-      "email": "البريد الإلكتروني",
-      "phone": "رقم الهاتف",
-      "address": "العنوان",
-      "age": "العمر",
-      "gender": "الجنس",
-      "role": "الدور",
-      "event": "الفعالية",
+  } ,   "eventsPage": {
+    "title": "البحث عن الفعاليات",
+    "results": "نتائج البحث",
+    "eventCard": {
       "date": "التاريخ",
-      "purchaseDate": "تاريخ الشراء",
-      "amount": "المبلغ",
-      "paid": "مدفوع",
-      "used": "مستخدم",
-      "qrCode": "رمز الاستجابة السريعة"
-    },
-    "placeholders": {
-      "noPhone": "لم يتم تقديم رقم هاتف.",
-      "noAddress": "لم يتم تقديم عنوان.",
-      "noAge": "غير متوفر",
-      "noTickets": "لم يتم شراء أي تذاكر حتى الآن."
-    },
-    "loading": "جارٍ تحميل الملف الشخصي...",
-    "error": "حدث خطأ أثناء تحميل بيانات الملف الشخصي.",
-    "noData": "لا توجد بيانات للمستخدم."
-  } ,  "about": {
+      "booking": "حجز"
+    }
+  }
+,  "home": {
+  "sections": {
+    "eventsSlider": {
+      "title": "الفعاليات القادمة",
+      "date": "التاريخ",
+      "moreDetails": "المزيد من التفاصيل"
+    }
+  }
+},  "profile": {
+  "title": "الملف الشخصي",
+  "sections": {
+    "personalDetails": "البيانات الشخصية",
+    "purchaseHistory": "سجل المشتريات"
+  },
+  "labels": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "address": "العنوان",
+    "age": "العمر",
+    "gender": "الجنس",
+    "role": "الدور",
+    "event": "الفعالية",
+    "date": "التاريخ",
+    "purchaseDate": "تاريخ الشراء",
+    "amount": "المبلغ",
+    "paid": "مدفوع",
+    "used": "مستخدم",
+    "qrCode": "رمز الاستجابة السريعة",
+    "noEvent": "لا توجد تفاصيل للفعالية"
+  },
+  "placeholders": {
+    "noPhone": "لم يتم تقديم رقم هاتف.",
+    "noAddress": "لم يتم تقديم عنوان.",
+    "noAge": "غير متوفر",
+    "noTickets": "لم يتم شراء أي تذاكر حتى الآن."
+  },
+  "loading": "جارٍ تحميل الملف الشخصي...",
+  "error": "حدث خطأ أثناء تحميل بيانات الملف الشخصي.",
+  "noData": "لا توجد بيانات للمستخدم."
+},  "about": {
     "title": "معلومات عنا",
     "breadcrumb": {
       "home": "الرئيسية",
@@ -248,38 +253,34 @@
     }
   }  
   ,
-    "contact": {
-      "title": "اتصل بنا",
-      "breadcrumb": {
-        "home": "الرئيسية",
-        "contactUs": "اتصل بنا"
-      },
-      "map": {
-        "title": "خريطة الموقع"
-      },
-      "form": {
-        "title": "تواصل معنا",
-        "namePlaceholder": "اسمك *",
-        "emailPlaceholder": "البريد الإلكتروني *",
-        "phonePlaceholder": "رقم الهاتف *",
-        "messagePlaceholder": "الرسالة *",
-        "submitButton": "اتصل بنا"
-      },
-      "info": {
-        "title": "معلومات الاتصال",
-        "addressLabel": "العنوان",
-        "address": "8273 الرياض، المملكة العربية السعودية",
-        "emailLabel": "البريد الإلكتروني",
-        "phoneLabel": "الهاتف"
-      }
-    },  "eventsSection": {
+  "contact": {
+    "title": "اتصل بنا",
+    "map": {
+      "title": "خريطة الموقع"
+    },
+    "form": {
+      "title": "تواصل معنا",
+      "namePlaceholder": "اسمك *",
+      "emailPlaceholder": "البريد الإلكتروني *",
+      "phonePlaceholder": "رقم الهاتف *",
+      "messagePlaceholder": "الرسالة *",
+      "submitButton": "اتصل بنا"
+    },
+    "info": {
+      "title": "معلومات الاتصال",
+      "addressLabel": "العنوان",
+      "address": "8273 الرياض، المملكة العربية السعودية",
+      "emailLabel": "البريد الإلكتروني",
+      "phoneLabel": "الهاتف"
+    }
+  },  "eventsSection": {
       "title": "الفعاليات القادمة",
       "labels": {
         "date": "التاريخ",
         "currency": "العملة",
         "price": "السعر"
       }
-    }, "qaSection": {
+    },   "qaSection": {
       "title": "ابحث عن إجاباتك",
       "subtitle": "الأسئلة الشائعة في تثاقر",
       "answerLabel": "الإجابة",
@@ -300,6 +301,43 @@
           "question": "كيف تحدد سعر التذكرة؟",
           "answer": "يمكن إضافة أسعار التذاكر أثناء عملية إنشاء الفعالية أو تحديثها لاحقًا من علامة تبويب إدارة الفعاليات."
         }
+      }
+    },  "organizerDashboard": {
+      "title": "لوحة تحكم المنظم",
+      "assignedEvents": "الفعاليات المخصصة",
+      "event": {
+        "date": "التاريخ",
+        "scanTickets": "مسح التذاكر"
+      },
+      "noEvents": "لم يتم العثور على فعاليات مخصصة."
+    },  "scanTickets": {
+      "title": "مسح التذاكر",
+      "validationMessage": {
+        "success": "تم التحقق من صحة التذكرة بنجاح!",
+        "failure": "حدث خطأ أثناء التحقق من التذكرة."
+      },
+      "scannerError": "حدث خطأ أثناء مسح رمز الاستجابة السريعة. يرجى المحاولة مرة أخرى.",
+      "nextScanButton": "مسح التذكرة التالية"
+    },  "forgotPassword": {
+      "title": "نسيت كلمة المرور",
+      "form": {
+        "emailPlaceholder": "أدخل بريدك الإلكتروني",
+        "submitButton": "إرسال رابط إعادة التعيين"
+      },
+      "messages": {
+        "success": "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني.",
+        "error": "حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "resetPassword": {
+      "title": "إعادة تعيين كلمة المرور",
+      "form": {
+        "passwordPlaceholder": "أدخل كلمة المرور الجديدة",
+        "submitButton": "إعادة تعيين كلمة المرور"
+      },
+      "messages": {
+        "success": "تمت إعادة تعيين كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول.",
+        "error": "حدث خطأ أثناء إعادة تعيين كلمة المرور. يرجى المحاولة مرة أخرى."
       }
     }
   }

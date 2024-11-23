@@ -6,7 +6,7 @@ const Ticket = require('../models/Ticket');
 const Event = require('../models/Event');
 const User = require('../models/User');
 const Purchase = require('../models/Purchase'); // Assuming a Purchase model exists
-const { authenticateToken } = require('../middleware/auth');
+const { authenticateToken ,authorizeAdmin } = require('../middleware/auth');
 const winston = require('winston');
 const nodemailer = require('nodemailer');
 require('dotenv').config(); // Import and configure dotenv
@@ -98,7 +98,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Payment Callback Route
 router.get('/payment/callback', async (req, res) => {
   const { tap_id } = req.query;
 
@@ -114,21 +113,26 @@ router.get('/payment/callback', async (req, res) => {
     const chargeDetails = response.data;
 
     if (chargeDetails.status !== 'CAPTURED') {
-      logger.warn('Payment failed or not completed.');
-      return res.status(400).json({ message: 'Payment failed or not completed' });
+      logger.warn(`Payment failed or not completed. Reason: ${chargeDetails.response.message}`);
+      return res.status(400).json({
+        status: 'failed',
+        message: chargeDetails.response.message || 'Payment failed or not completed',
+      });
     }
 
     const { eventId, userId } = chargeDetails.metadata;
 
+    // Retrieve event and user details
     const event = await Event.findById(eventId);
     const user = await User.findById(userId);
 
     if (!event || !user) {
-      logger.error('Event or User not found.');
-      return res.status(404).json({ message: 'Event or User not found.' });
+      const missingEntity = !event ? 'Event' : 'User';
+      logger.error(`${missingEntity} not found.`);
+      return res.status(404).json({ status: 'failed', message: `${missingEntity} not found.` });
     }
 
-    // Generate QR code as Base64
+    // Generate QR code data and create a Base64 image
     const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`;
     const qrCodeBase64 = await QRCode.toDataURL(qrCodeData);
 
@@ -141,17 +145,17 @@ router.get('/payment/callback', async (req, res) => {
 
     const qrCodeCloudinaryUrl = cloudinaryUpload.secure_url;
 
-    // Create a new ticket
+    // Create and save the ticket
     const newTicket = new Ticket({
       eventId: event._id,
       buyerId: user._id,
       QRCode: qrCodeData,
-      QRCodeImage: qrCodeCloudinaryUrl, // Store Cloudinary URL
+      QRCodeImage: qrCodeCloudinaryUrl, // Cloudinary URL
     });
 
     const savedTicket = await newTicket.save();
 
-    // Create a new purchase record
+    // Create and save the purchase record
     const newPurchase = new Purchase({
       userId: user._id,
       ticketId: savedTicket._id,
@@ -207,12 +211,25 @@ router.get('/payment/callback', async (req, res) => {
       }
     });
 
-    res.status(200).json({ ticket: savedTicket });
+    // Return success response with ticket details
+    res.status(200).json({
+      status: 'success',
+      message: 'Payment approved and ticket issued successfully.',
+      ticket: {
+        QRCodeImage: qrCodeCloudinaryUrl,
+        details: savedTicket,
+      },
+    });
   } catch (error) {
     logger.error(`Error processing payment callback: ${error.message}`);
-    res.status(500).json({ message: 'Error processing payment callback', error: error.message });
+    res.status(500).json({
+      status: 'failed',
+      message: 'Error processing payment callback',
+      error: error.message,
+    });
   }
 });
+
 
 // Validate Ticket
 router.post('/validate', authenticateToken, async (req, res) => {
@@ -254,6 +271,65 @@ router.post('/validate', authenticateToken, async (req, res) => {
   } catch (error) {
     logger.error(`Error validating ticket: ${error.message}`);
     res.status(500).json({ message: 'Error validating ticket.', error: error.message });
+  }
+});
+
+// Fetch All Tickets
+router.get('/', authenticateToken, authorizeAdmin, async (req, res) => {
+  try {
+    const { email, eventId, used } = req.query;
+
+    let query = {};
+
+    // Filter by user email
+    if (email) {
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+      query.buyerId = user._id;
+    }
+
+    // Filter by event ID
+    if (eventId) {
+      query.eventId = eventId;
+    }
+
+    // Filter by usage status
+    if (used === 'true') {
+      query.used = true;
+    } else if (used === 'false') {
+      query.used = false;
+    }
+
+    const tickets = await Ticket.find(query)
+      .populate('eventId', 'name dateOfEvent')
+      .populate('buyerId', 'fullName email');
+
+    res.status(200).json(tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+    res.status(500).json({ message: 'Error fetching tickets.', error: error.message });
+  }
+});
+
+// Get Tickets by Event ID
+router.get('/event/:eventId', authenticateToken, authorizeAdmin, async (req, res) => {
+  const { eventId } = req.params;
+
+  try {
+    const tickets = await Ticket.find({ eventId })
+      .populate('buyerId', 'fullName email')
+      .populate('eventId', 'name dateOfEvent');
+
+    if (!tickets.length) {
+      return res.status(404).json({ message: 'No tickets found for this event.' });
+    }
+
+    res.status(200).json(tickets);
+  } catch (error) {
+    console.error('Error fetching tickets by event ID:', error);
+    res.status(500).json({ message: 'Error fetching tickets by event ID.', error: error.message });
   }
 });
 

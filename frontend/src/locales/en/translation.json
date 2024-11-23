@@ -122,13 +122,24 @@
     "form": {
       "emailPlaceholder": "Email",
       "passwordPlaceholder": "Password",
+      "forgotPassword":"Forgot Password",
+
       "submitButton": "Login"
     },
+    "success": "Login successful!",
     "error": {
       "invalidCredentials": "Invalid email or password"
     }
-  },  "signup": {
-    "title": "Sign Up",
+  }, "signup": {
+    "messages": {
+      "passwordMismatch": "Passwords do not match.",
+      "submitting": "Submitting your registration...",
+      "success": "Registration successful!",
+      "failure": "An error occurred during registration. Please try again.",
+      "phoneAlreadyUsed": "This phone number is already in use.",
+      "emailAlreadyUsed": "This email is already in use.",
+      "duplicateKeyError": "A similar record already exists. Please use unique information."
+    },
     "form": {
       "fullName": "Full Name",
       "email": "Email",
@@ -136,9 +147,9 @@
       "city": "City",
       "region": "Region",
       "address1": "Address Line 1",
-      "address2": "Address Line 2 (optional)",
+      "address2": "Address Line 2",
       "age": "Age",
-      "gender": "Select Gender",
+      "gender": "Gender",
       "genderOptions": {
         "male": "Male",
         "female": "Female",
@@ -148,23 +159,21 @@
       "confirmPassword": "Confirm Password",
       "submitButton": "Sign Up"
     },
-    "messages": {
-      "passwordMismatch": "Passwords do not match",
-      "success": "Registration successful! Please log in.",
-      "failure": "Registration failed. Please try again."
-    }
-  }, "eventDetails": {
+    "title": "Sign Up"
+  },  "eventDetails": {
     "loading": "Loading event details...",
-    "dateOfEvent": "Date of Event",
-    "currency": "Currency",
-    "price": "Price",
+    "organizedBy": "Organized by",
     "ticketsAvailable": "Tickets Available",
-    "purchaseStartDate": "Purchase Start Date",
-    "purchaseEndDate": "Purchase End Date",
-    "paymentProcessing": "Processing payment, please wait...",
-    "purchaseSuccess": "Ticket Purchased Successfully!",
-    "purchaseSuccessMessage": "Your ticket has been issued. Use the QR code below to access the event:",
+    "price": "Price",
     "buyTicket": "Buy Ticket",
+    "paymentSuccess": "Payment Approved!",
+    "paymentFailed": "Payment Failed",
+    "thankYou": "Thank you for your purchase!",
+    "invoice": "Invoice Details",
+    "event": "Event",
+    "date": "Date",
+    "reason": "Reason",
+    "unknownError": "An unknown error occurred.",
     "loginPrompt": "Please login or sign up to purchase a ticket.",
     "error": {
       "fetchDetails": "Error fetching event details.",
@@ -172,52 +181,54 @@
       "purchaseTicket": "Error purchasing ticket.",
       "noPaymentUrl": "Error: No payment URL received."
     }
-  } ,   "eventsPage": { "title": "Search Events",
-  "results": "Search results",
-  "eventCard": {
-    "date": "Date",
-    "booking": "Booking"
-  }
-},  "home": {
-  "sections": {
-    "eventsSlider": {
-      "title": "Upcoming Events",
+  },  "eventsPage": {
+    "title": "Search Events",
+    "results": "Search results",
+    "eventCard": {
       "date": "Date",
-      "moreDetails": "More Details"
+      "booking": "Booking"
     }
-  }
-}, "profile": {
-  "title": "Profile",
-  "sections": {
-    "personalDetails": "Personal Details",
-    "purchaseHistory": "Purchase History"
-  },
-  "labels": {
-    "name": "Name",
-    "email": "Email",
-    "phone": "Phone",
-    "address": "Address",
-    "age": "Age",
-    "gender": "Gender",
-    "role": "Role",
-    "event": "Event",
-    "date": "Date",
-    "purchaseDate": "Purchase Date",
-    "amount": "Amount",
-    "paid": "Paid",
-    "used": "Used",
-    "qrCode": "QR Code"
-  },
-  "placeholders": {
-    "noPhone": "No phone number provided.",
-    "noAddress": "No address provided.",
-    "noAge": "Not provided",
-    "noTickets": "No tickets purchased yet."
-  },
-  "loading": "Loading profile...",
-  "error": "Error fetching profile data.",
-  "noData": "No user data available."
-} ,"about": {
+  },  "home": {
+    "sections": {
+      "eventsSlider": {
+        "title": "Upcoming Events",
+        "date": "Date",
+        "moreDetails": "More Details"
+      }
+    }
+  },  "profile": {
+    "title": "Profile",
+    "sections": {
+      "personalDetails": "Personal Details",
+      "purchaseHistory": "Purchase History"
+    },
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "age": "Age",
+      "gender": "Gender",
+      "role": "Role",
+      "event": "Event",
+      "date": "Date",
+      "purchaseDate": "Purchase Date",
+      "amount": "Amount",
+      "paid": "Paid",
+      "used": "Used",
+      "qrCode": "QR Code",
+      "noEvent": "No event details available"
+    },
+    "placeholders": {
+      "noPhone": "No phone number provided.",
+      "noAddress": "No address provided.",
+      "noAge": "Not provided",
+      "noTickets": "No tickets purchased yet."
+    },
+    "loading": "Loading profile...",
+    "error": "Error fetching profile data.",
+    "noData": "No user data available."
+  } ,"about": {
     "title": "About Us",
     "breadcrumb": {
       "home": "Home",
@@ -243,12 +254,8 @@
       "categories": "Event Categories",
       "partyOperators": "Party Operators"
     }
-  },  "contact": {
+  },   "contact": {
     "title": "Contact Us",
-    "breadcrumb": {
-      "home": "Home",
-      "contactUs": "Contact Us"
-    },
     "map": {
       "title": "Location Map"
     },
@@ -276,26 +283,64 @@
     }
   }
 ,  "qaSection": {
-  "title": "Find Your Answers",
-  "subtitle": "Tathaker FAQs",
-  "answerLabel": "Answer",
-  "faqs": {
-    "howToBuyTicket": {
-      "question": "How to Buy a Ticket?",
-      "answer": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+    "title": "Find Your Answers",
+    "subtitle": "Tathaker FAQs",
+    "answerLabel": "Answer",
+    "faqs": {
+      "howToBuyTicket": {
+        "question": "How to Buy a Ticket?",
+        "answer": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+      },
+      "howToCreateEvent": {
+        "question": "How to make a new event?",
+        "answer": "To make a new event, go to your dashboard, click on 'Create Event,' and fill out the required details."
+      },
+      "howToSetNameAndDate": {
+        "question": "How to set the event name & date?",
+        "answer": "Event names and dates can be set while creating or editing an event from the organizer’s dashboard."
+      },
+      "howToSetPrice": {
+        "question": "Set price for ticket?",
+        "answer": "Ticket prices can be added during the event creation process or updated later from the event management tab."
+      }
+    }
+  },"organizerDashboard": {
+    "title": "Organizer Dashboard",
+    "assignedEvents": "Assigned Events",
+    "event": {
+      "date": "Date",
+      "scanTickets": "Scan Tickets"
     },
-    "howToCreateEvent": {
-      "question": "How to make a new event?",
-      "answer": "To make a new event, go to your dashboard, click on 'Create Event,' and fill out the required details."
+    "noEvents": "No assigned events found."
+  },  "scanTickets": {
+    "title": "Scan Tickets",
+    "validationMessage": {
+      "success": "Ticket validated successfully!",
+      "failure": "Error validating ticket."
     },
-    "howToSetNameAndDate": {
-      "question": "How to set the event name & date?",
-      "answer": "Event names and dates can be set while creating or editing an event from the organizer’s dashboard."
+    "scannerError": "Error scanning QR code. Please try again.",
+    "nextScanButton": "Scan Next Ticket"
+  }, "forgotPassword": {
+    "title": "Forgot Password",
+    "form": {
+      "emailPlaceholder": "Enter your email address",
+      "submitButton": "Send Reset Link"
     },
-    "howToSetPrice": {
-      "question": "Set price for ticket?",
-      "answer": "Ticket prices can be added during the event creation process or updated later from the event management tab."
+    "messages": {
+      "success": "A reset link has been sent to your email.",
+      "error": "An error occurred while processing your request. Please try again."
+    }
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "form": {
+      "passwordPlaceholder": "Enter your new password",
+      "submitButton": "Reset Password"
+    },
+    "messages": {
+      "success": "Your password has been reset successfully. You can now log in.",
+      "error": "An error occurred while resetting your password. Please try again."
     }
   }
 }
-}
+

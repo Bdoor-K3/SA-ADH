@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { loginUser } from '../../services/api';
 import './Auth.css';
 
@@ -16,13 +16,12 @@ function Login() {
     setError('');
     try {
       const response = await loginUser({ email, password });
-      console.log(t('login.success'), response.data);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.user.role);
       navigate('/');
     } catch (err) {
-      console.error(t('login.error.invalidCredentials'), err.response?.data || err.message);
-      setError(err.response?.data?.message || t('login.error.invalidCredentials'));
+      const errorMessage = err.response?.data?.message || t('login.error.invalidCredentials');
+      setError(errorMessage);
     }
   };
 
@@ -47,6 +46,9 @@ function Login() {
         {error && <p className="error">{error}</p>}
         <button type="submit">{t('login.form.submitButton')}</button>
       </form>
+      <p>
+        <a href="/forgot-password">{t('login.form.forgotPassword')}</a>
+      </p>
     </div>
   );
 }

@@ -8,6 +8,7 @@ function Signup() {
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
+    email: '',
     address: {
       city: '',
       region: '',
@@ -29,7 +30,6 @@ function Signup() {
     }
 
     try {
-      console.log(t('signup.messages.submitting'), formData);
       await registerUser({
         fullName: formData.fullName,
         email: formData.email,
@@ -47,7 +47,10 @@ function Signup() {
       alert(t('signup.messages.success'));
     } catch (err) {
       console.error('API Error:', err.response?.data || err.message);
-      setError(t('signup.messages.failure'));
+
+      // Check if the server provides an error message and display it
+      const errorMessage = err.response?.data?.error || err.response?.data?.message || t('signup.messages.failure');
+      setError(errorMessage);
     }
   };
 
@@ -138,7 +141,6 @@ function Signup() {
           <option value="">{t('signup.form.gender')}</option>
           <option value="male">{t('signup.form.genderOptions.male')}</option>
           <option value="female">{t('signup.form.genderOptions.female')}</option>
-          <option value="other">{t('signup.form.genderOptions.other')}</option>
         </select>
         <input
           type="password"

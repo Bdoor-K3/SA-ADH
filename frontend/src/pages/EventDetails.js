@@ -11,7 +11,8 @@ function EventDetails() {
   const { t } = useTranslation();
 
   const [event, setEvent] = useState(null);
-  const [ticket, setTicket] = useState(null); // To hold ticket details (QR code, etc.)
+  const [ticket, setTicket] = useState(null); // Holds ticket details
+  const [paymentStatus, setPaymentStatus] = useState(null); // Holds payment state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -39,11 +40,13 @@ function EventDetails() {
       setLoading(true);
       const verifyPaymentStatus = async () => {
         try {
-          const response = await verifyPayment(tap_id); // Call backend to verify payment
-          setTicket(response.ticket); // Set ticket details to display QR code
+          const response = await verifyPayment(tap_id); // Verify payment with backend
+          setTicket(response.ticket); // Set ticket details (for QR code)
+          setPaymentStatus('approved');
         } catch (err) {
           console.error('Error verifying payment:', err);
           setError(t('eventDetails.error.verifyPayment'));
+          setPaymentStatus('failed');
         } finally {
           setLoading(false);
         }
@@ -93,7 +96,7 @@ function EventDetails() {
           </div>
         </div>
       </header>
-  
+
       <div className="event-card">
         <div className="event-dates">
           <div className="date-item">
@@ -119,16 +122,35 @@ function EventDetails() {
           {t('eventDetails.buyTicket')}
         </button>
       </div>
-      {ticket && (
-        <div className="ticket-details">
-          <h2>{t('eventDetails.purchaseSuccess')}</h2>
-          <img src={ticket.QRCodeImage} alt="Ticket QR Code" />
+
+      {paymentStatus && (
+        <div className={`payment-status ${paymentStatus}`}>
+          {paymentStatus === 'approved' ? (
+            <div className="payment-approved">
+              <h2>{t('eventDetails.paymentSuccess')}</h2>
+              <p>{t('eventDetails.thankYou')}</p>
+              <div className="ticket-invoice">
+                <h3>{t('eventDetails.invoice')}</h3>
+                <p>{t('eventDetails.event')}: {event.name}</p>
+                <p>{t('eventDetails.price')}: ${event.price}</p>
+                <p>{t('eventDetails.date')}: {new Date(event.dateOfEvent).toLocaleDateString()}</p>
+                <div className="qr-code">
+                  <img src={ticket.QRCodeImage} alt="QR Code" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="payment-failed">
+              <h2>{t('eventDetails.paymentFailed')}</h2>
+              <p>{t('eventDetails.reason')}: {error || t('eventDetails.unknownError')}</p>
+            </div>
+          )}
         </div>
       )}
+
       {error && <p className="error">{error}</p>}
     </div>
   );
-  
 }
 
 export default EventDetails;

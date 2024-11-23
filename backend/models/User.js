@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema(
     gender: { type: String, enum: ['male', 'female', 'other'], required: true },
     role: { type: String, default: 'customer', enum: ['customer', 'admin', 'organizer'] },
     password: { type: String, required: true },
+    resetToken: { type: String },
+    resetTokenUsed: { type: Boolean, default: false },
+    resetTokenExpires: { type: Date }, // Optional expiration time
   },
   { timestamps: true }
 );
