@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage });
-// Create Event
+// Create or Update Event
 router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
   try {
     const {
@@ -29,7 +29,13 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       purchaseStartDate,
       purchaseEndDate,
       organizers,
+      category,
+      location,
+      city,
     } = req.body;
+
+    // Check for or add a new category
+    const finalCategory = category || 'General';
 
     const newEvent = new Event({
       name,
@@ -41,7 +47,10 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       purchaseStartDate,
       purchaseEndDate,
       organizers,
-      image: req.file ? req.file.path : null, // Store Cloudinary URL
+      category: finalCategory,
+      location,
+      city,
+      image: req.file ? req.file.path : null,
     });
 
     const savedEvent = await newEvent.save();
@@ -51,7 +60,6 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
   }
 });
 
-// Update Event
 router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
   try {
     const {
@@ -64,6 +72,9 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       purchaseStartDate,
       purchaseEndDate,
       organizers,
+      category,
+      location,
+      city,
     } = req.body;
 
     const updateFields = {
@@ -76,6 +87,9 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       purchaseStartDate,
       purchaseEndDate,
       organizers,
+      category: category || 'General', // Default to "General" if not provided
+      location,
+      city,
     };
 
     if (req.file) {
@@ -92,7 +106,6 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
     res.status(500).json({ message: error.message });
   }
 });
-
 
 // Get All Events
 router.get('/', async (req, res) => {

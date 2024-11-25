@@ -41,6 +41,9 @@
     "form": {
       "eventName": "Event Name",
       "description": "Description",
+      "category": "Category",
+      "location": "Location",
+      "city": "City",
       "dateOfEvent": "Date of Event",
       "price": "Price",
       "currency": "Currency",
@@ -54,17 +57,26 @@
       }
     },
     "event": {
-      "currency": "Currency"
+      "currency": "Currency",
+      "category": "Category",
+      "location": "Location",
+      "city": "City"
     },
     "actions": {
       "edit": "Edit",
       "delete": "Delete"
     },
     "alerts": {
-      "selectOrganizer": "Please select at least one organizer for the event.",
-      "created": "Event created successfully!",
-      "updated": "Event updated successfully!",
-      "deleted": "Event deleted successfully!"
+      "fetchError": "Error fetching events.",
+      "fetchOrganizersError": "Error fetching organizers.",
+      "submitError": "Error submitting the event.",
+      "updated": "Event updated successfully.",
+      "created": "Event created successfully.",
+      "confirmDelete": "Are you sure you want to delete this event?",
+      "deleted": "Event deleted successfully.",
+      "loading": "Processing...",
+      "noEvents": "No events found.",
+      "selectOrganizer": "Please select at least one organizer."
     }
   },  "usersTab": {
     "title": {
@@ -160,27 +172,37 @@
       "submitButton": "Sign Up"
     },
     "title": "Sign Up"
-  },  "eventDetails": {
+  },   "eventDetails": {
     "loading": "Loading event details...",
+    "error": {
+      "fetchDetails": "Failed to fetch event details.",
+      "verifyPayment": "Failed to verify payment.",
+      "purchaseTicket": "Failed to purchase ticket.",
+      "noPaymentUrl": "No payment URL provided.",
+      "unknownError": "An unknown error occurred."
+    },
     "organizedBy": "Organized by",
-    "ticketsAvailable": "Tickets Available",
+    "poweredBy": "Powered by",
+    "category": "Category",
+    "location": "Location",
+    "city": "City",
+    "openLocation": "Open Location in Maps",
+    "copyLocation": "Copy Location Link",
+    "seats": "Seats",
+    "available": "Available",
     "price": "Price",
-    "buyTicket": "Buy Ticket",
-    "paymentSuccess": "Payment Approved!",
+    "buyTickets": "Buy Tickets",
+    "loginPrompt": "Please log in to purchase a ticket.",
+    "ticketsAvailable": "Tickets Available",
+    "paymentSuccess": "Payment Approved",
     "paymentFailed": "Payment Failed",
     "thankYou": "Thank you for your purchase!",
     "invoice": "Invoice Details",
     "event": "Event",
     "date": "Date",
     "reason": "Reason",
-    "unknownError": "An unknown error occurred.",
-    "loginPrompt": "Please login or sign up to purchase a ticket.",
-    "error": {
-      "fetchDetails": "Error fetching event details.",
-      "verifyPayment": "Error verifying payment or completing the purchase.",
-      "purchaseTicket": "Error purchasing ticket.",
-      "noPaymentUrl": "Error: No payment URL received."
-    }
+     "unknownError": "An unknown error occurred.",
+    "locationCopied": "Location link copied to clipboard."
   },  "eventsPage": {
     "title": "Search Events",
     "results": "Search results",
@@ -188,16 +210,31 @@
       "date": "Date",
       "booking": "Booking"
     }
-  },  "home": {
+  }, "home": {
     "sections": {
       "eventsSlider": {
-        "title": "Upcoming Events",
+        "title": "Events Slider",
         "date": "Date",
         "moreDetails": "More Details"
+      },
+      "whoWeAre": {
+        "title": "Who are we?",
+        "subTitle": "Who are Tathaker",
+        "description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "description2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "signature": "Your Name - Tathaker Owner"
       }
+    },
+    "sponsors": {
+      "title": "Sponsors",
+      "subtitle": "Our Sponsors"
     }
   },  "profile": {
     "title": "Profile",
+    "buttons": {
+    "goToOrganizer": "Go to Organizer Dashboard",
+    "goToAdmin": "Go to Admin Dashboard"
+  },
     "sections": {
       "personalDetails": "Personal Details",
       "purchaseHistory": "Purchase History"
@@ -229,32 +266,41 @@
     "error": "Error fetching profile data.",
     "noData": "No user data available."
   } ,"about": {
-    "title": "About Us",
-    "breadcrumb": {
-      "home": "Home",
-      "aboutUs": "About Us"
+  "title": "About Us",
+  "breadcrumb": {
+    "home": "Home",
+    "aboutUs": "About Us"
+  },
+  "tabs": {
+    "whoWeAre": "Who We Are",
+    "whyChooseUs": "Why Choose Us",
+    "ourVision": "Our Vision"
+  },
+  "content": {
+    "whoWeAre": {
+      "part1": "We are a trusted platform connecting event organizers and attendees.",
+      "part2": "Our mission is to make event management seamless and enjoyable."
     },
-    "tabs": {
-      "whoWeAre": "Who are we?",
-      "whyChooseUs": "Why choose us?",
-      "ourVision": "Our vision"
+    "whyChooseUs": {
+      "part1": "We provide cutting-edge tools to ensure event success.",
+      "part2": "Our platform is user-friendly and secure for everyone."
     },
-    "content": {
-      "whoWeAre": {
-        "part1": "We are a trusted platform connecting event organizers with attendees.",
-        "part2": "Our mission is to make event management seamless and enjoyable."
-      }
-    },
-    "imageAlt": "About Us",
-    "stats": {
-      "title": "Awesome Facts",
-      "description": "Here are some impressive statistics about our platform:",
-      "events": "Events Hosted",
-      "ticketsSold": "Tickets Sold",
-      "categories": "Event Categories",
-      "partyOperators": "Party Operators"
+    "ourVision": {
+      "part1": "Our vision is to be the leading event platform worldwide.",
+      "part2": "We aim to innovate and set new standards in event management."
     }
-  },   "contact": {
+  },
+  "imageAlt": "About Us",
+  "stats": {
+    "title": "Amazing Facts",
+    "description": "Here are some impressive stats about our platform:",
+    "events": "Hosted Events",
+    "ticketsSold": "Tickets Sold",
+    "categories": "Event Categories",
+    "partyOperators": "Party Operators"
+  }
+}
+,   "contact": {
     "title": "Contact Us",
     "map": {
       "title": "Location Map"

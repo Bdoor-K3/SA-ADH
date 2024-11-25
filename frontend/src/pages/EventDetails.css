@@ -1,202 +1,129 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .event-details {
-  font-family: Arial, sans-serif;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5;
   padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.event-header {
-  background: url('./assets/37.jpg') no-repeat center center;
-  background-size: cover;
-  position: relative;
-  color: #fff;
-  text-align: left;
-  padding: 50px  0 100px;
-  min-height: 400px;
-
-}
-
-.event-header::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-}
-
-.event-header-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.event-header .event-title {
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.event-header .social-links {
-  display: flex;
-  gap: 10px;
-}
-
-.social-link {
-  background-color: #aa336a;
-  color: #fff;
-  padding: 10px;
-  border-radius: 50%;
-  font-size: 16px;
-  text-align: center;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background 0.3s;
-}
-
-.social-link:hover {
-  background-color: #8b2a58;
 }
 
 .event-card {
   background: #fff;
-  margin-top: -60px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
 }
 
-.event-card h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #3f1651;
-}
-
-.event-card p {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  color: #555;
-}
-
-.event-card .event-dates {
+.event-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  align-items: center;
 }
 
-.event-card .date-item {
+.event-dates {
+  display: flex;
+  gap: 20px;
+}
+
+.date-item {
   text-align: center;
   font-weight: bold;
 }
 
-.event-card .date-item span {
-  display: block;
-  font-size: 20px;
+.date-item span:first-child {
+  font-size: 24px;
   color: #aa336a;
 }
 
-.event-card .buy-ticket-button {
-  background: #aa336a;
-  color: #fff;
-  padding: 10px 20px;
+.date-item span:last-child {
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #555;
+}
+.event-map {
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.event-map iframe {
+  width: 100%;
+  height: 300px;
   border: none;
-  border-radius: 5px;
+}
+
+.event-name {
+  font-size: 22px;
+  font-weight: bold;
+  color: #3f1651;
+  margin-bottom: 5px;
+}
+
+.event-tickets {
+  font-size: 14px;
+  color: #777;
+}
+
+.buy-ticket-button {
+  background-color: #aa336a;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
   transition: background 0.3s;
-  display: inline-block;
-  margin-top: 20px;
 }
 
-.event-card .buy-ticket-button:hover {
-  background: #8b2a58;
+.buy-ticket-button:hover {
+  background-color: #8b2a58;
 }
 
-.event-card .ticket-info {
-  margin-top: 20px;
-  background: #f1f1f1;
-  padding: 15px;
+.location-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.open-location-button,
+.copy-location-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
   border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.ticket-details img {
-  margin-top: 20px;
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+.open-location-button:hover,
+.copy-location-button:hover {
+  background-color: #0056b3;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .event-header-content {
+  .event-card {
+    padding: 15px;
+  }
+
+  .event-map {
+    height: 200px;
+  }
+
+  .event-header {
     flex-direction: column;
     text-align: center;
   }
 
-  .event-card {
-    margin-top: 0;
-    padding: 15px;
+  .event-dates {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .event-card .event-dates {
+  .location-buttons {
     flex-direction: column;
   }
-
-  .event-card .buy-ticket-button {
-    width: 100%;
-  }
-}
-.payment-status {
-  margin: 20px 0;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.payment-approved {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-}
-
-.payment-failed {
-  background-color: #ffebee;
-  color: #c62828;
-}
-
-.ticket-invoice {
-  margin-top: 20px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.ticket-invoice .qr-code {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.ticket-invoice img {
-  max-width: 200px;
-  height: auto;
 }

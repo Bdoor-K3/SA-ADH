@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./EventsPage.css";
 
 function EventsPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); // Added `i18n` for direction handling
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
@@ -23,10 +23,12 @@ function EventsPage() {
   };
 
   return (
-    <div className="events-page">
+    <div className={`events-page ${i18n.language === "ar" ? "rtl" : "ltr"}`}>
       <div className="events-header">
         <h1>{t("eventsPage.title")}</h1>
-        <p>{events.length} {t("eventsPage.results")}</p>
+        <p>
+          {events.length} {t("eventsPage.results")}
+        </p>
       </div>
       <div className="events-grid">
         {events.map((event) => (

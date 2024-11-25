@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+/* Contact Section Styles */
 .contact-section {
   position: relative;
   font-family: Arial, sans-serif;
@@ -12,6 +13,7 @@
   padding: 0;
 }
 
+/* Map Container */
 .map-container {
   height: 400px;
   position: relative;
@@ -24,6 +26,7 @@
   border: none;
 }
 
+/* Contact Content */
 .contact-content {
   position: relative;
   background: rgba(255, 255, 255, 0.9);
@@ -34,19 +37,21 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 30px;
-  margin-top: -200px; /* لإدخال العنصر في الخريطة */
+  margin-top: -200px; /* Overlaps the map */
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   z-index: 2;
 }
 
-.contact-form, .contact-info {
+.contact-form,
+.contact-info {
   flex: 1 1 45%;
   padding: 20px;
 }
 
-.contact-form h3, .contact-info h3 {
+.contact-form h3,
+.contact-info h3 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 15px;
@@ -116,7 +121,64 @@
     padding: 20px;
   }
 
-  .contact-form, .contact-info {
+  .contact-form,
+  .contact-info {
     flex: 1 1 100%;
+    max-width: 100%;
   }
+
+  .contact-form h3,
+  .contact-info h3 {
+    font-size: 20px;
+  }
+
+  .contact-form form input,
+  .contact-form form textarea {
+    font-size: 12px;
+  }
+
+  .contact-form form button {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  .social-icons a {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form h3,
+  .contact-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .contact-form form input,
+  .contact-form form textarea {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .contact-form form button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .social-icons a {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
+
+/* RTL and LTR Support */
+.contact-section.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.contact-section.ltr {
+  direction: ltr;
+  text-align: left;
 }

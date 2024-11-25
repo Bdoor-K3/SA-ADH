@@ -30,6 +30,58 @@ const logger = winston.createLogger({
 const TAP_SECRET_KEY = process.env.TAP_SECRET_KEY; // Set your Tap secret key in .env
 const TAP_API_BASE_URL = 'https://api.tap.company/v2/charges'; // Tap Payments API URL
 
+// Fetch tickets by event ID and optionally filter by email or phoneNumber number for ORganizer page
+router.get('/', async (req, res) => {
+  try {
+    const { eventId, email, phoneNumber } = req.query;
+
+    if (!eventId) {
+      return res.status(400).json({ message: 'Event ID is required.' });
+    }
+
+    const query = { eventId };
+
+    if (email || phoneNumber) {
+      const buyerFilter = {};
+      if (email) buyerFilter.email = email;
+      if (phoneNumber) buyerFilter.phoneNumber = phoneNumber;
+
+      const buyers = await User.find(buyerFilter).select('_id');
+      query.buyerId = { $in: buyers.map((user) => user._id) };
+    }
+
+    const tickets = await Ticket.find(query).populate('buyerId', 'email phoneNumber fullName');
+    res.status(200).json(tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+    res.status(500).json({ message: 'Error fetching tickets.' });
+  }
+});
+// Mark ticket as used
+router.put('/:id/use', async (req, res) => {
+  try {
+    const ticketId = req.params.id;
+
+    const ticket = await Ticket.findById(ticketId);
+    if (!ticket) {
+      return res.status(404).json({ message: 'Ticket not found.' });
+    }
+
+    if (ticket.used) {
+      return res.status(400).json({ message: 'Ticket has already been used.' });
+    }
+
+    ticket.used = true;
+    ticket.useDate = new Date();
+    await ticket.save();
+
+    res.status(200).json({ message: 'Ticket marked as used successfully.', ticket });
+  } catch (error) {
+    console.error('Error updating ticket status:', error);
+    res.status(500).json({ message: 'Error updating ticket status.' });
+  }
+});
+
 // Purchase Ticket with Tap Payments
 router.post('/purchase', authenticateToken, async (req, res) => {
   const { eventId } = req.body;
@@ -66,7 +118,7 @@ router.post('/purchase', authenticateToken, async (req, res) => {
       customer: {
         first_name: user.name,
         email: user.email,
-        phone: { country_code: 966, number: user.phone }, // Assuming user has a phone field
+        phoneNumber: { country_code: 966, number: user.phoneNumber }, // Assuming user has a phoneNumber field
       },
       source: { id: 'src_all' },
       redirect: { url: `${process.env.BASE_URL}/events/${event._id}` }, // Replace with actual redirect URL

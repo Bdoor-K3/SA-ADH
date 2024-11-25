@@ -15,8 +15,11 @@ const eventSchema = new mongoose.Schema(
     ticketsAvailable: { type: Number, required: true },
     purchaseStartDate: { type: Date, required: true },
     purchaseEndDate: { type: Date, required: true },
+    category: { type: String, required: true }, // Category field
+    location: { type: String, required: true }, // Location field
+    city: { type: String, required: true }, // City field
     organizers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    image: { type: String }, // New image field for Cloudinary URL
+    image: { type: String }, // Cloudinary URL
   },
   { timestamps: true }
 );

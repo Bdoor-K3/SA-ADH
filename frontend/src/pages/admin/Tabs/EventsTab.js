@@ -17,6 +17,9 @@ function EventsTab() {
     purchaseStartDate: '',
     purchaseEndDate: '',
     organizers: [],
+    category: '',
+    location: '',
+    city: '',
     image: null,
   });
   const [editEventId, setEditEventId] = useState(null);
@@ -100,6 +103,9 @@ function EventsTab() {
       purchaseStartDate: '',
       purchaseEndDate: '',
       organizers: [],
+      category: '',
+      location: '',
+      city: '',
       image: null,
     });
     setEditEventId(null);
@@ -117,6 +123,9 @@ function EventsTab() {
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
       purchaseEndDate: event.purchaseEndDate.slice(0, 10),
       organizers: event.organizers,
+      category: event.category,
+      location: event.location,
+      city: event.city,
       image: null,
     });
   };
@@ -165,6 +174,24 @@ function EventsTab() {
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           required
+        />
+        <input
+          type="text"
+          placeholder={t('eventsTab.form.category')}
+          value={formData.category}
+          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder={t('eventsTab.form.location')}
+          value={formData.location}
+          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder={t('eventsTab.form.city')}
+          value={formData.city}
+          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
         />
         <input
           type="date"
@@ -248,9 +275,9 @@ function EventsTab() {
                 style={{ width: '100px', height: '100px', objectFit: 'cover' }}
               />
               <h3>{event.name}</h3>
-              <p>
-                {t('eventsTab.event.currency')}: {event.currency}
-              </p>
+              <p>{t('eventsTab.event.category')}: {event.category}</p>
+              <p>{t('eventsTab.event.location')}: {event.location}</p>
+              <p>{t('eventsTab.event.city')}: {event.city}</p>
               <button onClick={() => handleEditEvent(event)} className="edit-button">
                 {t('eventsTab.actions.edit')}
               </button>

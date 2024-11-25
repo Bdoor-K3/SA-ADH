@@ -4,6 +4,28 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* RTL and LTR Support */
+.profile.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.profile.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.profile-details p,
+.purchase-history p {
+  text-align: inherit;
+}
+
+.ticket-item img.qr-code {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}
 
 .profile {
   font-family: Arial, sans-serif;
@@ -96,4 +118,20 @@
   .profile-details, .purchase-history {
     flex: 1 1 100%;
   }
+}
+.profile-button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #aa336a;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.profile-button:hover {
+  background-color: #3f1651;
 }

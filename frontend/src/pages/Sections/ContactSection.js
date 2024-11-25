@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import './ContactSection.css';
 
 function ContactSection() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); // Added i18n for direction handling
 
   return (
-    <section className="contact-section">
-      {/* خريطة Google */}
+    <section className={`contact-section ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
+      {/* Google Map */}
       <div className="map-container">
         <iframe
           title={t('contact.map.title')}
@@ -17,7 +17,7 @@ function ContactSection() {
         ></iframe>
       </div>
 
-      {/* محتوى الاتصال */}
+      {/* Contact Content */}
       <div className="contact-content">
         <div className="contact-form">
           <h3>{t('contact.form.title')}</h3>
@@ -58,14 +58,14 @@ function ContactSection() {
             <strong>{t('contact.info.phoneLabel')}:</strong> +59 123456789121
           </p>
           <div className="social-icons">
-            <a href="#facebook" className="social-icon">
-              Facebook
+            <a href="#facebook" className="social-icon" aria-label="Facebook">
+              <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="#twitter" className="social-icon">
-              Twitter
+            <a href="#twitter" className="social-icon" aria-label="Twitter">
+              <i className="fab fa-twitter"></i>
             </a>
-            <a href="#instagram" className="social-icon">
-              Instagram
+            <a href="#instagram" className="social-icon" aria-label="Instagram">
+              <i className="fab fa-instagram"></i>
             </a>
           </div>
         </div>

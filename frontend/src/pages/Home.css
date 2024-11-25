@@ -9,12 +9,12 @@
   font-family: Arial, sans-serif;
 }
 
-/* Main Event Section *//* Main Event Section */
+/* Main Event Section */
 #events-slider {
   position: relative;
   text-align: center;
   color: #fff;
-  margin-bottom: 60px; /* Increased margin for spacing */
+  margin-bottom: 60px;
 }
 
 .slider-card {
@@ -28,7 +28,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.5); /* Dimmed the image further */
+  filter: brightness(0.5);
 }
 
 .slider-content {
@@ -43,13 +43,13 @@
 .slider-content h3 {
   font-size: 40px;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Enhanced text shadow for better readability */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .slider-content p {
   font-size: 18px;
   margin: 10px 0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* Enhanced text shadow */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .slider-content button {
@@ -72,7 +72,7 @@
 #event-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px; /* Increased gap for better spacing */
+  gap: 30px;
   padding: 20px;
 }
 
@@ -122,9 +122,10 @@
   background: #8b2a58;
 }
 
-div{
+div {
   margin-bottom: 10px;
 }
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .slider-card {
@@ -147,7 +148,198 @@ div{
     margin: 0 auto;
     width: 90%;
   }
+ 
 }
-h2{
-  color: black;
+/* Who We Are Section */
+.who-we-are {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 20px;
+  background-color: #fff;
+  position: relative;
+}
+
+.who-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.who-text {
+  width: 55%;
+}
+
+.who-text h3 {
+  font-size: 1.5rem;
+  color: #aa336a;
+  margin-bottom: 10px;
+}
+
+.who-text h2 {
+  font-size: 2.5rem;
+  color: #3f1651;
+  margin-bottom: 20px;
+}
+
+.who-text p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.signature {
+  margin-top: 20px;
+  border-left: 4px solid #aa336a;
+  padding-left: 10px;
+}
+
+.signature span {
+  font-style: italic;
+  font-weight: bold;
+  color: #3f1651;
+}
+
+/* Images Section */
+.who-images {
+  width: 40%;
+  position: relative;
+  height: 400px;
+}
+
+.who-images::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20px; /* Adjust horizontal alignment */
+  width: 100%;
+  height: 100%;
+  background: url('./assets/pp10.png') no-repeat center center;
+  background-size: contain;
+  z-index: 1;
+}
+
+.who-images::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 30px; /* Adjust to move over background */
+  width: 80%;
+  height: 80%;
+  background: url('./assets/iimm.jpg') no-repeat center center;
+  background-size: contain;
+  z-index: 2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .who-we-are {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .who-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .who-text {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .who-images {
+    width: 100%;
+    height: 300px;
+  }
+
+  .who-images::before,
+  .who-images::after {
+    background-size: 80%;
+  }
+}
+/* Sponsors Section */
+.sponsors {
+  background: #3f1651;
+  color: #fff;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.sponsors-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sponsors h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sponsors-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: #aaa;
+}
+
+.sponsors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.sponsor-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sponsor-card img {
+  max-width: 100%;
+  max-height: 100%;
+  filter: brightness(0) invert(1); /* White logos */
+}
+
+.sponsor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sponsors h2 {
+    font-size: 2rem;
+  }
+
+  .sponsors-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+/* RTL and LTR Support */
+.home.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.home.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.slider-content h3,
+.slider-content p,
+.event-content h3,
+.event-content p {
+  text-align: inherit;
 }

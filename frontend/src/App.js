@@ -13,6 +13,8 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import EventDetails from './pages/EventDetails';
 import Profile from './pages/Profile';
 import OrganizerDashboard from './pages/organizer/OrganizerDashboard';
+import ScanTicket from './pages/organizer/ScanTickets';
+
 import About from './pages/Sections/AboutSection';
 import FAQs from './pages/Sections/QASection';
 import Contact from './pages/Sections/ContactSection';
@@ -63,6 +65,14 @@ function App() {
           element={
             <ProtectedRoute role="organizer">
               <OrganizerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organizer/scan/:id"
+          element={
+            <ProtectedRoute role="organizer">
+              <ScanTicket />
             </ProtectedRoute>
           }
         />

@@ -4,7 +4,7 @@ import { fetchUserProfile } from '../services/api';
 import './Profile.css';
 
 function Profile() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); // Added `i18n` for direction handling
   const [user, setUser] = useState(null);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
   const [error, setError] = useState('');
@@ -40,7 +40,7 @@ function Profile() {
   }
 
   return (
-    <div className="profile">
+    <div className={`profile ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
       <h1>{t('profile.title')}</h1>
       <div className="profile-container">
         {/* Personal Details */}
@@ -59,8 +59,26 @@ function Profile() {
               : t('profile.placeholders.noAddress')}
           </p>
           <p><strong>{t('profile.labels.age')}:</strong> {user.age || t('profile.placeholders.noAge')}</p>
-          <p><strong>{t('profile.labels.gender')}:</strong> {user.gender || t('profile.placeholders.noAge')}</p>
+          <p><strong>{t('profile.labels.gender')}:</strong> {user.gender || t('profile.placeholders.noGender')}</p>
           <p><strong>{t('profile.labels.role')}:</strong> {user.role}</p>
+          <p><strong>{t('profile.labels.role')}:</strong> {user.role}</p>
+{user.role === 'organizer' && (
+  <button
+    className="profile-button"
+    onClick={() => window.location.href = '/organizer'}
+  >
+    {t('profile.buttons.goToOrganizer')}
+  </button>
+)}
+{user.role === 'admin' && (
+  <button
+    className="profile-button"
+    onClick={() => window.location.href = '/admin'}
+  >
+    {t('profile.buttons.goToAdmin')}
+  </button>
+)}
+
         </div>
 
         {/* Purchase History */}

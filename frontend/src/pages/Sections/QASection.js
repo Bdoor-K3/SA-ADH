@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import './QASection.css';
 
 function QASection() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); // Added i18n for direction handling
   const [activeIndex, setActiveIndex] = useState(null);
 
   const faqs = [
@@ -30,7 +30,7 @@ function QASection() {
   };
 
   return (
-    <section className="qa-section">
+    <section className={`qa-section ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container">
         <h2 className="qa-title">{t('qaSection.title')}</h2>
         <h3 className="qa-subtitle">{t('qaSection.subtitle')}</h3>

@@ -3,8 +3,8 @@ import axios from 'axios';
 
 // Set up a base instance with the backend URL from .env
 const api = axios.create({
-  baseURL:   process.env.REACT_APP_BACKEND_URL,
-});
+  baseURL:   'http://localhost:5000',
+});//process.env.REACT_APP_BACKEND_URL
 
 // Add a request interceptor to include the Authorization header
 api.interceptors.request.use(
@@ -207,6 +207,16 @@ export const fetchTickets = async (queryParams = '') => {
     throw error;
   }
 };
+export const markTicketAsUsed = async (ticketId) => {
+  try {
+    const response = await api.put(`/api/tickets/${ticketId}/use`);
+    return response.data;
+  } catch (error) {
+    console.error('Error marking ticket as used:', error);
+    throw error;
+  }
+};
+
 
 // Export the instance for custom requests if needed
 export default api;
