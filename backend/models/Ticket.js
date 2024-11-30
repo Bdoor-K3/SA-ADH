@@ -4,11 +4,12 @@ const ticketSchema = new mongoose.Schema(
   {
     eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
     buyerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    QRCode: { type: String, required: true }, // Raw QR code data for validation
-    QRCodeImage: { type: String }, // Base64 image (optional for UI)
+    QRCode: { type: String, required: true },
+    QRCodeImage: { type: String },
     used: { type: Boolean, default: false },
     useDate: { type: Date },
     purchaseDate: { type: Date, default: Date.now },
+    tapId: { type: String, unique: true }, // New field to track Tap Payment ID
   },
   { timestamps: true }
 );

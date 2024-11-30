@@ -1,0 +1,141 @@
+/* General Auth Page Styling */
+.auth-page {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100vh;
+  background: url('../assets/bg.png') no-repeat center center;
+  background-size: cover;
+  padding: 20px;
+}
+
+/* Auth Container */
+.auth-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+/* Back Button */
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #00bfff;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.auth-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.auth-button {
+  background-color: #00bfff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.auth-button:hover {
+  background-color: #007bff;
+}
+
+.social-login p {
+  margin: 20px 0 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.social-button {
+  display: block;
+  width: 100%;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.social-button.google {
+  border-color: #ea4335;
+  color: #ea4335;
+}
+
+.social-button.apple {
+  border-color: #333;
+  color: #333;
+}
+
+.social-button:hover {
+  background-color: #f9f9f9;
+}
+
+.terms {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.auth-logo {
+  background: url('../assets/saada.png') no-repeat center center;
+  background-size: contain;
+  width: 200px;
+  height: 200px;
+}
+.signup-button {
+  background-color: #ff79c6; /* Pink background color */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 15px 20px; /* Padding for a larger button */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-size: 16px; /* Clear and readable font size */
+  font-weight: bold; /* Bold text for emphasis */
+  cursor: pointer; /* Pointer cursor on hover */
+  width: 100%; /* Full-width button */
+  text-align: center; /* Center the text */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.signup-button:hover {
+  background-color: #e056b6; /* Slightly darker pink for hover effect */
+}

@@ -1,18 +1,287 @@
-2024-11-20T11:27:54.727Z [ERROR]: Error initiating payment: Request failed with status code 401
-2024-11-20T11:28:17.658Z [ERROR]: Error initiating payment: Request failed with status code 401
-2024-11-20T20:04:47.120Z [ERROR]: Error sending email: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
-534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor ffacd0b85a97d-38254910583sm3015264f8f.45 - gsmtp
-2024-11-20T20:04:48.205Z [ERROR]: Error sending email: Invalid login: 534-5.7.9 Application-specific password required. For more information, go to
-534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 5b1f17b1804b1-433b45bd4d1sm30591525e9.12 - gsmtp
-2024-11-20T20:11:38.243Z [INFO]: Email sent: 250 2.0.0 OK  1732133528 5b1f17b1804b1-433b01e115asm31803155e9.6 - gsmtp
-2024-11-20T20:11:40.281Z [INFO]: Email sent: 250 2.0.0 OK  1732133530 ffacd0b85a97d-38254933c6dsm3011665f8f.73 - gsmtp
-2024-11-20T20:21:44.545Z [ERROR]: Error processing payment callback: ticket is not defined
-2024-11-20T20:21:46.024Z [ERROR]: Error processing payment callback: ticket is not defined
-2024-11-20T20:22:43.888Z [ERROR]: Error processing payment callback: ticket is not defined
-2024-11-20T20:22:45.595Z [ERROR]: Error processing payment callback: ticket is not defined
-2024-11-20T20:23:41.182Z [ERROR]: Error processing payment callback: ticket is not defined
-2024-11-20T20:23:42.473Z [ERROR]: Error processing payment callback: ticket is not defined
-2024-11-20T20:26:38.835Z [INFO]: Email sent: 250 2.0.0 OK  1732134429 5b1f17b1804b1-433b4643100sm31300635e9.39 - gsmtp
-2024-11-20T20:26:40.124Z [INFO]: Email sent: 250 2.0.0 OK  1732134430 5b1f17b1804b1-433b463ab5fsm31531105e9.27 - gsmtp
-2024-11-21T07:39:48.013Z [INFO]: Email sent: 250 2.0.0 OK  1732174818 5b1f17b1804b1-433b463ad39sm45103995e9.37 - gsmtp
-2024-11-21T07:39:49.972Z [INFO]: Email sent: 250 2.0.0 OK  1732174819 5b1f17b1804b1-433b45d4ce6sm44531765e9.25 - gsmtp
+2024-11-26T09:21:20.061Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-26T09:27:43.345Z [WARN]: Missing data parameter in callback request
+2024-11-26T09:27:44.987Z [INFO]: Tap API Response:
+2024-11-26T09:27:46.704Z [INFO]: Ticket created successfully for user 673d8226520016acd6742b67 and event 673d8d79483cd3c21493cee0
+2024-11-26T09:27:46.705Z [WARN]: Missing data parameter in callback request
+2024-11-26T09:27:47.989Z [INFO]: Tap API Response:
+2024-11-26T09:27:48.837Z [INFO]: Ticket created successfully for user 673d8226520016acd6742b67 and event 673d8d79483cd3c21493cee0
+2024-11-26T09:27:53.308Z [WARN]: Missing data parameter in callback request
+2024-11-26T09:27:55.165Z [INFO]: Tap API Response:
+2024-11-26T09:27:56.387Z [INFO]: Ticket created successfully for user 673d8226520016acd6742b67 and event 673d8d79483cd3c21493cee0
+2024-11-26T09:27:56.389Z [WARN]: Missing data parameter in callback request
+2024-11-26T09:27:56.733Z [ERROR]: Error processing payment callback:
+2024-11-26T09:36:40.299Z [INFO]: Tap API Response:
+2024-11-26T09:36:43.633Z [INFO]: Tap API Response:
+2024-11-26T09:36:45.201Z [INFO]: Email sent: 250 2.0.0 OK  1732613847 ffacd0b85a97d-3825fbc415asm13046971f8f.75 - gsmtp
+2024-11-26T09:36:46.423Z [INFO]: Email sent: 250 2.0.0 OK  1732613848 5b1f17b1804b1-4349e47f3d1sm77341675e9.17 - gsmtp
+2024-11-26T09:40:19.613Z [INFO]: Tap API Response:
+2024-11-26T09:40:22.740Z [INFO]: Tap API Response:
+2024-11-26T09:40:23.604Z [INFO]: Email sent: 250 2.0.0 OK  1732614066 ffacd0b85a97d-3825fad6730sm13265530f8f.9 - gsmtp
+2024-11-26T09:40:25.727Z [INFO]: Email sent: 250 2.0.0 OK  1732614068 5b1f17b1804b1-434a14ace5asm47599555e9.9 - gsmtp
+2024-11-26T09:40:49.697Z [INFO]: Tap API Response:
+2024-11-26T09:40:51.498Z [ERROR]: Error processing payment callback: Request failed with status code 429
+2024-11-26T09:40:53.602Z [INFO]: Email sent: 250 2.0.0 OK  1732614096 ffacd0b85a97d-3825fb05e3esm13085126f8f.42 - gsmtp
+2024-11-26T09:42:05.041Z [INFO]: Tap API Response:
+2024-11-26T09:42:07.933Z [INFO]: Tap API Response:
+2024-11-26T09:42:09.234Z [INFO]: Email sent: 250 2.0.0 OK  1732614171 5b1f17b1804b1-43498a31432sm100733515e9.28 - gsmtp
+2024-11-26T09:42:11.101Z [INFO]: Email sent: 250 2.0.0 OK  1732614173 ffacd0b85a97d-3825fb3134bsm12734397f8f.58 - gsmtp
+2024-11-26T09:49:27.890Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-26T09:49:38.437Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-26T14:46:16.486Z [INFO]: Tap API Response:
+2024-11-26T14:46:19.648Z [INFO]: Tap API Response:
+2024-11-26T14:46:20.800Z [INFO]: Email sent: 250 2.0.0 OK  1732632424 ffacd0b85a97d-3825fbed99dsm13379150f8f.94 - gsmtp
+2024-11-26T14:46:24.193Z [INFO]: Email sent: 250 2.0.0 OK  1732632427 ffacd0b85a97d-3825fafe147sm13405472f8f.30 - gsmtp
+2024-11-26T14:49:55.265Z [INFO]: Tap API Response:
+2024-11-26T14:49:56.429Z [ERROR]: Error uploading QR Code to Cloudinary: undefined
+2024-11-26T14:49:57.622Z [INFO]: Tap API Response:
+2024-11-26T14:49:58.679Z [ERROR]: Error uploading QR Code to Cloudinary: undefined
+2024-11-26T14:51:09.834Z [INFO]: Tap API Response:
+2024-11-26T14:51:12.621Z [INFO]: Tap API Response:
+2024-11-26T14:51:13.457Z [INFO]: Email sent: 250 2.0.0 OK  1732632716 ffacd0b85a97d-3825fb2760asm13461815f8f.52 - gsmtp
+2024-11-26T14:51:15.310Z [INFO]: Email sent: 250 2.0.0 OK  1732632718 ffacd0b85a97d-3825fad6262sm13488727f8f.18 - gsmtp
+2024-11-26T14:55:06.491Z [INFO]: Tap API Response:
+2024-11-26T14:55:09.508Z [INFO]: Tap API Response:
+2024-11-26T14:55:10.570Z [INFO]: Email sent: 250 2.0.0 OK  1732632953 ffacd0b85a97d-3825fad641fsm13491004f8f.20 - gsmtp
+2024-11-26T14:55:12.489Z [INFO]: Email sent: 250 2.0.0 OK  1732632955 5b1f17b1804b1-43494a0ad65sm112774305e9.26 - gsmtp
+2024-11-26T14:55:22.821Z [INFO]: Tap API Response:
+2024-11-26T14:55:24.391Z [ERROR]: Rate limit exceeded: Too many requests to Tap Payments API.
+2024-11-26T14:55:26.135Z [INFO]: Email sent: 250 2.0.0 OK  1732632969 5b1f17b1804b1-434a36b83d5sm39287355e9.44 - gsmtp
+2024-11-26T15:03:49.915Z [INFO]: Tap API Response:
+2024-11-26T15:03:52.152Z [ERROR]: Error uploading QR Code to Cloudinary: undefined
+2024-11-26T15:03:53.336Z [INFO]: Tap API Response:
+2024-11-26T15:03:57.539Z [INFO]: Email sent: 250 2.0.0 OK  1732633480 5b1f17b1804b1-4349e47f3d1sm86267845e9.17 - gsmtp
+2024-11-26T15:04:26.746Z [INFO]: Tap API Response:
+2024-11-26T15:04:28.712Z [ERROR]: Rate limit exceeded: Too many requests to Tap Payments API.
+2024-11-26T15:04:30.673Z [INFO]: Email sent: 250 2.0.0 OK  1732633513 ffacd0b85a97d-3825fad6723sm13636698f8f.16 - gsmtp
+2024-11-26T15:08:14.909Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:08:26.585Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:08:26.589Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:10:32.082Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:10:32.089Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:13:17.094Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:13:17.098Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:13:23.608Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:13:23.612Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:15:20.317Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:15:20.322Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:15:40.699Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:15:40.701Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:00.695Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:00.700Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:03.399Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:03.402Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:18.274Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:18.278Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:55.042Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:55.045Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:57.084Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:16:57.087Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:17:06.175Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:17:06.177Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:17:20.399Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:17:20.405Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:17:28.007Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:17:28.011Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:18:05.793Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:18:05.796Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:18:07.267Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:18:07.270Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:05.164Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:05.166Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:07.651Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:07.653Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:34.440Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:34.442Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:36.449Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:36.451Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:40.885Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:40.887Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:47.462Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:19:47.465Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:20:54.465Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:20:54.469Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:21:02.419Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:21:02.422Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:21:41.159Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:21:41.161Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:21:42.228Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:21:42.231Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:15.696Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:15.700Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:20.617Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:20.621Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:23.820Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:23.822Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:28.060Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:28.063Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:36.424Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:36.426Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:52.284Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:22:52.286Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:23:19.854Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:23:19.857Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:23:56.716Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:23:56.718Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:24:03.627Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:24:03.630Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:24:11.933Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:24:11.936Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:02.463Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:02.465Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:04.412Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:04.415Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:48.673Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:48.675Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:49.826Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:49.829Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:59.016Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:25:59.019Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:26:01.460Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:26:01.464Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:26:24.348Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:26:24.350Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:26:27.732Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:26:27.734Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:27:11.945Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:27:11.949Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:29:43.915Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:31:40.583Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:31:40.587Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:31:42.737Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:31:42.740Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:14.129Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:14.131Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:15.270Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:15.274Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:32.842Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:32.846Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:37.346Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:37.349Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:38.861Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:38.863Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:40.242Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:40.244Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:52.589Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:52.595Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:54.552Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:32:54.555Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:03.136Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:03.138Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:38.837Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:38.840Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:41.756Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:41.758Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:46.681Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:46.733Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:46.832Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:46.838Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:54.846Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:33:54.849Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:34:35.516Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:34:35.518Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:34:59.893Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:34:59.896Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:35:00.850Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:35:00.853Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:35:16.411Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:35:16.413Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:40:01.345Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:40:01.348Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:42:04.487Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:42:04.491Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:34.352Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:34.355Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:37.035Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:37.038Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:51.270Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:51.273Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:59.088Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:44:59.091Z [INFO]: Ticket already exists for this tap_id
+2024-11-26T15:45:12.335Z [INFO]: Ticket already exists for this tap_id
+2024-11-27T16:29:11.995Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:40:18.084Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-29T12:40:23.930Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-29T12:40:25.990Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-29T12:40:34.284Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-29T12:40:48.050Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-29T12:44:24.156Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T12:44:24.684Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T12:45:22.552Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:45:22.554Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:58:08.134Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:58:08.141Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:59:53.129Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:59:53.134Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:59:59.131Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T12:59:59.138Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:00:41.464Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:00:41.465Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:00:44.918Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:00:44.921Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:02:23.132Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:02:23.135Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:02:25.136Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:02:25.143Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:02:59.144Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:02:59.147Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:03:42.766Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:03:42.768Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:03:53.605Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:03:53.606Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:31.141Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:31.156Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:32.130Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:32.146Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:46.644Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:46.646Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:58.841Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:05:58.843Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:08.154Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:08.155Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:37.130Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:37.137Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:38.128Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:38.133Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:46.135Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:06:46.142Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:07:01.391Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:07:01.393Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:07:47.138Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:07:47.147Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:08:17.128Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:08:17.137Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:09:04.140Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:09:04.149Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:09:25.917Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:09:25.919Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:12:42.323Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:12:42.324Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:12:46.190Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:12:46.191Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:12:55.139Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:12:55.141Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:13:03.509Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:13:03.512Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:14:40.955Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:14:40.957Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:20:22.759Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:20:22.760Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:21:49.131Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:21:49.140Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:30:07.130Z [ERROR]: Error initiating payment: Socket connection timeout
+2024-11-29T13:31:30.685Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:30.686Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:42.014Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:42.015Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:45.618Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:45.619Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:50.878Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:50.879Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:31:57.716Z [ERROR]: Error uploading QR Code to Cloudinary: undefined
+2024-11-29T13:31:57.825Z [ERROR]: Error uploading QR Code to Cloudinary: undefined
+2024-11-29T13:32:12.276Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-11-29T13:32:48.609Z [INFO]: Ticket already exists for this tap_id
+2024-11-29T13:32:48.614Z [INFO]: Ticket already exists for this tap_id
+2024-11-30T10:48:05.771Z [INFO]: Ticket already exists for this tap_id
+2024-11-30T10:48:05.775Z [INFO]: Ticket already exists for this tap_id
+2024-11-30T10:48:05.777Z [INFO]: Ticket already exists for this tap_id

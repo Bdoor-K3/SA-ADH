@@ -1,0 +1,150 @@
+/* General Footer Styling */
+.footer {
+  background: linear-gradient(to bottom, #ff79c6, #00bfff);
+  color: white;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+
+.footer-section h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Quick Links Section with Custom Arrows */
+.links-section ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.links-section ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.links-section ul li a:hover {
+  text-decoration: underline;
+}
+
+.links-section ul li a::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('../pages/assets/Footericon/arrow-icon.svg');
+  background-size: cover;
+  margin-left: 10px;
+}
+
+/* About Section with Icons */
+.about-section ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.about-section ul li i {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.about-section ul li:nth-child(1) i {
+  background-image: url('../pages/assets/Footericon/location-icon.svg');
+  background-size: cover;
+}
+
+.about-section ul li:nth-child(2) i {
+  background-image: url('../pages/assets/Footericon/email-icon.svg');
+  background-size: cover;
+}
+
+.about-section ul li:nth-child(3) i {
+  background-image: url('../pages/assets/Footericon/phone-icon.svg');
+  background-size: cover;
+}
+
+/* Social Media Section */
+.footer-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons a {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-size: cover;
+  transition: transform 0.3s;
+}
+
+.social-icons a.facebook {
+  background-image: url('../pages/assets/Footericon/facebook-icon.svg');
+}
+
+.social-icons a.twitter {
+  background-image: url('../pages/assets/Footericon/twitter-icon.svg');
+}
+
+.social-icons a.instagram {
+  background-image: url('../pages/assets/Footericon/instagram-icon.svg');
+}
+
+.social-icons a.dribbble {
+  background-image: url('../pages/assets/Footericon/dribbble-icon.svg');
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}

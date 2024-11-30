@@ -1,0 +1,110 @@
+.events-tab {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--background-color);
+  }
+  
+  .tab-title {
+    text-align: center;
+    color: var(--button-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .event-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 2rem;
+    background-color: var(--card-background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-form input,
+  .event-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .event-form textarea {
+    grid-column: span 2;
+  }
+  
+  .organizers-container {
+    grid-column: span 2;
+    margin-top: 1rem;
+  }
+  
+  .organizer-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .submit-button {
+    grid-column: span 2;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #155cb0;
+  }
+  
+  .events-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+  }
+  
+  .event-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: var(--card-background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-item button {
+    margin-right: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .edit-button {
+    background-color: var(--button-color);
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #d9534f;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background-color: #155cb0;
+  }
+  
+  .delete-button:hover {
+    background-color: #c9302c;
+  }
+  
+  @media (max-width: 768px) {
+    .event-form {
+      grid-template-columns: 1fr;
+    }
+  }
+  

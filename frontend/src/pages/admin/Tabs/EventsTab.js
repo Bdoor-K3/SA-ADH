@@ -259,6 +259,13 @@ function EventsTab() {
             </div>
           ))}
         </div>
+        <input
+          type="checkbox"
+          checked={formData.isAlphantom}
+          onChange={(e) => setFormData({ ...formData, isAlphantom: e.target.checked })}
+        />
+        <label>{t('eventsTab.form.isAlphantom')}</label>
+
         <button type="submit" className="submit-button" disabled={loading}>
           {loading ? t('eventsTab.alerts.loading') : t(editEventId ? 'eventsTab.form.submit.update' : 'eventsTab.form.submit.create')}
         </button>

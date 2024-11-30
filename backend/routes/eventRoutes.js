@@ -11,12 +11,11 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'events', // Cloudinary folder name
-    allowed_formats: ['jpg', 'jpeg', 'png'], // Allowed image formats
+    allowed_formats: ['jpg', 'jpeg', 'png' ,'svg'], // Allowed image formats
   },
 });
 
 const upload = multer({ storage });
-// Create or Update Event
 router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
   try {
     const {
@@ -32,10 +31,8 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       category,
       location,
       city,
+      isAlphantom, // Include this in the request body
     } = req.body;
-
-    // Check for or add a new category
-    const finalCategory = category || 'General';
 
     const newEvent = new Event({
       name,
@@ -47,10 +44,11 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       purchaseStartDate,
       purchaseEndDate,
       organizers,
-      category: finalCategory,
+      category: category || 'General',
       location,
       city,
       image: req.file ? req.file.path : null,
+      isAlphantom: isAlphantom === 'true', // Convert string to boolean
     });
 
     const savedEvent = await newEvent.save();
@@ -75,6 +73,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       category,
       location,
       city,
+      isAlphantom, // Include this in the request body
     } = req.body;
 
     const updateFields = {
@@ -87,13 +86,14 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       purchaseStartDate,
       purchaseEndDate,
       organizers,
-      category: category || 'General', // Default to "General" if not provided
+      category: category || 'General',
       location,
       city,
+      isAlphantom: isAlphantom === 'true', // Convert string to boolean
     };
 
     if (req.file) {
-      updateFields.image = req.file.path; // Update Cloudinary URL if new image is uploaded
+      updateFields.image = req.file.path;
     }
 
     const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateFields, { new: true });
@@ -107,7 +107,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
   }
 });
 
-// Get All Events
+// Get All Events backend.happiness.sa/api/events/
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();

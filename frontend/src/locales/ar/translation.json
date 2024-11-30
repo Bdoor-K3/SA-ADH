@@ -169,36 +169,30 @@
       "submitting": "جارٍ إرسال بياناتك..."
     }
   },  "eventDetails": {
-    "loading": "جار التحميل...",
+    "organizedBy": "المنظم",
+    "paymentSuccess": "تم الدفع بنجاح!",
+    "enjoyEvent": "استمتع بفعاليّتك!",
+    "invoiceNumber": "رقم الفاتورة",
+    "date": "التاريخ",
+    "ticketProfileNotice": "يمكنك رؤية تفاصيل التذكرة في الملف الشخصي.",
+    "loading": "جارٍ التحميل...",
+    "loginPrompt": "يرجى تسجيل الدخول لشراء التذاكر.",
     "error": {
-      "fetchDetails": "فشل في جلب تفاصيل الحدث.",
+      "fetchDetails": "فشل في جلب تفاصيل الفعالية.",
       "verifyPayment": "فشل في التحقق من الدفع.",
       "purchaseTicket": "فشل في شراء التذكرة.",
-      "noPaymentUrl": "لم يتم توفير رابط الدفع.",
-      "unknownError": "حدث خطأ غير معروف."
+      "noPaymentUrl": "لم يتم استلام رابط الدفع."
     },
-    "organizedBy": "منظم من قبل",
-    "poweredBy": "برعاية",
+    "openLocation": "افتح الموقع",
+    "copyLocation": "نسخ الموقع",
+    "locationCopied": "تم نسخ رابط الموقع!",
     "seats": "المقاعد",
-    "available": "المتاح",
-    "price": "السعر",
+    "available": "متوفر",
     "category": "الفئة",
-    "location": "الموقع",
     "city": "المدينة",
+    "price": "السعر",
     "buyTickets": "شراء التذاكر",
-    "loginPrompt": "يرجى تسجيل الدخول لشراء تذكرة.",
-    "ticketsAvailable": "التذاكر المتاحة",
-    "openLocation": "فتح الموقع في الخرائط",
-    "copyLocation": "نسخ رابط الموقع",
-    "paymentSuccess": "تمت الموافقة على الدفع",
-    "paymentFailed": "فشل الدفع",
-    "thankYou": "شكرًا لك على الشراء!",
-    "invoice": "تفاصيل الفاتورة",
-    "event": "الحدث",
-    "date": "التاريخ",
-    "reason": "السبب", 
-    "unknownError": "حدث خطأ غير معروف.",
-    "locationCopied": "تم نسخ رابط الموقع إلى الحافظة."
+    "mapTitle": "موقع الفعالية"
   }
 ,  "home": {
   "sections": {

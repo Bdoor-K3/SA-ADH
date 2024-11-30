@@ -1,0 +1,14 @@
+
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--font-color);
+  background-color: var(--background-color);
+}
+
+.App {
+  text-align: center;
+}

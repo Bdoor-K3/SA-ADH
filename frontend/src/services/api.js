@@ -3,9 +3,9 @@ import axios from 'axios';
 
 // Set up a base instance with the backend URL from .env
 const api = axios.create({
-  baseURL:   'http://localhost:5000',
-});//process.env.REACT_APP_BACKEND_URL
-
+  baseURL:process.env.REACT_APP_BACKEND_URL,
+});//
+// 'http://localhost:5000',
 // Add a request interceptor to include the Authorization header
 api.interceptors.request.use(
   (config) => {
@@ -169,14 +169,16 @@ export const validateTicket = async (qrCodeData, eventId) => {
   }
 };
 
+//Correct API 
 export const verifyPayment = async (tap_id) => {
-  const response = await fetch(`/api/payment/callback?tap_id=${tap_id}`);
-  if (!response.ok) {
-    console.log(response);
-    throw new Error('Failed to verify payment');
+  try {
+    const response = await api.get(`/api/tickets/payment/callback?tap_id=${tap_id}`);
+    return response;
+  } catch (error) {
+    throw error;
   }
-  return response.json();
 };
+
 
 // Forgot Password
 export const forgotPassword = async (data) => {

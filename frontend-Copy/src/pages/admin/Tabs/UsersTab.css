@@ -1,0 +1,96 @@
+.users-tab {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .tab-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--button-color);
+    font-size: 1.8rem;
+  }
+  
+  .user-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: var(--card-background-color);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-form textarea,
+  .user-form select,
+  .user-form button {
+    grid-column: span 2;
+  }
+  
+  .user-form input,
+  .user-form select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  .user-form button {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .user-form button:hover {
+    background-color: #155cb0;
+  }
+  
+  .users-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .user-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--card-background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-item button {
+    margin-right: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .edit-button {
+    background-color: var(--button-color);
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #d9534f;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background-color: #155cb0;
+  }
+  
+  .delete-button:hover {
+    background-color: #c9302c;
+  }
+  
+  @media (max-width: 768px) {
+    .user-form {
+      grid-template-columns: 1fr;
+    }
+  }
+  

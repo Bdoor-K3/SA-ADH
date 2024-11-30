@@ -8,18 +8,19 @@ const eventSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     currency: {
       type: String,
-      enum: ['SAR', 'KWD', 'AED', 'BHD', 'OMR', 'QAR'], // GCC Currencies
+      enum: ['SAR', 'KWD', 'AED', 'BHD', 'OMR', 'QAR'],
       default: 'SAR',
       required: true,
     },
     ticketsAvailable: { type: Number, required: true },
     purchaseStartDate: { type: Date, required: true },
     purchaseEndDate: { type: Date, required: true },
-    category: { type: String, required: true }, // Category field
-    location: { type: String, required: true }, // Location field
-    city: { type: String, required: true }, // City field
+    category: { type: String, required: true },
+    location: { type: String, required: true },
+    city: { type: String, required: true },
     organizers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    image: { type: String }, // Cloudinary URL
+    image: { type: String },
+    isAlphantom: { type: Boolean, default: false }, // New field for Alphantom events
   },
   { timestamps: true }
 );

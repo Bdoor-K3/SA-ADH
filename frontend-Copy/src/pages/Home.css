@@ -1,0 +1,399 @@
+
+/* Events Slider Section */
+#events-slider {
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #ff79c6 30%, #8be9fd 100%);
+  padding: 40px ;
+  position: relative;
+  justify-content: center;
+  height: 60vh;
+}
+
+/* Slider Card */
+.slider-card {
+  position:relative;
+  background: url('./assets/Banner.png') no-repeat center center;
+  background-size: cover; /* Ensures the background fits the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  padding: 0px  60px;
+  margin-left: 20px;
+  margin: 20px auto;
+  height: 20%;
+}
+
+/* Ticket Container */
+.Home-ticket-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none; /* Semi-transparent background for content */
+  border-radius: 20px;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+  max-width: 95%;
+  margin: 0 auto;
+  height: 45vh;
+}
+
+/* Ticket Content */
+.ticket-content {
+  width: 50%;
+  padding: 20px;
+}
+
+.event-name {
+  text-align:center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.event-description {
+  text-align:center;
+
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.event-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.event-details span {
+  display: flex;
+  align-items: center;
+}
+
+.event-details i {
+  margin-right: 5px;
+  color: #00bfff;
+}
+
+.book-button {
+  background-color: #00bfff;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.book-button:hover {
+  background-color: #007bff;
+}
+
+/* Ticket Image */
+.ticket-image {
+  width: 50%;
+  position: relative;
+  text-align: center;
+}
+
+.event-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Left Arrow */
+#events-slider .slick-prev {
+  left: 10px;
+  z-index: 2;
+}
+
+#events-slider .slick-prev:before {
+  color: #fff;
+  font-size: 20px;
+}
+
+/* Right Arrow */
+#events-slider .slick-next {
+  right: 10px;
+  z-index: 2;
+}
+
+#events-slider .slick-next:before {
+  color: #fff;
+  font-size: 20px;
+}
+/* Events List Section */
+#event-list {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Event Cards Container */
+.event-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.event-card{
+  background-color: none;
+  padding: 0px;
+}
+/* Ticket Card Style */
+.ticket-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Event Image with Cutouts */
+.event-image-container {
+  position: relative;
+  overflow: hidden;
+  
+}
+
+.event-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Left Circular Cutout */
+.event-image-container::before {
+  content: '';
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  height: 80px;
+  background: #f4f4f4;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Right Circular Cutout */
+.event-image-container::after {
+  content: '';
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  height: 80px;
+  background: #f4f4f4;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Ticket Content */
+.ticket-content {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.event-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.event-date,
+.event-location {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.event-date i,
+.event-location i {
+  margin-right: 5px;
+  color: #ff79c6;
+}
+
+/* Book Button */
+.book-button {
+  background-color: #ff79c6;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 0 0 15px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.book-button:hover {
+  background-color: #e056b6;
+}
+
+
+/* Categories Section */
+#categories {
+  margin-bottom: 30px;
+}
+
+.category-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.category-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.category-card h3 {
+  padding: 15px;
+  background: #f8f9fa;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}/* About Saada Section */
+#about-saada {
+  background: #fff;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.about-logo {
+  width: 100px;
+  height: 100px;
+  background: url('./assets/saada.png') no-repeat center center;
+  background-size: contain;
+}
+
+.about-content {
+  max-width: 600px;
+  text-align: center;
+}
+
+.about-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.about-description {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.about-icon {
+  width: 100px;
+  height: 100px;
+  background: url('./assets/saada.png') no-repeat center center;
+  background-size: contain;
+}
+
+/* Sponsors Section */
+#sponsors {
+  background: linear-gradient(90deg, #e3f2fd, #fce4ec);
+  padding: 50px 20px;
+}
+
+.sponsors-container {
+  text-align: center;
+  height: 25vh;
+}
+
+.sponsors-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.sponsors-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sponsor-logo {
+  width: 300px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.sponsor-logo:hover {
+  transform: scale(1.1);
+}
+
+/* Sponsor Logos */
+.sponsor1 {
+  background-image: url('./assets/download 5.png');
+}
+
+.sponsor2 {
+  background-image: url('./assets/download 4.png');
+}
+
+.sponsor3 {
+  background-image: url('./assets/1711881335992 1.png');
+}
+
+.sponsor4 {
+  background-image: url('./assets/download 6.png');
+}
+
+.sponsor5 {
+  background-image: url('./assets/download 7.png');
+}

@@ -1,0 +1,60 @@
+.tickets-tab {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .filter-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .filter-form input,
+  .filter-form select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .filter-form button {
+    padding: 8px 16px;
+    background-color: #aa336a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .filter-form button:disabled {
+    background-color: #ccc;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .tickets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  .tickets-table th,
+  .tickets-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .tickets-table th {
+    background-color: #f4f4f4;
+  }
+  

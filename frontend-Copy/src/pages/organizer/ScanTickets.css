@@ -1,0 +1,145 @@
+.scan-tickets {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 2rem auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #3f1651;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.scanner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scanner-feedback {
+  margin-top: 1rem;
+}
+
+.success,
+.error {
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 400px;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.next-scan-button {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background-color: #3f1651;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.next-scan-button:hover {
+  background-color: #aa336a;
+}
+
+.manual-attendance {
+  margin-top: 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: #3f1651;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  margin-bottom: 1rem;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.tickets-table-container {
+  overflow-x: auto;
+}
+
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.tickets-table th,
+.tickets-table td {
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+}
+
+.tickets-table th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.tickets-table tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.mark-used-button {
+  padding: 8px 12px;
+  background-color: #aa336a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mark-used-button:hover {
+  background-color: #3f1651;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .scan-tickets {
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+
+  .tickets-table-container {
+    overflow-x: auto;
+  }
+
+  .next-scan-button {
+    width: 100%;
+  }
+
+  .tickets-table th,
+  .tickets-table td {
+    font-size: 0.9rem;
+  }
+}

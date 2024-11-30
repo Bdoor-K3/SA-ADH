@@ -15,6 +15,7 @@ function EventDetails() {
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showTicket, setShowTicket] = useState(true); // State to toggle ticket display
 
   // Fetch event details on load
   useEffect(() => {
@@ -41,7 +42,7 @@ function EventDetails() {
       const verifyPaymentStatus = async () => {
         try {
           const response = await verifyPayment(tap_id);
-          setTicket(response.ticket);
+          setTicket(response.data.ticket);
           setPaymentStatus('approved');
         } catch (err) {
           console.error('Error verifying payment:', err);
@@ -76,13 +77,17 @@ function EventDetails() {
     }
   };
 
+  const handleCloseTicket = () => {
+    setShowTicket(false); // Close ticket display
+  };
+
   const handleOpenLocation = () => {
-    const locationLink = event.location; // Assuming location already contains the valid link
+    const locationLink = event.location;
     window.open(locationLink, '_blank');
   };
 
   const handleCopyLocation = () => {
-    const locationLink = event.location; // Assuming location already contains the valid link
+    const locationLink = event.location;
     navigator.clipboard.writeText(locationLink);
     alert(t('eventDetails.locationCopied'));
   };
@@ -106,61 +111,76 @@ function EventDetails() {
             <h1 className="event-title">{event.name}</h1>
             <p>{t('eventDetails.organizedBy')}: Admin</p>
           </div>
-          <div className="social-links">
-            <a href="#facebook" className="social-link">F</a>
-            <a href="#twitter" className="social-link">T</a>
-            <a href="#instagram" className="social-link">I</a>
-          </div>
         </div>
       </header>
 
-      <div className="event-card">
-        <div className="event-map">
-          <iframe
-            title={t('eventDetails.mapTitle')}
-            src={`https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(event.location)}&key=YOUR_API_KEY`}
-            allowFullScreen=""
-            loading="lazy"
-          ></iframe>
-        </div>
-        <div className="location-buttons">
-          <button onClick={handleOpenLocation} className="open-location-button">
-            {t('eventDetails.openLocation')}
+      {paymentStatus === 'approved' && ticket && showTicket ? (
+        <div className="success-message">
+          <button className="close-button" onClick={handleCloseTicket}>
+            ✖
           </button>
-          <button onClick={handleCopyLocation} className="copy-location-button">
-            {t('eventDetails.copyLocation')}
-          </button>
+          <h2>{t('eventDetails.paymentSuccess')}</h2>
+          <p>{t('eventDetails.enjoyEvent')}</p>
+          <div className="invoice-details">
+            <p><strong>{t('eventDetails.invoiceNumber')}:</strong> {ticket._id}</p>
+            <p><strong>{t('eventDetails.date')}:</strong> {new Date(ticket.createdAt).toLocaleDateString()}</p>
+          </div>
+          <div className="qr-code-section">
+            <img src={ticket.QRCodeImage} alt="QR Code" className="qr-code-image" />
+          </div>
+          <p className="ticket-profile-notice">
+            {t('eventDetails.ticketProfileNotice') || "You can see the Ticket details in Profile."}
+          </p>
         </div>
+      ) : (
+        <div className="event-card">
+          <div className="event-map">
+            <iframe
+              title={t('eventDetails.mapTitle')}
+              src={`https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(event.location)}&key=YOUR_API_KEY`}
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div className="location-buttons">
+            <button onClick={handleOpenLocation} className="open-location-button">
+              {t('eventDetails.openLocation')}
+            </button>
+            <button onClick={handleCopyLocation} className="copy-location-button">
+              {t('eventDetails.copyLocation')}
+            </button>
+          </div>
 
-        <div className="event-dates">
-          <div className="date-item">
-            <span>{new Date(event.purchaseStartDate).getDate()}</span>
-            <span>{new Date(event.purchaseStartDate).toLocaleString('default', { month: 'short' })}</span>
+          <div className="event-dates">
+            <div className="date-item">
+              <span>{new Date(event.purchaseStartDate).getDate()}</span>
+              <span>{new Date(event.purchaseStartDate).toLocaleString('default', { month: 'short' })}</span>
+            </div>
+            <div className="date-item">
+              <span>{new Date(event.purchaseEndDate).getDate()}</span>
+              <span>{new Date(event.purchaseEndDate).toLocaleString('default', { month: 'short' })}</span>
+            </div>
           </div>
-          <div className="date-item">
-            <span>{new Date(event.purchaseEndDate).getDate()}</span>
-            <span>{new Date(event.purchaseEndDate).toLocaleString('default', { month: 'short' })}</span>
+          <h2 className="event-name">{event.name}</h2>
+          <p className="event-tickets">
+            {t('eventDetails.seats')}: {event.ticketsAvailable} | {t('eventDetails.available')}: {event.ticketsAvailable}
+          </p>
+          <p>{event.description}</p>
+          <p><strong>{t('eventDetails.category')}:</strong> {event.category}</p>
+          <p><strong>{t('eventDetails.location')}:</strong> {event.location}</p>
+          <p><strong>{t('eventDetails.city')}:</strong> {event.city}</p>
+          <div className="ticket-info">
+            <p>{t('eventDetails.price')}: ${event.price}</p>
           </div>
+          <button
+            onClick={handlePurchaseTicket}
+            className="buy-ticket-button"
+            disabled={loading}
+          >
+            {t('eventDetails.buyTickets')}
+          </button>
         </div>
-        <h2 className="event-name">{event.name}</h2>
-        <p className="event-tickets">
-          {t('eventDetails.seats')}: {event.ticketsAvailable} | {t('eventDetails.available')}: {event.ticketsAvailable}
-        </p>
-        <p>{event.description}</p>
-        <p><strong>{t('eventDetails.category')}:</strong> {event.category}</p>
-        <p><strong>{t('eventDetails.location')}:</strong> {event.location}</p>
-        <p><strong>{t('eventDetails.city')}:</strong> {event.city}</p>
-        <div className="ticket-info">
-          <p>{t('eventDetails.price')}: ${event.price}</p>
-        </div>
-        <button
-          onClick={handlePurchaseTicket}
-          className="buy-ticket-button"
-          disabled={loading}
-        >
-          {t('eventDetails.buyTickets')}
-        </button>
-      </div>
+      )}
     </div>
   );
 }
