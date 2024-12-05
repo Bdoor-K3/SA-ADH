@@ -84,63 +84,74 @@ function EventDetails() {
 
   return (
     <div className={`event-details-container ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
-      {/* Breadcrumb Header */}
-      <div className="event-details-header">
-        <h2>
-          {t('eventDetails.breadcrumb')} &gt; {event.name}
-        </h2>
+    {/* Breadcrumb Header */}
+    <div className="event-details-header">
+      <h2>
+        {t('eventDetails.breadcrumb')} &gt; {event.name}
+      </h2>
+    </div>
+  
+    {/* Banner Section */}
+    <div className="event-banner" style={{ backgroundImage: `url(${event.image})` }}>
+      <div className="banner-overlay"></div>
+    </div>
+  
+    {/* Main Content Section */}
+    <div className="event-details-content">
+      {/* Right Section: Ticket Purchase Box */}
+      <div className="ticket-purchase-box">
+        <p className="price-info">
+          {t('eventDetails.priceStart')} {event.price} {event.currency}{' '}
+          {t('eventDetails.taxIncluded')}
+        </p>
+        <button className="purchase-button" onClick={handlePurchaseTicket}>
+          {t('eventDetails.bookNow')}
+        </button>
       </div>
-
-      {/* Banner Section */}
-      <div className="event-banner" style={{ backgroundImage: `url(${event.image})` }}>
-        <div className="banner-overlay"></div>
-      </div>
-
-      {/* Main Content Section */}
-      <div className="event-details-content">
-        <div className="event-info">
-          {/* Date and Location Box */}
-          <div className="event-info-box">
-            <div className="event-date-location">
-              <div className="date-box">
-                <p className="date-label">{t('eventDetails.date')}</p>
-                <p className="date-value">
-                  {new Date(event.purchaseStartDate).toLocaleDateString()} -{' '}
-                  {new Date(event.purchaseEndDate).toLocaleDateString()}
-                </p>
-              </div>
-              <div className="location-box" onClick={handleOpenLocation}>
-                <p className="location-label">{t('eventDetails.location')}</p>
-                <p className="location-value">{event.city}</p>
-              </div>
-            </div>
-
-            {/* Price and Purchase Box */}
-            <div className="ticket-purchase-box">
-              <p className="price-info">
-                {t('eventDetails.priceStart')} {event.price} {event.currency}{' '}
-                {t('eventDetails.taxIncluded')}
+  
+      {/* Left Section: Event Info */}
+      <div className="event-info">
+        {/* Date and Location Box */}
+        <div className="event-info-box">
+          <div className="event-date-location">
+            <div className="date-box">
+              <p className="date-label">{t('eventDetails.date')}</p>
+              <p className="date-value">
+                {new Date(event.purchaseStartDate).toLocaleDateString()} -{' '}
+                {new Date(event.purchaseEndDate).toLocaleDateString()}
               </p>
-              <button className="purchase-button" onClick={handlePurchaseTicket}>
-                {t('eventDetails.bookNow')}
-              </button>
+            </div>
+            <div className="location-box" onClick={handleOpenLocation}>
+              <p className="location-label">{t('eventDetails.location')}</p>
+              <p className="location-value">{event.city}</p>
             </div>
           </div>
-
-          {/* Event Description */}
-          <div className="event-description">
-            <h3>{t('eventDetails.about')}</h3>
-            <p>{event.description}</p>
-
-            <h3>{t('eventDetails.termsAndConditions')}</h3>
-            <p>
-              {t('eventDetails.terms')} {new Date(event.purchaseStartDate).toLocaleDateString()}.
-            </p>
-          </div>
+        </div>
+  
+        {/* Event Description */}
+        <div className="event-description">
+          <h3>{t('eventDetails.about')}</h3>
+          <p>{event.description}</p>
+  
+          <h3>{t('eventDetails.termsAndConditions')}</h3>
+          <p>
+            {t('eventDetails.terms')} {new Date(event.purchaseStartDate).toLocaleDateString()}.
+          </p>
         </div>
       </div>
     </div>
-  );
+  
+    {/* Fixed Bottom Price Box */}
+    <div className="fixed-price-box">
+      <p className="price-info">
+        {t('eventDetails.priceStart')} {event.price} {event.currency}
+      </p>
+      <button className="purchase-button" onClick={handlePurchaseTicket}>
+        {t('eventDetails.bookNow')}
+      </button>
+    </div>
+  </div>
+);
 }
 
 export default EventDetails;

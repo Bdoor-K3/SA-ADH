@@ -32,22 +32,39 @@
 /* Event Info Section */
 .event-details-content {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row; /* PC layout */
+  gap: 20px;
   margin-top: 20px;
 }
-
+/* Right Section: Ticket Purchase Box */
+.ticket-purchase-box {
+  flex: 0 0 30%; /* Take 30% of the container width */
+  background: linear-gradient(to bottom, #ff79c6, #00bfff);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.purchase-button {
+  background: #00bfff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
 .event-info {
-  width: 100%;
+  flex: 1; /* Take the remaining 70% of the container width */
 }
 
 /* Date and Location Box */
 .event-info-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
+  background: none;
   padding: 15px;
-  border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
@@ -57,13 +74,6 @@
   gap: 20px;
 }
 
-.date-box,
-.location-box {
-  padding: 10px;
-  background: #f9f9f9;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
 .date-label,
 .location-label {
@@ -76,27 +86,6 @@
   font-size: 16px;
   font-weight: bold;
   color: #333;
-}
-
-/* Ticket Purchase Box */
-.ticket-purchase-box {
-  background: linear-gradient(to bottom, #ff79c6, #00bfff);
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  color: white;
-  font-size: 16px;
-}
-
-.purchase-button {
-  background: #00bfff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
 }
 
 /* Event Description */
@@ -116,4 +105,50 @@
 .event-description p {
   font-size: 16px;
   color: #555;
+}
+.fixed-price-box{
+  display: none;
+}
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+  .event-details-content {
+    flex-direction: column; /* Stack sections vertically */
+  }
+
+  .ticket-purchase-box {
+    display: none; /* Hide the ticket purchase box for mobile */
+  }
+
+  /* Fixed Bottom Price Box */
+  .fixed-price-box {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, #ff79c1cb, #00bff1cb);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: 100px;
+    flex-direction: row-reverse;
+  }
+
+  .fixed-price-box .price-info {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .fixed-price-box .purchase-button {
+    background: #00bfff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
 }

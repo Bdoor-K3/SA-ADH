@@ -1,0 +1,110 @@
+/* Default Styles */
+#categories {
+  margin-bottom: 3%;
+}
+
+.categories-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.category-cards {
+  display: flex;
+  justify-content: center; /* Center cards on large screens */
+  gap: 2rem; /* Space between cards */
+  flex-wrap: wrap; /* Allow wrapping on large screens */
+  padding-bottom: 1rem; /* Add padding for aesthetics */
+}
+
+.category-card {
+  text-align: center;
+  cursor: pointer;
+  width: 200px; /* Default card width */
+  background: #fff; /* Card background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden; /* Ensure rounded corners apply to content */
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease; /* Smooth hover and resize effect */
+}
+
+.category-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.category-image-container {
+  position: relative;
+  width: 100%;
+  height: 150px; /* Default height */
+  overflow: hidden; /* Clip overflowing parts of the image */
+}
+
+.category-image {
+  width: 100%; /* Ensure the image fits the container width */
+  height: 100%; /* Ensure the image fills the container */
+  object-fit: cover; /* Maintain aspect ratio and crop excess */
+}
+
+.category-name {
+  font-size: 1rem;
+  color: #555;
+  padding: 0.5rem 0;
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+  .category-cards {
+    flex-wrap: nowrap; /* Disable wrapping for horizontal scrolling */
+    gap: 1rem; /* Adjust spacing for small screens */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .category-card {
+    flex: 0 0 180px; /* Smaller cards for small screens */
+  }
+
+  .category-image-container {
+    height: 120px; /* Adjust image container height */
+  }
+
+  .category-name {
+    font-size: 0.9rem; /* Reduce font size for category names */
+  }
+
+  .category-cards::-webkit-scrollbar {
+    height: 8px; /* Set scrollbar height for small screens */
+  }
+
+  .category-cards::-webkit-scrollbar-thumb {
+    background: #ccc; /* Scrollbar thumb color */
+    border-radius: 4px;
+  }
+
+  .category-cards::-webkit-scrollbar-track {
+    background: transparent; /* Scrollbar track color */
+  }
+}
+
+/* Responsive Design for Large Screens */
+@media (min-width: 1024px) {
+  .category-cards {
+    justify-content: center; /* Center the cards */
+    gap: 4rem; /* Increase spacing for large screens */
+  }
+
+  .category-card {
+    width: 350px; /* Significantly larger cards for big screens */
+    height: auto; /* Adjust height dynamically */
+  }
+
+  .category-image-container {
+    height: 250px; /* Larger image height for big screens */
+  }
+
+  .category-name {
+    font-size: 1.5rem; /* Larger font size for category names */
+    padding: 1rem 0; /* Add more padding for readability */
+  }
+}

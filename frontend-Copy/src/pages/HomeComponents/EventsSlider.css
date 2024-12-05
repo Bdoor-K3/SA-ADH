@@ -1,0 +1,168 @@
+/* Slider Section */
+.custom-slider-section {
+    margin: 0rem auto;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(180deg, #11ddff 47%, #fc5ba6 72%);
+    display: block; /* Updated to block for better layout control */
+    height: 60vh;
+
+}
+
+.custom-ticket-card {
+    display: flex !important; /* Force flexbox layout */
+    flex-direction: row; /* Horizontal layout for event details and image */
+    gap: 2rem;
+    background-image: url("../assets/BannerBig.png"); /* Background image path */
+    background-repeat: no-repeat; /* Prevent repeating the background */
+    background-position: center center; /* Center the background image */
+    padding: 0 4rem ;
+    margin-bottom: 1rem;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    background-size: 100% 100%;
+
+}
+
+.slick-slide {
+    display: flex !important; /* Ensure it doesn't force inline-block */
+}
+
+/* Event Details */
+.custom-event-details {
+    flex: 1; /* Take the remaining 70% of the width */
+    padding: 1rem;
+}
+
+.custom-event-title {
+    font-size: 2rem;
+    color: #000;
+    font-weight: bold;
+    text-align: left;
+}
+
+.custom-event-description {
+    font-size: 1.2rem;
+    color: #444;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+.custom-event-info {
+    font-size: 1rem;
+    color: #666;
+    margin: 1rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: center; /* Vertical alignment for time and date */
+}
+
+.custom-event-time,
+.custom-event-date {
+    display: flex;
+    align-items: center;
+}
+
+.custom-event-time i,
+.custom-event-date i {
+    margin-right: 0.5rem;
+}
+
+/* Book Button */
+.custom-book-button {
+    background-color: #00cfff;
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    align-self: start;
+}
+
+.custom-book-button:hover {
+    background-color: #00b0e5;
+}
+
+/* Right Section */
+.event-right {
+    flex: 0 0 50%; /* Right section takes 30% of the parent width */
+    display: flex;
+    align-items: center; /* Vertical alignment */
+    justify-content: center; /* Horizontal alignment */
+    margin: 13px;
+}
+
+.event-right img {
+    width: 80%; /* Image takes 20% of the parent's width within 30% section */
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}/* Responsive Design */
+@media (max-width: 768px) {
+    .custom-slider-section {
+        height: 35vh; /* Slider section height for small screens */
+        padding: 2rem; /* Adjust padding to fit smaller screens */
+    }
+
+    .custom-ticket-card {
+        flex-direction: row; /* Keep elements in a row */
+        gap: 0.2rem; /* Smaller gap for tight spacing */
+        background-image: url("../assets/Bannersmall.png"); /* Responsive image */
+        background-repeat: no-repeat;
+        background-position: center center;
+        padding: 1rem; /* Reduce padding to fit smaller height */
+        height: 100%; /* Let it fully fit within the section */
+        
+    }
+
+    .custom-event-details {
+        padding: 0.5rem; /* Reduce padding */
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        flex: 1; /* Ensure it takes proportional space */
+    }
+
+    .custom-event-title {
+        font-size: 0.8rem; /* Smaller font size for titles */
+        margin: 0.5rem 0; /* Adjust spacing */
+    }
+
+    .custom-event-description {
+        font-size: 0.6rem; /* Smaller font for descriptions */
+        margin: 0.5rem 0; /* Reduce spacing */
+    }
+
+    .custom-event-info {
+        flex-direction: column; /* Stack info vertically */
+        gap: 0.3rem; /* Reduce gap for compact layout */
+        align-items: center;
+    }
+
+    .custom-event-time,
+    .custom-event-date {
+        font-size: 0.7rem; /* Adjust time and date font size */
+    }
+
+    .event-right {
+        max-width: 50%; /* Ensure the right section shrinks */
+        justify-content: center;
+    }
+
+    .event-right img {
+        width: 100%; /* Fit the image within its container */
+        object-fit: contain; /* Scale image proportionally */
+        margin: 0 auto;
+    }
+
+    .custom-book-button {
+        padding: 0.4rem 1rem; /* Reduce button padding */
+        font-size: 0.8rem; /* Smaller font size for buttons */
+        border-radius: 4px; /* Smaller border radius */
+        align-self: center; /* Center-align the button */
+        margin-top: 0.5rem; /* Reduce top margin */
+    }
+}

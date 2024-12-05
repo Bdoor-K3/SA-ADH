@@ -1,36 +1,46 @@
-/* General Events Page Styling */
+/* Events Page Layout */
 .events-page-container {
   display: grid;
   gap: 20px;
   padding: 20px;
 }
+
+/* Search Bar Styling */
 .search-bar-container {
-  grid-column: 1 / -1; /* Span across both columns */
+  grid-column: 1 / -1;
   text-align: center;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column; /* Stack the search bar and filter icon */
+  align-items: center;
+  position: relative;
 }
 
 .search-bar {
-  width: 50%; /* Ensure it looks centered and takes half the width */
+  width: 80%;
+  max-width: 600px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-
-
-/* Main Container */
-.events-page-content {
-  padding: 0; /* Reset padding as grid manages spacing now */
+/* Events Content Layout */
+.events-content {
+  display: flex;
+  flex-direction: row; /* Arrange filter box and events list side by side */
+  gap: 20px;
 }
 
-
-/* Filter Box */
+/* Filter Box Styling */
 .events-filter-box {
-  grid-column: 2; /* Place this on the left side */
-  width: 50%; /* Match its column width */
-  border-radius: 10px;
+  flex: 0 0 25%; /* Take 25% of the container width */
   padding: 20px;
+   border-radius: 10px;
+  display: block; /* Visible by default on larger screens */
+}
+
+.events-filter-box.hidden {
+  display: none;
 }
 
 .events-filter-box h3 {
@@ -53,28 +63,34 @@
 }
 
 .filter-button {
-  background: #00bfff;
-  color: white;
+  width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  width: 100%;
-  margin-bottom: 10px;
+  color: white;
   cursor: pointer;
+  margin-bottom: 10px;
+}
+.clear-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: rgb(80, 80, 80);
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.filter-button {
+  background: #e056b6;
 }
 
 .filter-button:hover {
-  background: #007bff;
+  background: #e056b6;
 }
 
 .clear-button {
-  background: #ff79c6;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  width: 100%;
-  cursor: pointer;
+  background: none;
 }
 
 .clear-button:hover {
@@ -83,25 +99,25 @@
 
 /* Events List */
 .events-list-container {
-  grid-column: 1; /* Ensure this spans the right side in the grid */
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 20px;
-  width: 1550px;
+  width: 100%;
 }
 
 /* Event Card */
 .events-card {
   display: flex;
+  flex-direction: row; /* Arrange elements horizontally */
   align-items: center;
-  border-radius: 20px;
   overflow: hidden;
   position: relative;
   background: white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   gap: 20px;
   padding: 20px;
-  margin-left: 40px; /* Adjusted for left alignment */
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
 }
 
 /* Event Date Section */
@@ -113,14 +129,10 @@
   border-radius: 10px;
   font-size: 14px;
   flex-shrink: 0;
-  width: 70px;
+  width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  left: -40px; /* Align the date outside the card */
-  top: 20px; /* Added top alignment */
-  z-index: 1;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -139,11 +151,27 @@
   font-size: 14px;
 }
 
+/* Event Image Section */
+.events-card-image-container {
+  flex: 1;
+  width: 200px;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.events-card-image-container .event-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Event Details */
 .events-card-details {
-  flex: 1;
+  flex: 2;
   padding: 15px;
-  position: relative;
 }
 
 .events-card-details .event-category {
@@ -154,17 +182,13 @@
   display: inline-block;
   padding: 5px 10px;
   border-radius: 20px;
-  position: absolute;
-  top: -20px; /* Float above the card */
-  left: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
 .events-card-details .event-title {
   font-size: 18px;
   font-weight: bold;
   color: #333;
-  margin-top: 20px; /* Added spacing after the category */
   margin-bottom: 10px;
 }
 
@@ -183,19 +207,22 @@
 
 .events-card-details .event-buttons {
   display: flex;
+  justify-content: flex-start;
   gap: 10px;
+}
+
+.events-card-details .book-button,
+.events-card-details .details-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .events-card-details .book-button {
   background: #ff79c6;
   color: white;
-  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  flex: 1; /* Expand buttons evenly */
 }
 
 .events-card-details .book-button:hover {
@@ -205,79 +232,78 @@
 .events-card-details .details-button {
   background: white;
   color: #666;
-  padding: 10px 20px;
   border: 2px solid #ddd;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  flex: 1; /* Expand buttons evenly */
 }
 
 .events-card-details .details-button:hover {
   background: #f9f9f9;
 }
 
-/* Event Image */
-.events-card-image-container {
-  width: 200px;
-  height: 130px;
-  overflow: hidden;
-  position: relative;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* Filter Icon */
+.filter-icon-container {
+  margin-top: 10px; /* Add spacing below the search bar */
+  align-self: flex-start; /* Align the icon to the left */
+  display: block;
 }
 
-.events-card-image-container .event-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.filter-icon-button {
+  background-color:white;
+  color: #e056b6;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px; /* Adjusted size for a more compact look */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.filter-icon-button i {
+  margin-right: 5px; /* Space between the icon and label */
+  font-size: 16px;
+}
+.filter-icon-button {
+  display: none;
 }
 
-/* Ticket-style Cutout */
-.events-card::before,
-.events-card::after {
-  content: "";
-  position: absolute;
-  top: 30%;
-  width: 15px;
-  height: 15px;
-  background: white;
-  border-radius: 50%;
-  z-index: 2;
+/* Show Filter Icon on Small Screens */
+@media (max-width: 768px) {
+  .filter-icon-button {
+    display: block;
+  }
+
+  .events-filter-box {
+    display: none;
+  }
 }
 
-.events-card::before {
-  left: -8px; /* Adjust the cutout position */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+/* Popup Filter */
+.filter-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
 }
 
-.events-card::after {
-  right: -8px; /* Adjust the cutout position */
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.events-card::before {
-  left: -7.5px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.events-card::after {
-  right: -7.5px;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-}
-.events-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Filter box takes 1 part, events list takes 4 parts */
-  gap: 20px;
-}
-
-.events-filter-box {
+.filter-popup-content {
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-
-.events-list-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.close-popup-button {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
 }

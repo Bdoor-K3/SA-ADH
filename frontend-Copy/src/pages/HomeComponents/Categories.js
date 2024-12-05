@@ -1,0 +1,43 @@
+import React from 'react';
+import './Categories.css';
+
+// Import images statically
+import musicImage from '../assets/categories/Music.png';
+import sportsImage from '../assets/categories/sports.png';
+import theaterImage from '../assets/categories/Theater.png';
+import adventureImage from '../assets/categories/Adventure.png';
+
+const Categories = ({ handleCategoryClick, t }) => {
+  const categories = [
+    { name: 'Music', image: musicImage },
+    { name: 'Sports', image: sportsImage },
+    { name: 'Theater', image: theaterImage },
+    { name: 'Adventure', image: adventureImage },
+  ];
+
+  return (
+    <section id="categories">
+      <h2 className="categories-title">{t('home.exploreCategories')}</h2>
+      <div className="category-cards">
+        {categories.map((category) => (
+          <div
+            key={category.name}
+            className="category-card"
+            onClick={() => handleCategoryClick(category.name)}
+          >
+            <div className="category-image-container">
+              <img
+                src={category.image}
+                alt={category.name}
+                className="category-image"
+              />
+            </div>
+            <h3 className="category-name">{t(`home.categories.${category.name}`)}</h3>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default Categories;

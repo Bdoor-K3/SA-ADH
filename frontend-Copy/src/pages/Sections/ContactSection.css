@@ -55,7 +55,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 15px;
-  color: #3f1651;
+  color: #ff79c1 ;
 }
 
 .contact-form form input,
@@ -69,7 +69,7 @@
 }
 
 .contact-form form button {
-  background: #aa336a;
+  background: #00bff1;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -81,7 +81,7 @@
 }
 
 .contact-form form button:hover {
-  background: #8b2a58;
+  background: #ff79c1 ;
 }
 
 .contact-info p {
@@ -90,7 +90,7 @@
 }
 
 .contact-info strong {
-  color: #aa336a;
+  color: #ff79c1 ;
 }
 
 .social-icons {
@@ -101,7 +101,7 @@
   display: inline-block;
   margin-right: 10px;
   color: #fff;
-  background: #aa336a;
+  background: #00bff1;
   padding: 10px;
   border-radius: 50%;
   font-size: 14px;
@@ -110,7 +110,7 @@
 }
 
 .social-icons a:hover {
-  background: #8b2a58;
+  background: #ff79c1 ;
 }
 
 /* Responsive Design */

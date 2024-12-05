@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FaBars, FaTimes, FaUser } from 'react-icons/fa'; // Icons for menu toggle and user
+import { FaBars, FaTimes, FaUser, FaHome, FaCalendarAlt, FaInfoCircle, FaQuestionCircle, FaEnvelope } from 'react-icons/fa'; // Icons for menu toggle, user, and navigation
 import logo from '../pages/assets/saada.png';
 import './Header.css';
 
 function Header() {
   const [menuVisible, setMenuVisible] = useState(window.innerWidth > 768); // Open on PC, closed on mobile
   const [userMenuVisible, setUserMenuVisible] = useState(false); // User menu visibility
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect if user is on mobile
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
@@ -20,6 +21,7 @@ function Header() {
   useEffect(() => {
     const handleResize = () => {
       setMenuVisible(window.innerWidth > 768); // Open menu by default on larger screens
+      setIsMobile(window.innerWidth <= 768); // Update mobile state
     };
     window.addEventListener('resize', handleResize);
 
@@ -58,36 +60,45 @@ function Header() {
           </Link>
         </div>
 
-        {/* Navigation Menu */}
-        <nav className="nav_menu">
-          <ul className="main_menu">
-            <li>
-              <Link to="/" className="nav-link">
-                {t('header.home')}
-              </Link>
-            </li>
-            <li>
-              <Link to="/events" className="nav-link">
-                {t('header.events')}
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className="nav-link">
-                {t('header.about')}
-              </Link>
-            </li>
-            <li>
-              <Link to="/faqs" className="nav-link">
-                {t('header.faqs')}
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="nav-link">
-                {t('header.contact')}
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        {/* Menu Toggle Button for Mobile */}
+        {isMobile && (
+          <button className="menu-toggle" onClick={toggleMenu}>
+            {menuVisible ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
+        )}
+
+        {/* Navigation Menu for Desktop */}
+        {!isMobile && menuVisible && (
+          <nav className="nav_menu">
+            <ul className="main_menu">
+              <li>
+                <Link to="/" className="nav-link">
+                  <FaHome /> {t('header.home')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" className="nav-link">
+                  <FaCalendarAlt /> {t('header.events')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="nav-link">
+                  <FaInfoCircle /> {t('header.about')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/faqs" className="nav-link">
+                  <FaQuestionCircle /> {t('header.faqs')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="nav-link">
+                  <FaEnvelope /> {t('header.contact')}
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        )}
 
         {/* User Menu */}
         <div className="user_menu">
@@ -138,6 +149,39 @@ function Header() {
             {i18n.language === 'en' ? 'العربية' : 'English'}
           </button>
         </div>
+
+        {/* Mobile Menu Popup as List Card under Button */}
+        {isMobile && menuVisible && (
+          <div className="mobile-menu-list-card" style={{ top: '60px', right: 'auto', left: '0' }}>
+            <ul className="mobile-menu-list">
+              <li>
+                <Link to="/" className="mobile-nav-link" onClick={toggleMenu}>
+                  <FaHome /> {t('header.home')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" className="mobile-nav-link" onClick={toggleMenu}>
+                  <FaCalendarAlt /> {t('header.events')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="mobile-nav-link" onClick={toggleMenu}>
+                  <FaInfoCircle /> {t('header.about')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/faqs" className="mobile-nav-link" onClick={toggleMenu}>
+                  <FaQuestionCircle /> {t('header.faqs')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="mobile-nav-link" onClick={toggleMenu}>
+                  <FaEnvelope /> {t('header.contact')}
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </header>
   );

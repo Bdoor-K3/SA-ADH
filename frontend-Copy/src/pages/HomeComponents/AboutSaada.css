@@ -1,0 +1,132 @@
+#about-saada {
+  background: #fff;
+  padding: 2rem;
+  text-align: center;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.about-content {
+  text-align: center;
+  flex: 1;
+  margin-right: 2rem; /* Space between content and the image */
+}
+
+.about-logo {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.about-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.about-description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+.about-image {
+  flex: 1;
+}
+
+.about-image img {
+  width: 150px; /* Adjust the size of the ticket image */
+  height: auto;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .about-container {
+    flex-direction: row; /* Arrange content and image side by side */
+    align-items: center;
+    text-align: left;
+  }
+
+  .about-content {
+    text-align: left; /* Align text to the left */
+  }
+
+  .about-image img {
+    width: 200px; /* Increase the size of the ticket image for larger screens */
+  }
+}
+
+.statistics-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.statistics-logo {
+  width: 100px;
+  margin: 0 auto 1rem;
+}
+
+.statistics-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.statistics-numbers {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+}
+
+.stat-item {
+  text-align: center;
+  background: none!important;
+  box-shadow: none!important;
+
+}
+
+.stat-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fc5ba6, #11ddff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.stat-label {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Responsive Design for Statistics */
+@media (min-width: 768px) {
+  .stat-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+  }
+
+  .stat-label {
+    font-size: 1.2rem;
+  }
+}

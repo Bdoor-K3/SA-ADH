@@ -1,0 +1,103 @@
+#event-list {
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 3%;
+  color: #333;
+}
+
+.event-cards {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping of cards */
+  justify-content: flex-start;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 20px;
+  padding-bottom: 1rem; /* Add some padding for smooth scrolling */
+  scrollbar-width: thin; /* Firefox scrollbar width */
+}
+
+.event-card-container {
+  min-width: 300px; /* Fixed card width */
+  flex: 0 0 auto; /* Prevent cards from stretching */
+  overflow: hidden;
+  position: relative; /* Required for pseudo-elements */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.event-card-container::before,
+.event-card-container::after {
+  content: ''; /* Create empty pseudo-elements */
+  position: absolute;
+  top: 30%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for centering */
+  width: 50px; /* Half-circle width */
+  height: 80px; /* Half-circle height */
+  background: white; /* Match the card's background color */
+  border-radius: 50%; /* Create the half-circle shape */
+  z-index: 2; /* Place above the card */
+  
+}
+
+.event-card-container::before {
+  left: -20px; /* Position the left cutout */
+}
+
+.event-card-container::after {
+  right: -20px; /* Position the right cutout */
+}
+.ticket-card {
+  background: white;
+  border-radius: 15px;
+}
+
+.event-image-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.ticket-content {
+  padding: 1rem;
+}
+
+.event-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* Dynamic Button Color */
+.book-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+  color: white;
+  background-color: var(--button-color, #007bff); /* Default color with fallback */
+  transition: background-color 0.3s ease;
+}
+
+.book-button:hover {
+  background-color: var(--button-hover-color, #0056b3); /* Default hover color */
+}
+
+/* Horizontal Scrolling Styling */
+.event-cards::-webkit-scrollbar {
+  height: 8px; /* Set scrollbar height */
+}
+
+.event-cards::-webkit-scrollbar-thumb {
+  background: #ddd; /* Scrollbar color */
+  border-radius: 4px;
+}
+
+.event-cards::-webkit-scrollbar-track {
+  background: transparent;
+}
