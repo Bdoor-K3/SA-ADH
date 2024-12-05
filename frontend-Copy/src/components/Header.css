@@ -87,8 +87,7 @@
 .user_menu .dropdown-toggle i {
   font-size: 20px;
   color: #333;
-}
-
+}/* Updated User Menu Dropdown */
 .user_menu .dropdown-menu {
   position: absolute;
   top: 30px;
@@ -98,35 +97,48 @@
   border-radius: 4px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   list-style: none;
-  padding: 10px;
+  padding: 10px 15px; /* Adjust padding for better spacing */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Display items in a vertical list */
+  gap: 10px; /* Add spacing between items */
   z-index: 1000;
+  width: 110px; /* Adjust the width for a wider dropdown */
 }
 
+/* Dropdown Item Styling */
 .user_menu .dropdown-item {
   text-decoration: none;
   color: #333;
-  padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
+  padding: 10px; /* Add padding for a better clickable area */
+  border-radius: 4px; /* Rounded corners */
+  text-align: left; /* Align text to the left */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
+/* Dropdown Item Hover */
 .user_menu .dropdown-item:hover {
   background-color: #f1f1f1;
 }
 
+/* Logout Button Styling */
 .logout-button {
   border: none;
   background: none;
   color: #333;
   cursor: pointer;
   font-size: 14px;
+  padding: 10px;
+  text-align: left; /* Align text to the left */
+  border-radius: 4px; /* Rounded corners */
 }
 
 .logout-button:hover {
   background-color: #f1f1f1;
 }
+
+
 
 /* Mobile Menu List Card */
 .mobile-menu-list-card {

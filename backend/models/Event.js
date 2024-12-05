@@ -5,6 +5,8 @@ const eventSchema = new mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String },
     dateOfEvent: { type: Date, required: true },
+    timeStart: { type: String, required: true }, // Added timeStart field
+    timeEnd: { type: String, required: true }, // Added timeEnd field
     price: { type: Number, required: true },
     currency: {
       type: String,
@@ -20,7 +22,7 @@ const eventSchema = new mongoose.Schema(
     city: { type: String, required: true },
     organizers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     image: { type: String },
-    isAlphantom: { type: Boolean, default: false }, // New field for Alphantom events
+    isAlphantom: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

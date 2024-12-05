@@ -16,7 +16,7 @@ function UsersTab() {
       address1: '',
       address2: '',
     },
-    age: '',
+    birthdate: '',
     gender: '',
     role: '',
     password: '',
@@ -33,8 +33,10 @@ function UsersTab() {
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
+    console.log('Submitting user:', userFormData); // Debugging log
     try {
       if (editUserId) {
+        console.log('Updating user with ID:', editUserId); // Debugging log
         await updateUser(editUserId, userFormData);
         alert(t('usersTab.alerts.updated'));
       } else {
@@ -50,7 +52,7 @@ function UsersTab() {
           address1: '',
           address2: '',
         },
-        age: '',
+        birthdate: '',
         gender: '',
         role: '',
         password: '',
@@ -74,6 +76,7 @@ function UsersTab() {
   };
 
   const handleEditUser = (user) => {
+    console.log('Editing user:', user._id); // Debugging log
     setEditUserId(user._id);
     setUserFormData({
       fullName: user.fullName,
@@ -85,7 +88,7 @@ function UsersTab() {
         address1: user.address.address1,
         address2: user.address.address2 || '',
       },
-      age: user.age,
+      birthdate: user.birthdate ? user.birthdate.slice(0, 10) : '',
       gender: user.gender,
       role: user.role,
       password: '',
@@ -153,10 +156,10 @@ function UsersTab() {
           }
         />
         <input
-          type="number"
-          placeholder={t('usersTab.form.age')}
-          value={userFormData.age}
-          onChange={(e) => setUserFormData({ ...userFormData, age: e.target.value })}
+          type="date"
+          placeholder={t('usersTab.form.birthdate')}
+          value={userFormData.birthdate}
+          onChange={(e) => setUserFormData({ ...userFormData, birthdate: e.target.value })}
           required
         />
         <select
@@ -199,7 +202,7 @@ function UsersTab() {
               {t('usersTab.user.address')}: {user.address.city}, {user.address.region}, {user.address.address1}
               {user.address.address2 ? `, ${user.address.address2}` : ''}
             </p>
-            <p>{t('usersTab.user.age')}: {user.age}</p>
+            <p>{t('usersTab.user.birthdate')}: {user.birthdate?.slice(0, 10)}</p>
             <p>{t('usersTab.user.gender')}: {user.gender}</p>
             <p>{t('usersTab.user.role')}: {user.role}</p>
             <button onClick={() => handleEditUser(user)} className="edit-button">

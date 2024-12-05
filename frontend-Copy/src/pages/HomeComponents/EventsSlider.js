@@ -14,7 +14,7 @@ const EventsSlider = ({ events, handleViewDetails, sliderSettings, t }) => {
               <p className="custom-event-description">{event.description}</p>
               <div className="custom-event-info">
                 <span className="custom-event-time">
-                  <i className="fas fa-clock"></i> {event.time}
+                  <i className="fas fa-clock"></i> {event.timeStart} -   {event.timeEnd}
                 </span>
                 <span className="custom-event-date">
                   <i className="fas fa-calendar-alt"></i>{' '}

@@ -67,13 +67,14 @@ function EventsPage() {
     <div className="events-page-container">
       {/* Search Bar */}
       <div className="search-bar-container">
-  <input
-    type="text"
-    placeholder={t("eventsPage.searchPlaceholder")}
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-    className="search-bar"
-  />
+      <input
+  type="text"
+  placeholder={t('eventsPage.searchPlaceholder')}
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="search-bar"
+/>
+
 
   {/* Filter Icon Button for Non-PC Users */}
   <div className="filter-icon-container">
@@ -148,10 +149,7 @@ function EventsPage() {
             })}
           </p>
           <p className="date-time">
-            {new Date(event.dateOfEvent).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
+           {event.timeStart}-{event.timeEnd}
           </p>
         </div>
         <div className="events-card-details">

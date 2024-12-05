@@ -22,6 +22,8 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       name,
       description,
       dateOfEvent,
+      timeStart, // Capture timeStart
+      timeEnd,   // Capture timeEnd
       price,
       currency,
       ticketsAvailable,
@@ -31,13 +33,15 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       category,
       location,
       city,
-      isAlphantom, // Include this in the request body
+      isAlphantom,
     } = req.body;
 
     const newEvent = new Event({
       name,
       description,
       dateOfEvent,
+      timeStart, // Add timeStart
+      timeEnd,   // Add timeEnd
       price,
       currency,
       ticketsAvailable,
@@ -48,7 +52,7 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       location,
       city,
       image: req.file ? req.file.path : null,
-      isAlphantom: isAlphantom === 'true', // Convert string to boolean
+      isAlphantom: isAlphantom === 'true',
     });
 
     const savedEvent = await newEvent.save();
@@ -57,13 +61,14 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
     res.status(500).json({ message: error.message });
   }
 });
-
 router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
   try {
     const {
       name,
       description,
       dateOfEvent,
+      timeStart, // Capture timeStart
+      timeEnd,   // Capture timeEnd
       price,
       currency,
       ticketsAvailable,
@@ -73,13 +78,15 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       category,
       location,
       city,
-      isAlphantom, // Include this in the request body
+      isAlphantom,
     } = req.body;
 
     const updateFields = {
       name,
       description,
       dateOfEvent,
+      timeStart, // Update timeStart
+      timeEnd,   // Update timeEnd
       price,
       currency,
       ticketsAvailable,
@@ -89,7 +96,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       category: category || 'General',
       location,
       city,
-      isAlphantom: isAlphantom === 'true', // Convert string to boolean
+      isAlphantom: isAlphantom === 'true',
     };
 
     if (req.file) {
@@ -106,6 +113,8 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
     res.status(500).json({ message: error.message });
   }
 });
+
+
 
 // Get All Events backend.happiness.sa/api/events/
 router.get('/', async (req, res) => {

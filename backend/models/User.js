@@ -11,13 +11,13 @@ const userSchema = new mongoose.Schema(
       address1: { type: String, required: true },
       address2: { type: String },
     },
-    age: { type: Number, required: true },
+    birthdate: { type: Date, required: true }, // Replaced age with birthdate
     gender: { type: String, enum: ['male', 'female', 'other'], required: true },
     role: { type: String, default: 'customer', enum: ['customer', 'admin', 'organizer'] },
     password: { type: String, required: true },
     resetToken: { type: String },
     resetTokenUsed: { type: Boolean, default: false },
-    resetTokenExpires: { type: Date }, // Optional expiration time
+    resetTokenExpires: { type: Date },
   },
   { timestamps: true }
 );

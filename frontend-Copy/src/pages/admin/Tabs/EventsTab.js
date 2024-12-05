@@ -11,7 +11,8 @@ function EventsTab() {
     name: '',
     description: '',
     dateOfEvent: '',
-    price: '',
+    timeStart: '', // New field for start time
+    timeEnd: '',   // New field for end time    price: '',
     currency: 'SAR',
     ticketsAvailable: '',
     purchaseStartDate: '',
@@ -97,7 +98,8 @@ function EventsTab() {
       name: '',
       description: '',
       dateOfEvent: '',
-      price: '',
+      timeStart: '', // Reset start time
+      timeEnd: '',   // Reset end time      price: '',
       currency: 'SAR',
       ticketsAvailable: '',
       purchaseStartDate: '',
@@ -117,7 +119,9 @@ function EventsTab() {
       name: event.name,
       description: event.description,
       dateOfEvent: event.dateOfEvent.slice(0, 10),
-      price: event.price,
+      timeStart: event.timeStart || '', // Set start time if it exists
+      timeEnd: event.timeEnd || '',     // Set end time if it exists    
+        price: event.price,
       currency: event.currency,
       ticketsAvailable: event.ticketsAvailable,
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
@@ -192,6 +196,19 @@ function EventsTab() {
           placeholder={t('eventsTab.form.city')}
           value={formData.city}
           onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+        />
+        {/* New fields for time */}
+        <input
+          type="time"
+          value={formData.timeStart}
+          onChange={(e) => setFormData({ ...formData, timeStart: e.target.value })}
+          required
+        />
+        <input
+          type="time"
+          value={formData.timeEnd}
+          onChange={(e) => setFormData({ ...formData, timeEnd: e.target.value })}
+          required
         />
         <input
           type="date"

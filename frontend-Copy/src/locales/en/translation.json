@@ -197,140 +197,138 @@
     },
     "success": "Password reset successfully. Redirecting to login...",
     "error": "Failed to reset password. Please try again"
-  },   "eventDetails": {
-    "breadcrumb": "Events",
+  },    "eventDetails": {
+    "breadcrumb": "Event Details",
+    "loading": "Loading event details...",
+    "error": {
+      "fetchDetails": "Failed to fetch event details. Please try again.",
+      "verifyPayment": "Failed to verify payment. Please contact support.",
+      "purchaseTicket": "Failed to purchase ticket. Please try again.",
+      "noPaymentUrl": "No payment URL provided.",
+      "locationUnavailable": "Location link is unavailable."
+    },
+    "loginPrompt": "Please log in to purchase tickets.",
+    "priceStart": "Starting at:",
+    "taxIncluded": "(Taxes included)",
     "bookNow": "Book Now",
-    "priceStart": "Starting from",
-    "taxIncluded": "VAT included",
-    "date": "Date",
+    "date": "Event Date",
     "location": "Location",
-    "city": "City",
     "about": "About the Event",
     "termsAndConditions": "Terms and Conditions",
-    "terms": "All tickets are subject to the terms and conditions.",
-    "presentCode": "Please present the code for entry.",
-    "sendButton": "Send",
-    "qrCodeUnavailable": "QR code is currently unavailable.",
-    "noTicketMessage": "No ticket available to display.",
-    "paymentSuccess": "Payment Successful!",
-    "enjoyEvent": "Enjoy the event!",
-    "invoiceNumber": "Invoice Number",
-    "time": "Time",
-    "seat": "Seat",
-    "experience": "Experience",
-    "defaultCity": "Not specified",
-    "loading": "Loading...",
-    "error": {
-      "fetchDetails": "An error occurred while fetching event details.",
-      "verifyPayment": "An error occurred while verifying the payment.",
-      "purchaseTicket": "An error occurred while purchasing the ticket.",
-      "noPaymentUrl": "No payment URL provided."
-    },
-    "loginPrompt": "Please log in to purchase the ticket.",
-    "organizedBy": "Organized by",
-    "ticketProfileNotice": "You can view the ticket details in your profile.",
-    "mapTitle": "Event Location",
-    "openLocation": "Open Location",
-    "copyLocation": "Copy Link",
-    "locationCopied": "Location link copied successfully."
+    "terms": "Tickets are non-refundable. Valid for the event date only.",
+    "purchasePeriod": "Purchase period:"
   }
-  ,  "eventsPage": {
-    "title": "Search Events",
-    "results": "Search results",
-    "eventCard": {
-      "date": "Date",
-      "booking": "Booking"
+  , 
+    "eventsPage": {
+      "searchPlaceholder": "Search events...",
+      "filter": {
+        "title": "Filter Events",
+        "category": "Category",
+        "selectCategory": "Select a category",
+        "categories": {
+          "sports": "Sports",
+          "theatre": "Theatre"
+        },
+        "date": "Event Date",
+        "apply": "Apply Filters",
+        "clear": "Clear Filters",
+        "close": "Close"
+      },
+      "eventCard": {
+        "price": "Price:",
+        "bookNow": "Book Now",
+        "details": "View Details"
+      }
     }
-  },   "home": {
-    "date": "Date",
-    "bookNow": "Book Now",
+  
+  ,    "home": {
     "latestEvents": "Latest Events",
+    "bookNow": "Book Now",
+    "title": "Home",
+    "slider": {
+      "next": "Next",
+      "previous": "Previous"
+    },
+    "events": {
+      "title": "Upcoming Events",
+      "viewDetails": "View Details"
+    },
     "exploreCategories": "Explore Categories",
     "categories": {
       "Music": "Music",
       "Sports": "Sports",
       "Theater": "Theater",
       "Adventure": "Adventure"
-    
-    } ,"about": {
-    "saada": {
-      "title": "About Saada"
+    },
+    "about": {
+      "title": "About Saada",
+      "description": "Saada is your ultimate platform for discovering and experiencing the best events in your city. Explore, book, and enjoy!"
+    },
+    "sponsors": {
+      "title": "Our Sponsors",
+      "description": "We thank our sponsors for their invaluable support in making these events possible."
     }
-  },
-  "sponsors": {
-    "title": "Our Sponsors"
-  }
   },   "profile": {
-    "loading": "Loading profile...",
-    "error": "An error occurred while fetching your profile. Please try again later.",
-    "noData": "No user data available.",
     "title": "Profile",
+    "loading": "Loading...",
+    "error": "An error occurred while loading your profile.",
+    "noData": "No user data available.",
     "sections": {
       "personalDetails": "Personal Details",
       "purchaseHistory": "Purchase History"
     },
     "labels": {
-      "name": "Name",
+      "name": "Full Name",
       "email": "Email",
       "phone": "Phone Number",
       "address": "Address",
-      "age": "Age",
+      "city": "City",
+      "region": "Region",
+      "address1": "Address Line 1",
+      "address2": "Address Line 2",
+      "birthdate": "Birthdate",
       "gender": "Gender",
+      "genderOptions": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
       "role": "Role",
       "event": "Event",
       "date": "Event Date",
       "purchaseDate": "Purchase Date",
-      "amount": "Amount",
-      "noEvent": "No event details"
+      "amount": "Amount"
     },
     "placeholders": {
-      "noPhone": "Not provided",
-      "noAddress": "Not provided",
-      "noAge": "Not provided",
-      "noGender": "Not specified",
-      "noTickets": "No tickets purchased yet."
+      "noPhone": "No phone number provided.",
+      "noAddress": "No address provided.",
+      "noBirthdate": "No birthdate provided.",
+      "noGender": "No gender specified.",
+      "noTickets": "No tickets purchased yet.",
+      "noEvent": "No event details available."
     },
     "buttons": {
+      "edit": "Edit Profile",
+      "save": "Save Changes",
+      "cancel": "Cancel",
+      "viewTicket": "View Ticket",
       "goToOrganizer": "Go to Organizer Dashboard",
-      "goToAdmin": "Go to Admin Dashboard",
-      "viewTicket": "View Ticket"
+      "goToAdmin": "Go to Admin Dashboard"
+    },
+    "updateSuccess": "Profile updated successfully!",
+    "updateError": "Failed to update profile. Please try again."
+  }
+   ,  "about": {
+    "saada": {
+      "title": "About Saada",
+      "description": "Saada is your go-to platform for discovering and experiencing amazing events. We connect people to extraordinary experiences in their cities.",
+      "numbersTitle": "Our Numbers Speak for Themselves",
+      "events": "Events",
+      "clients": "Clients",
+      "partners": "Partners",
+      "awards": "Awards"
     }
   }
-   ,"about": {
-  "title": "About Us",
-  "breadcrumb": {
-    "home": "Home",
-    "aboutUs": "About Us"
-  },
-  "tabs": {
-    "whoWeAre": "Who We Are",
-    "whyChooseUs": "Why Choose Us",
-    "ourVision": "Our Vision"
-  },
-  "content": {
-    "whoWeAre": {
-      "part1": "We are a trusted platform connecting event organizers and attendees.",
-      "part2": "Our mission is to make event management seamless and enjoyable."
-    },
-    "whyChooseUs": {
-      "part1": "We provide cutting-edge tools to ensure event success.",
-      "part2": "Our platform is user-friendly and secure for everyone."
-    },
-    "ourVision": {
-      "part1": "Our vision is to be the leading event platform worldwide.",
-      "part2": "We aim to innovate and set new standards in event management."
-    }
-  },
-  "imageAlt": "About Us",
-  "stats": {
-    "title": "Amazing Facts",
-    "description": "Here are some impressive stats about our platform:",
-    "events": "Hosted Events",
-    "ticketsSold": "Tickets Sold",
-    "categories": "Event Categories",
-    "partyOperators": "Party Operators"
-  }
-}
 ,   "contact": {
     "title": "Contact Us",
     "map": {

@@ -17,7 +17,7 @@ function Signup() {
       address1: '',
       address2: '',
     },
-    age: '',
+    birthdate: '', // Replaced 'age' with 'birthdate'
     gender: '',
     password: '',
     confirmPassword: '',
@@ -123,10 +123,10 @@ function Signup() {
             onChange={handleChange}
           />
           <input
-            type="number"
-            name="age"
-            placeholder={t('signup.form.age')}
-            value={formData.age}
+            type="date" // Updated input type
+            name="birthdate"
+            placeholder={t('signup.form.birthdate')} // Updated placeholder
+            value={formData.birthdate}
             onChange={handleChange}
             required
           />

@@ -118,7 +118,10 @@ function EventDetails() {
               <p className="date-label">{t('eventDetails.date')}</p>
               <p className="date-value">
                 {new Date(event.purchaseStartDate).toLocaleDateString()} -{' '}
-                {new Date(event.purchaseEndDate).toLocaleDateString()}
+                {new Date(event.purchaseEndDate).toLocaleDateString()}   
+
+                <span>       </span>{event.timeStart}-{event.timeEnd}
+
               </p>
             </div>
             <div className="location-box" onClick={handleOpenLocation}>

@@ -54,14 +54,12 @@ router.get('/email/:email', authenticateToken, authorizeAdmin, async (req, res) 
 });
 
 
-// Update User
-router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
   try {
-    const { password, ...rest } = req.body; // Extract the password and other fields
-
+    const { password, ...rest } = req.body;
     let updateFields = { ...rest };
 
-    // If the password is being updated, hash it
+    // Skip password update if it's empty
     if (password) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
@@ -73,9 +71,12 @@ router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
 
     res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error updating user:', error.message);
+    res.status(500).json({ message: 'Error updating user.', error: error.message });
   }
 });
+
+
 
 // Delete User
 router.delete('/:id', authenticateToken, authorizeAdmin, async (req, res) => {

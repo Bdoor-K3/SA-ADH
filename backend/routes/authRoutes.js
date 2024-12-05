@@ -8,20 +8,19 @@ const router = express.Router();
 // Secret for JWT
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
-// Register a new user
 router.post('/register', async (req, res) => {
   const {
     fullName,
     email,
     phoneNumber,
     address: { city, region, address1, address2 },
-    age,
+    birthdate, // Updated field
     gender,
     password,
   } = req.body;
 
   // Validate required fields
-  if (!fullName || !email || !phoneNumber || !city || !region || !address1 || !age || !gender || !password) {
+  if (!fullName || !email || !phoneNumber || !city || !region || !address1 || !birthdate || !gender || !password) {
     return res.status(400).json({ message: 'All required fields must be provided.' });
   }
 
@@ -41,7 +40,7 @@ router.post('/register', async (req, res) => {
       email,
       phoneNumber,
       address: { city, region, address1, address2 },
-      age,
+      birthdate, // Updated field
       gender,
       password: hashedPassword,
     });
