@@ -54,9 +54,11 @@
 }
 
 .event-image-container img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+  width: 100%; /* Ensures the image stretches to fit the container */
+  max-width: 300px; /* Sets a maximum width for the image */
+  height: 200px; /* Static height for consistency */
+  object-fit: cover; /* Ensures the image fills the dimensions without distortion */
+  margin: 0 auto; /* Centers the image inside the container */
 }
 
 .ticket-content {
@@ -101,3 +103,5 @@
 .event-cards::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* Responsive adjustments */

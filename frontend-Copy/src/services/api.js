@@ -3,8 +3,8 @@ import axios from 'axios';
 
 // Set up a base instance with the backend URL from .env
 const api = axios.create({
-  baseURL:'http://localhost:5000',
-});//process.env.REACT_APP_BACKEND_URL
+  baseURL:process.env.REACT_APP_BACKEND_URL,
+});//
 // 
 // Add a request interceptor to include the Authorization header
 api.interceptors.request.use(

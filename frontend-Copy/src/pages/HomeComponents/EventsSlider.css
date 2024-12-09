@@ -1,61 +1,63 @@
-/* Slider Section */
 .custom-slider-section {
-    margin: 0rem auto;
-    width: 100%;
-    padding: 2rem;
+    padding: 3rem 0;
     background: linear-gradient(180deg, #11ddff 47%, #fc5ba6 72%);
-    display: block; /* Updated to block for better layout control */
-    height: 60vh;
-
+    width: 100%;
+    text-align: center;
+}
+.custom-slider-section {
+    padding: 2rem 0; /* Reduced padding to give more focus on the image */
+    width: 100%;
+    text-align: center;
 }
 
 .custom-ticket-card {
-    display: flex !important; /* Force flexbox layout */
-    flex-direction: row; /* Horizontal layout for event details and image */
-    gap: 2rem;
-    background-image: url("../assets/BannerBig.png"); /* Background image path */
-    background-repeat: no-repeat; /* Prevent repeating the background */
-    background-position: center center; /* Center the background image */
-    padding: 0 4rem ;
-    margin-bottom: 1rem;
-    width: 100%;
-    height: auto;
+    display: flex !important;
+    flex-direction: row;
+    gap: 1.5rem;
+    background-image: url('../assets/BannerBig.png'); /* Large background image */
+    background-size: contain; /* Ensure the background fills the entire card */
+    background-repeat: no-repeat;
+    background-position: center; /* Center the image */
+    padding: 1.5rem 18rem; /* Padding to keep the layout consistent */
+    margin: 2rem auto; /* Add space between slides */
+    width: 90%; /* Consistent width for the slider cards */
+    max-width: 1600px;
+    min-height: 300px; /* Enforce a consistent height */
     align-items: center;
-    background-size: 100% 100%;
-
+    border-radius: 10px; /* Rounded edges */
 }
 
 .slick-slide {
-    display: flex !important; /* Ensure it doesn't force inline-block */
+    display: flex !important;
+    justify-content: center;
 }
 
 /* Event Details */
 .custom-event-details {
-    flex: 1; /* Take the remaining 70% of the width */
-    padding: 1rem;
+    flex: 1;
+    max-width: 600px; /* Limit the width for text details */
+    padding: 1rem; /* Add padding for proper spacing */
 }
 
 .custom-event-title {
     font-size: 2rem;
-    color: #000;
     font-weight: bold;
-    text-align: left;
+    color: #333;
+    margin-bottom: 0.5rem;
 }
 
 .custom-event-description {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #444;
-    margin: 1rem 0;
-    text-align: left;
+    margin-bottom: 1rem;
 }
 
 .custom-event-info {
-    font-size: 1rem;
-    color: #666;
-    margin: 1rem 0;
     display: flex;
     gap: 1rem;
-    align-items: center; /* Vertical alignment for time and date */
+    font-size: 0.9rem;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .custom-event-time,
@@ -71,98 +73,80 @@
 
 /* Book Button */
 .custom-book-button {
-    background-color: #00cfff;
-    color: white;
     padding: 0.8rem 2rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: rgba(0, 207, 255, 0.8); /* Semi-transparent for better integration */
     border: none;
     border-radius: 8px;
-    font-size: 1rem;
     cursor: pointer;
-    margin-top: 1rem;
-    align-self: start;
 }
 
 .custom-book-button:hover {
-    background-color: #00b0e5;
+    background-color: rgba(0, 170, 204, 0.8); /* Slightly darker on hover */
 }
 
 /* Right Section */
 .event-right {
-    flex: 0 0 50%; /* Right section takes 30% of the parent width */
+    flex: 0 0 50%; /* Right section takes 50% of the parent width */
     display: flex;
-    align-items: center; /* Vertical alignment */
-    justify-content: center; /* Horizontal alignment */
-    margin: 13px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
 }
 
 .event-right img {
-    width: 80%; /* Image takes 20% of the parent's width within 30% section */
-    max-width: 100%;
+    width: 100%;
+    max-width: 400px; /* Ensure a consistent image size */
     height: auto;
-    object-fit: cover;
-}/* Responsive Design */
-@media (max-width: 768px) {
-    .custom-slider-section {
-        height: 35vh; /* Slider section height for small screens */
-        padding: 2rem; /* Adjust padding to fit smaller screens */
-    }
+    object-fit: contain; /* Maintain aspect ratio */
+    border-radius: 10px;
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
     .custom-ticket-card {
-        flex-direction: row; /* Keep elements in a row */
-        gap: 0.2rem; /* Smaller gap for tight spacing */
-        background-image: url("../assets/Bannersmall.png"); /* Responsive image */
-        background-repeat: no-repeat;
-        background-position: center center;
-        padding: 1rem; /* Reduce padding to fit smaller height */
-        height: 100%; /* Let it fully fit within the section */
-        
+        flex-direction: row; /* Stack details and image vertically */
+        gap: 1rem;
+        background-image: url('../assets/Bannersmall.png'); /* Use small background image */
+        background-size: contain; /* Ensure the background fills the entire card */
+        background-position: center; /* Center it */
+        padding: 1rem;
+        width: 100%; /* Adjust width for mobile screens */
+        min-height: 300px; /* Consistent height for mobile */
+        margin: 1rem auto;
     }
 
     .custom-event-details {
-        padding: 0.5rem; /* Reduce padding */
+        padding: 0.5rem; /* Reduce padding for mobile */
         text-align: center;
-        justify-content: center;
-        align-items: center;
-        flex: 1; /* Ensure it takes proportional space */
     }
 
     .custom-event-title {
-        font-size: 0.8rem; /* Smaller font size for titles */
-        margin: 0.5rem 0; /* Adjust spacing */
+        font-size: 1.5rem; /* Adjust font size */
+        margin: 0.5rem 0;
     }
 
     .custom-event-description {
-        font-size: 0.6rem; /* Smaller font for descriptions */
-        margin: 0.5rem 0; /* Reduce spacing */
+        font-size: 1rem;
+        margin: 0.5rem 0;
     }
 
     .custom-event-info {
-        flex-direction: column; /* Stack info vertically */
-        gap: 0.3rem; /* Reduce gap for compact layout */
+        flex-direction: column; /* Stack time and date vertically */
+        gap: 0.5rem;
         align-items: center;
     }
 
-    .custom-event-time,
-    .custom-event-date {
-        font-size: 0.7rem; /* Adjust time and date font size */
-    }
-
-    .event-right {
-        max-width: 50%; /* Ensure the right section shrinks */
-        justify-content: center;
+    .custom-book-button {
+        padding: 0.6rem 1.5rem; /* Adjust padding for smaller screens */
+        font-size: 0.9rem;
+        border-radius: 6px;
+        margin-top: 0.5rem;
     }
 
     .event-right img {
-        width: 100%; /* Fit the image within its container */
-        object-fit: contain; /* Scale image proportionally */
-        margin: 0 auto;
-    }
-
-    .custom-book-button {
-        padding: 0.4rem 1rem; /* Reduce button padding */
-        font-size: 0.8rem; /* Smaller font size for buttons */
-        border-radius: 4px; /* Smaller border radius */
-        align-self: center; /* Center-align the button */
-        margin-top: 0.5rem; /* Reduce top margin */
+        max-width: 80%; /* Shrink image for mobile */
+        object-fit: contain; /* Maintain aspect ratio */
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Events from './pages/EventsPage';
@@ -17,6 +17,7 @@ import ScanTicket from './pages/organizer/ScanTickets';
 import About from './pages/Sections/AboutSection';
 import FAQs from './pages/Sections/QASection';
 import Contact from './pages/Sections/ContactSection';
+import SplashScreen from './SplashScreen'; // Import the Splash Screen
 import './App.css';
 
 // ProtectedRoute Component
@@ -32,6 +33,21 @@ const ProtectedRoute = ({ children, role }) => {
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a loading delay for the splash screen
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // Show splash screen for 1 second
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
+
+  if (isLoading) {
+    return <SplashScreen />; // Show Splash Screen while loading
+  }
+
   return (
     <Router>
       <Header />

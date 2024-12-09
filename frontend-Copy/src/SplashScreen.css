@@ -1,0 +1,52 @@
+/* Splash Screen Container */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #e6e3e3; /* Black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Keep it above everything */
+    animation: fadeOutScreen 1.5s ease-in-out forwards; /* Fade out the screen */
+    opacity: 1;
+  }
+  
+  /* Splash Screen Logo */
+  .splash-logo {
+    width: 150px;
+    height: auto;
+    animation: fadeOutContent 1.5s ease-in-out forwards; /* Fade out the logo */
+  }
+  
+  /* Fade-out animation for the screen */
+  @keyframes fadeOutScreen {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden; /* Ensure the splash screen is hidden */
+    }
+  }
+  
+  /* App Container */
+  .app-content {
+    visibility: hidden; /* Start hidden */
+    opacity: 0; /* Start fully transparent */
+    animation: fadeInContent 1.5s ease-in-out forwards; /* Fade in after loading */
+  }
+  
+  /* Fade-in animation for the app content */
+  @keyframes fadeInContent {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+      visibility: visible; /* Show app content */
+    }
+  }
+  
