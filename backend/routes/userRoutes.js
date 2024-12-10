@@ -78,6 +78,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
 
 
 
+
 // Delete User
 router.delete('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
   try {
@@ -93,13 +94,12 @@ router.delete('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
 
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.userId).select('-password');
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Fetch purchases for the user
     const purchases = await Purchase.find({ userId: user._id })
       .populate('ticketId')
       .populate('eventId');
@@ -109,6 +109,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error fetching user profile', error: error.message });
   }
 });
+
 
 
 // Get All Organizers

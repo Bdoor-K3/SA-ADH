@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-
 const eventSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String },
     dateOfEvent: { type: Date, required: true },
-    timeStart: { type: String, required: true }, // Added timeStart field
-    timeEnd: { type: String, required: true }, // Added timeEnd field
+    timeStart: { type: String, required: true },
+    timeEnd: { type: String, required: true },
     price: { type: Number, required: true },
     currency: {
       type: String,
@@ -21,7 +20,9 @@ const eventSchema = new mongoose.Schema(
     location: { type: String, required: true },
     city: { type: String, required: true },
     organizers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    image: { type: String },
+    bannerImage: { type: String },
+    mainImage: { type: String },
+    eventListImage: { type: String },
     isAlphantom: { type: Boolean, default: false },
   },
   { timestamps: true }

@@ -121,8 +121,6 @@ router.put('/:id/use', async (req, res) => {
 });
 
 
-
-// Purchase Ticket with Tap Payments
 router.post('/purchase', authenticateToken, async (req, res) => {
   const { eventId } = req.body;
 
@@ -145,25 +143,31 @@ router.post('/purchase', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Step 1: Create a Tap payment request
+    // Ensure countryCode is available
+    if (!user.countryCode) {
+      return res.status(400).json({ message: 'User does not have a valid country code.' });
+    }
+
+    // Construct the Tap charge payload
     const chargePayload = {
       amount: event.price, // Use event's price
       currency: event.currency, // Use event's currency
       customer_initiated: true,
       threeDSecure: true,
-      description: `Purchase ticket for event: ${event.title}`,
+      description: `Purchase ticket for event: ${event.name}`,
       metadata: { eventId: event._id.toString(), userId: user._id.toString() },
       reference: { transaction: `txn_${event._id}`, order: `ord_${event._id}` },
       receipt: { email: true, sms: true },
       customer: {
-        first_name: user.name,
+        first_name: user.fullName,
         email: user.email,
-        phoneNumber: { country_code: 966, number: user.phoneNumber }, // Assuming user has a phoneNumber field
+        phone: { country_code: user.countryCode, number: user.phoneNumber }, // Use dynamic country code and phone number
       },
       source: { id: 'src_all' },
       redirect: { url: `${process.env.BASE_URL}/events/${event._id}` }, // Replace with actual redirect URL
     };
 
+    // Make the Tap API request
     const response = await axios.post(TAP_API_BASE_URL, chargePayload, {
       headers: {
         Authorization: `Bearer ${TAP_SECRET_KEY}`,
@@ -179,8 +183,6 @@ router.post('/purchase', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error initiating payment', error: errorMessage });
   }
 });
-
-
 // Configure NodeMailer transporter
 const transporter = nodemailer.createTransport({
   service: 'Gmail', // Replace with your email provider

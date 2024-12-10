@@ -10,6 +10,7 @@ function Signup() {
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
+    countryCode: '', // Added countryCode
     email: '',
     address: {
       city: '',
@@ -17,7 +18,7 @@ function Signup() {
       address1: '',
       address2: '',
     },
-    birthdate: '', // Replaced 'age' with 'birthdate'
+    birthdate: '',
     gender: '',
     password: '',
     confirmPassword: '',
@@ -85,6 +86,14 @@ function Signup() {
           />
           <input
             type="text"
+            name="countryCode"
+            placeholder={t('signup.form.countryCode')}
+            value={formData.countryCode}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
             name="phoneNumber"
             placeholder={t('signup.form.phoneNumber')}
             value={formData.phoneNumber}
@@ -123,9 +132,9 @@ function Signup() {
             onChange={handleChange}
           />
           <input
-            type="date" // Updated input type
+            type="date"
             name="birthdate"
-            placeholder={t('signup.form.birthdate')} // Updated placeholder
+            placeholder={t('signup.form.birthdate')}
             value={formData.birthdate}
             onChange={handleChange}
             required
@@ -139,6 +148,7 @@ function Signup() {
             <option value="">{t('signup.form.gender')}</option>
             <option value="male">{t('signup.form.genderOptions.male')}</option>
             <option value="female">{t('signup.form.genderOptions.female')}</option>
+            <option value="other">{t('signup.form.genderOptions.other')}</option>
           </select>
           <input
             type="password"

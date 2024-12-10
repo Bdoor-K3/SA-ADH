@@ -15,15 +15,19 @@ const storage = new CloudinaryStorage({
   },
 });
 
-const upload = multer({ storage });
-router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
+const upload = multer({ storage }).fields([
+  { name: 'bannerImage', maxCount: 1 },
+  { name: 'mainImage', maxCount: 1 },
+  { name: 'eventListImage', maxCount: 1 },
+]);
+router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => {
   try {
     const {
       name,
       description,
       dateOfEvent,
-      timeStart, // Capture timeStart
-      timeEnd,   // Capture timeEnd
+      timeStart,
+      timeEnd,
       price,
       currency,
       ticketsAvailable,
@@ -40,8 +44,8 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       name,
       description,
       dateOfEvent,
-      timeStart, // Add timeStart
-      timeEnd,   // Add timeEnd
+      timeStart,
+      timeEnd,
       price,
       currency,
       ticketsAvailable,
@@ -51,7 +55,9 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
       category: category || 'General',
       location,
       city,
-      image: req.file ? req.file.path : null,
+      bannerImage: req.files['bannerImage'] ? req.files['bannerImage'][0].path : null,
+      mainImage: req.files['mainImage'] ? req.files['mainImage'][0].path : null,
+      eventListImage: req.files['eventListImage'] ? req.files['eventListImage'][0].path : null,
       isAlphantom: isAlphantom === 'true',
     });
 
@@ -61,14 +67,14 @@ router.post('/', authenticateToken, authorizeAdmin, upload.single('image'), asyn
     res.status(500).json({ message: error.message });
   }
 });
-router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), async (req, res) => {
+router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) => {
   try {
     const {
       name,
       description,
       dateOfEvent,
-      timeStart, // Capture timeStart
-      timeEnd,   // Capture timeEnd
+      timeStart,
+      timeEnd,
       price,
       currency,
       ticketsAvailable,
@@ -85,8 +91,8 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       name,
       description,
       dateOfEvent,
-      timeStart, // Update timeStart
-      timeEnd,   // Update timeEnd
+      timeStart,
+      timeEnd,
       price,
       currency,
       ticketsAvailable,
@@ -99,8 +105,14 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload.single('image'), as
       isAlphantom: isAlphantom === 'true',
     };
 
-    if (req.file) {
-      updateFields.image = req.file.path;
+    if (req.files['bannerImage']) {
+      updateFields.bannerImage = req.files['bannerImage'][0].path;
+    }
+    if (req.files['mainImage']) {
+      updateFields.mainImage = req.files['mainImage'][0].path;
+    }
+    if (req.files['eventListImage']) {
+      updateFields.eventListImage = req.files['eventListImage'][0].path;
     }
 
     const updatedEvent = await Event.findByIdAndUpdate(req.params.id, updateFields, { new: true });

@@ -10,6 +10,7 @@ function UsersTab() {
     fullName: '',
     email: '',
     phoneNumber: '',
+    countryCode: '', // Added countryCode field
     address: {
       city: '',
       region: '',
@@ -33,10 +34,8 @@ function UsersTab() {
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitting user:', userFormData); // Debugging log
     try {
       if (editUserId) {
-        console.log('Updating user with ID:', editUserId); // Debugging log
         await updateUser(editUserId, userFormData);
         alert(t('usersTab.alerts.updated'));
       } else {
@@ -46,6 +45,7 @@ function UsersTab() {
         fullName: '',
         email: '',
         phoneNumber: '',
+        countryCode: '', // Reset countryCode field
         address: {
           city: '',
           region: '',
@@ -76,12 +76,12 @@ function UsersTab() {
   };
 
   const handleEditUser = (user) => {
-    console.log('Editing user:', user._id); // Debugging log
     setEditUserId(user._id);
     setUserFormData({
       fullName: user.fullName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      countryCode: user.countryCode || '', // Populate countryCode field
       address: {
         city: user.address.city,
         region: user.address.region,
@@ -111,6 +111,13 @@ function UsersTab() {
           placeholder={t('usersTab.form.email')}
           value={userFormData.email}
           onChange={(e) => setUserFormData({ ...userFormData, email: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder={t('usersTab.form.countryCode')}
+          value={userFormData.countryCode}
+          onChange={(e) => setUserFormData({ ...userFormData, countryCode: e.target.value })}
           required
         />
         <input
@@ -197,6 +204,7 @@ function UsersTab() {
           <li key={user._id} className="user-item">
             <h3>{user.fullName}</h3>
             <p>{t('usersTab.user.email')}: {user.email}</p>
+            <p>{t('usersTab.user.countryCode')}: {user.countryCode}</p>
             <p>{t('usersTab.user.phone')}: {user.phoneNumber}</p>
             <p>
               {t('usersTab.user.address')}: {user.address.city}, {user.address.region}, {user.address.address1}

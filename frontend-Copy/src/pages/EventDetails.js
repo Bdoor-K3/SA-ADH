@@ -92,7 +92,7 @@ function EventDetails() {
     </div>
   
     {/* Banner Section */}
-    <div className="event-banner" style={{ backgroundImage: `url(${event.image})` }}>
+    <div className="event-banner" style={{ backgroundImage: `url(${event.bannerImage})` }}>
       <div className="banner-overlay"></div>
     </div>
   

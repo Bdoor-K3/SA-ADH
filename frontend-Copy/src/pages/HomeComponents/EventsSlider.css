@@ -1,9 +1,10 @@
 .custom-slider-section {
-    padding: 3rem 0;
     width: 100%;
     text-align: center;
   }
-  
+  .slick-slide{
+    margin: 0%;
+  }
   .custom-ticket-card {
     display: flex !important;
     justify-content: center;
@@ -12,7 +13,6 @@
     width: 90%;
     max-width: 1600px;
     margin: 2rem auto;
-    border-radius: 12px;
     overflow: hidden;
   }
   

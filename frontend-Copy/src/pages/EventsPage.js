@@ -176,7 +176,7 @@ function EventsPage() {
         </div>
         <div className="events-card-image-container">
           <img
-            src={event.image || "/assets/default-event.jpg"}
+            src={event.mainImage || "/assets/default-event.jpg"}
             alt={event.name}
             className="event-image"
           />

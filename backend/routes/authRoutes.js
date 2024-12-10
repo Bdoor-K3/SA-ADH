@@ -13,14 +13,26 @@ router.post('/register', async (req, res) => {
     fullName,
     email,
     phoneNumber,
+    countryCode, // Accept countryCode
     address: { city, region, address1, address2 },
-    birthdate, // Updated field
+    birthdate,
     gender,
     password,
   } = req.body;
 
   // Validate required fields
-  if (!fullName || !email || !phoneNumber || !city || !region || !address1 || !birthdate || !gender || !password) {
+  if (
+    !fullName ||
+    !email ||
+    !phoneNumber ||
+    !countryCode || // Validate countryCode
+    !city ||
+    !region ||
+    !address1 ||
+    !birthdate ||
+    !gender ||
+    !password
+  ) {
     return res.status(400).json({ message: 'All required fields must be provided.' });
   }
 
@@ -39,8 +51,9 @@ router.post('/register', async (req, res) => {
       fullName,
       email,
       phoneNumber,
+      countryCode, // Save countryCode
       address: { city, region, address1, address2 },
-      birthdate, // Updated field
+      birthdate,
       gender,
       password: hashedPassword,
     });

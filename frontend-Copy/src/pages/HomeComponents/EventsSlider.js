@@ -12,7 +12,7 @@ const EventsSlider = ({ events, handleViewDetails, sliderSettings, t }) => {
             <div
               className="custom-event-banner"
               style={{
-                backgroundImage: `url(${event.image})`,
+                backgroundImage: `url(${event.bannerImage})`,
               }}
             >
               {/* Overlay Content */}

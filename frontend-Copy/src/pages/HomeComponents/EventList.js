@@ -32,7 +32,7 @@ const EventList = ({ events, handleViewDetails, t }) => {
                 className="book-button"
                 onClick={() => handleViewDetails(event._id)}
                 style={{
-                  backgroundColor: getButtonColor(event.image), // Dynamic color
+                  backgroundColor: getButtonColor(event.eventListImage), // Dynamic color
                 }}
               >
                 {t('home.bookNow')}
