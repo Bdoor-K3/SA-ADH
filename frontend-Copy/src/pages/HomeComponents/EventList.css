@@ -1,6 +1,8 @@
 #event-list {
   margin-bottom: 5%;
   text-align: center;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .section-title {
@@ -25,7 +27,6 @@
   flex: 0 0 auto; /* Prevent cards from stretching */
   overflow: hidden;
   position: relative; /* Required for pseudo-elements */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .event-card-container::before,
 .event-card-container::after {
@@ -50,12 +51,11 @@
 }
 .ticket-card {
   background: white;
-  border-radius: 15px;
 }
 
 .event-image-container img {
   width: 100%; /* Ensures the image stretches to fit the container */
-  max-width: 300px; /* Sets a maximum width for the image */
+  max-width: 100%; /* Sets a maximum width for the image */
   height: 200px; /* Static height for consistency */
   object-fit: cover; /* Ensures the image fills the dimensions without distortion */
   margin: 0 auto; /* Centers the image inside the container */
@@ -76,7 +76,6 @@
 .book-button {
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   width: 100%;
   height: 40px;

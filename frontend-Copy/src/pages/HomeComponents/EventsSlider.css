@@ -1,152 +1,116 @@
 .custom-slider-section {
     padding: 3rem 0;
-    background: linear-gradient(180deg, #11ddff 47%, #fc5ba6 72%);
     width: 100%;
     text-align: center;
-}
-.custom-slider-section {
-    padding: 2rem 0; /* Reduced padding to give more focus on the image */
-    width: 100%;
-    text-align: center;
-}
-
-.custom-ticket-card {
-    display: flex !important;
-    flex-direction: row;
-    gap: 1.5rem;
-    background-image: url('../assets/BannerBig.png'); /* Large background image */
-    background-size: contain; /* Ensure the background fills the entire card */
-    background-repeat: no-repeat;
-    background-position: center; /* Center the image */
-    padding: 1.5rem 18rem; /* Padding to keep the layout consistent */
-    margin: 2rem auto; /* Add space between slides */
-    width: 90%; /* Consistent width for the slider cards */
-    max-width: 1600px;
-    min-height: 300px; /* Enforce a consistent height */
-    align-items: center;
-    border-radius: 10px; /* Rounded edges */
-}
-
-.slick-slide {
+  }
+  
+  .custom-ticket-card {
     display: flex !important;
     justify-content: center;
-}
-
-/* Event Details */
-.custom-event-details {
-    flex: 1;
-    max-width: 600px; /* Limit the width for text details */
-    padding: 1rem; /* Add padding for proper spacing */
-}
-
-.custom-event-title {
-    font-size: 2rem;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    max-width: 1600px;
+    margin: 2rem auto;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  /* Event Banner */
+  .custom-event-banner {
+    width: 100%;
+    height: 400px; /* Set a consistent height for banners */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .custom-event-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% transparency */
+    z-index: 1; /* Place the semi-transparent background below the overlay content */
+  }
+  
+  /* Overlay Content */
+  .custom-event-overlay {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Shadow effect for overlay */
+    text-align: center;
+    z-index: 2; /* Place the content above the semi-transparent background */
+  }
+  
+  .custom-event-title {
+    font-size: 1.8rem;
     font-weight: bold;
-    color: #333;
+    color: #fff; /* White text for better visibility */
     margin-bottom: 0.5rem;
-}
-
-.custom-event-description {
+  }
+  
+  .custom-event-description {
     font-size: 1rem;
-    color: #444;
+    color: #ddd; /* Light text for better contrast */
     margin-bottom: 1rem;
-}
-
-.custom-event-info {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    align-items: center;
+  }
+  
+  .custom-event-price {
+    font-size: 1rem;
+    color: #fff;
     margin-bottom: 1rem;
-}
-
-.custom-event-time,
-.custom-event-date {
-    display: flex;
-    align-items: center;
-}
-
-.custom-event-time i,
-.custom-event-date i {
-    margin-right: 0.5rem;
-}
-
-/* Book Button */
-.custom-book-button {
+    font-weight: bold;
+  }
+  
+  .custom-book-button {
     padding: 0.8rem 2rem;
     font-size: 1rem;
     color: #fff;
-    background-color: rgba(0, 207, 255, 0.8); /* Semi-transparent for better integration */
+    background-color: #00cfff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-}
-
-.custom-book-button:hover {
-    background-color: rgba(0, 170, 204, 0.8); /* Slightly darker on hover */
-}
-
-/* Right Section */
-.event-right {
-    flex: 0 0 50%; /* Right section takes 50% of the parent width */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-}
-
-.event-right img {
-    width: 100%;
-    max-width: 400px; /* Ensure a consistent image size */
-    height: auto;
-    object-fit: contain; /* Maintain aspect ratio */
-    border-radius: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .custom-ticket-card {
-        flex-direction: row; /* Stack details and image vertically */
-        gap: 1rem;
-        background-image: url('../assets/Bannersmall.png'); /* Use small background image */
-        background-size: contain; /* Ensure the background fills the entire card */
-        background-position: center; /* Center it */
-        padding: 1rem;
-        width: 100%; /* Adjust width for mobile screens */
-        min-height: 300px; /* Consistent height for mobile */
-        margin: 1rem auto;
+  }
+  
+  .custom-book-button:hover {
+    background-color: #009dcc;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .custom-event-banner {
+      height: 300px; /* Adjust height for smaller screens */
     }
-
-    .custom-event-details {
-        padding: 0.5rem; /* Reduce padding for mobile */
-        text-align: center;
+  
+    .custom-event-overlay {
+      width: 95%;
+      padding: 1rem;
     }
-
+  
     .custom-event-title {
-        font-size: 1.5rem; /* Adjust font size */
-        margin: 0.5rem 0;
+      font-size: 1.5rem;
     }
-
+  
     .custom-event-description {
-        font-size: 1rem;
-        margin: 0.5rem 0;
+      font-size: 0.9rem;
     }
-
-    .custom-event-info {
-        flex-direction: column; /* Stack time and date vertically */
-        gap: 0.5rem;
-        align-items: center;
-    }
-
+  
     .custom-book-button {
-        padding: 0.6rem 1.5rem; /* Adjust padding for smaller screens */
-        font-size: 0.9rem;
-        border-radius: 6px;
-        margin-top: 0.5rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 0.9rem;
     }
-
-    .event-right img {
-        max-width: 80%; /* Shrink image for mobile */
-        object-fit: contain; /* Maintain aspect ratio */
-    }
-}
+  }
+  
