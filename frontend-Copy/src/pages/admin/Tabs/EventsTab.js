@@ -25,6 +25,7 @@ function EventsTab() {
     bannerImage: null,
     mainImage: null,
     eventListImage: null,
+    isAlphantom: false,
   });
   const [editEventId, setEditEventId] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -106,6 +107,7 @@ function EventsTab() {
       bannerImage: null,
       mainImage: null,
       eventListImage: null,
+      isAlphantom: false,
     });
     setEditEventId(null);
   };
@@ -114,6 +116,7 @@ function EventsTab() {
     const file = e.target.files[0];
     setFormData({ ...formData, [field]: file });
   };
+
   const handleEditEvent = (event) => {
     setEditEventId(event._id);
     setFormData({
@@ -131,7 +134,10 @@ function EventsTab() {
       category: event.category,
       location: event.location,
       city: event.city,
-      image: null,
+      bannerImage: null,
+      mainImage: null,
+      eventListImage: null,
+      isAlphantom: event.isAlphantom || false,
     });
   };
 
@@ -160,127 +166,127 @@ function EventsTab() {
 
   return (
     <div className="events-tab">
-    <h2 className="tab-title">{t(editEventId ? 'eventsTab.title.edit' : 'eventsTab.title.create')}</h2>
-    <form className="event-form" onSubmit={handleEventSubmit}>
-      <label>{t('eventsTab.form.eventName')}</label>
-      <input
-        type="text"
-        value={formData.name}
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-        required
-      />
+      <h2 className="tab-title">{t(editEventId ? 'eventsTab.title.edit' : 'eventsTab.title.create')}</h2>
+      <form className="event-form" onSubmit={handleEventSubmit}>
+        <label>{t('eventsTab.form.eventName')}</label>
+        <input
+          type="text"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.description')}</label>
-      <textarea
-        value={formData.description}
-        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.description')}</label>
+        <textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.category')}</label>
-      <input
-        type="text"
-        value={formData.category}
-        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-      />
+        <label>{t('eventsTab.form.category')}</label>
+        <input
+          type="text"
+          value={formData.category}
+          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+        />
 
-      <label>{t('eventsTab.form.location')}</label>
-      <input
-        type="text"
-        value={formData.location}
-        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-      />
+        <label>{t('eventsTab.form.location')}</label>
+        <input
+          type="text"
+          value={formData.location}
+          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+        />
 
-      <label>{t('eventsTab.form.city')}</label>
-      <input
-        type="text"
-        value={formData.city}
-        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-      />
+        <label>{t('eventsTab.form.city')}</label>
+        <input
+          type="text"
+          value={formData.city}
+          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+        />
 
-      <label>{t('eventsTab.form.timeStart')}</label>
-      <input
-        type="time"
-        value={formData.timeStart}
-        onChange={(e) => setFormData({ ...formData, timeStart: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.timeStart')}</label>
+        <input
+          type="time"
+          value={formData.timeStart}
+          onChange={(e) => setFormData({ ...formData, timeStart: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.timeEnd')}</label>
-      <input
-        type="time"
-        value={formData.timeEnd}
-        onChange={(e) => setFormData({ ...formData, timeEnd: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.timeEnd')}</label>
+        <input
+          type="time"
+          value={formData.timeEnd}
+          onChange={(e) => setFormData({ ...formData, timeEnd: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.dateOfEvent')}</label>
-      <input
-        type="date"
-        value={formData.dateOfEvent}
-        onChange={(e) => setFormData({ ...formData, dateOfEvent: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.dateOfEvent')}</label>
+        <input
+          type="date"
+          value={formData.dateOfEvent}
+          onChange={(e) => setFormData({ ...formData, dateOfEvent: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.price')}</label>
-      <input
-        type="number"
-        value={formData.price}
-        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.price')}</label>
+        <input
+          type="number"
+          value={formData.price}
+          onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.currency')}</label>
-      <select
-        value={formData.currency}
-        onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
-        required
-      >
-        <option value="SAR">SAR</option>
-        <option value="AED">AED</option>
-        <option value="KWD">KWD</option>
-        <option value="BHD">BHD</option>
-        <option value="OMR">OMR</option>
-        <option value="QAR">QAR</option>
-      </select>
+        <label>{t('eventsTab.form.currency')}</label>
+        <select
+          value={formData.currency}
+          onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
+          required
+        >
+          <option value="SAR">SAR</option>
+          <option value="AED">AED</option>
+          <option value="KWD">KWD</option>
+          <option value="BHD">BHD</option>
+          <option value="OMR">OMR</option>
+          <option value="QAR">QAR</option>
+        </select>
 
-      <label>{t('eventsTab.form.ticketsAvailable')}</label>
-      <input
-        type="number"
-        value={formData.ticketsAvailable}
-        onChange={(e) => setFormData({ ...formData, ticketsAvailable: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.ticketsAvailable')}</label>
+        <input
+          type="number"
+          value={formData.ticketsAvailable}
+          onChange={(e) => setFormData({ ...formData, ticketsAvailable: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.purchaseStartDate')}</label>
-      <input
-        type="date"
-        value={formData.purchaseStartDate}
-        onChange={(e) => setFormData({ ...formData, purchaseStartDate: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.purchaseStartDate')}</label>
+        <input
+          type="date"
+          value={formData.purchaseStartDate}
+          onChange={(e) => setFormData({ ...formData, purchaseStartDate: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.purchaseEndDate')}</label>
-      <input
-        type="date"
-        value={formData.purchaseEndDate}
-        onChange={(e) => setFormData({ ...formData, purchaseEndDate: e.target.value })}
-        required
-      />
+        <label>{t('eventsTab.form.purchaseEndDate')}</label>
+        <input
+          type="date"
+          value={formData.purchaseEndDate}
+          onChange={(e) => setFormData({ ...formData, purchaseEndDate: e.target.value })}
+          required
+        />
 
-      <label>{t('eventsTab.form.bannerImage')}</label>
-      <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'bannerImage')} />
-      {formData.bannerImage && <p>{formData.bannerImage.name}</p>}
+        <label>{t('eventsTab.form.bannerImage')}</label>
+        <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'bannerImage')} />
+        {formData.bannerImage && <p>{formData.bannerImage.name}</p>}
 
-      <label>{t('eventsTab.form.mainImage')}</label>
-      <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'mainImage')} />
-      {formData.mainImage && <p>{formData.mainImage.name}</p>}
+        <label>{t('eventsTab.form.mainImage')}</label>
+        <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'mainImage')} />
+        {formData.mainImage && <p>{formData.mainImage.name}</p>}
 
-      <label>{t('eventsTab.form.eventListImage')}</label>
-      <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'eventListImage')} />
-      {formData.eventListImage && <p>{formData.eventListImage.name}</p>}
+        <label>{t('eventsTab.form.eventListImage')}</label>
+        <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'eventListImage')} />
+        {formData.eventListImage && <p>{formData.eventListImage.name}</p>}
 
-       <div className="organizers-container">
+        <div className="organizers-container">
           <label>{t('eventsTab.form.organizers')}</label>
           {organizers.map((organizer) => (
             <div key={organizer._id} className="organizer-item">
@@ -296,6 +302,16 @@ function EventsTab() {
             </div>
           ))}
         </div>
+
+        <label>
+          <input
+            type="checkbox"
+            checked={formData.isAlphantom}
+            onChange={(e) => setFormData({ ...formData, isAlphantom: e.target.checked })}
+          />
+          {t('eventsTab.form.isAlphantom')}
+        </label>
+
         <button type="submit" className="submit-button" disabled={loading}>
           {loading ? t('eventsTab.alerts.loading') : t(editEventId ? 'eventsTab.form.submit.update' : 'eventsTab.form.submit.create')}
         </button>
