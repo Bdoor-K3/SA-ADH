@@ -24,6 +24,7 @@ const eventSchema = new mongoose.Schema(
     mainImage: { type: String },
     eventListImage: { type: String },
     isAlphantom: { type: Boolean, default: false },
+    hide: { type: Boolean, default: false }, // New hide field
   },
   { timestamps: true }
 );

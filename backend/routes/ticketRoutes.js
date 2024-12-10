@@ -373,6 +373,130 @@ router.get('/payment/callback', async (req, res) => {
   }
 });
 
+router.post('/purchase/free', authenticateToken, async (req, res) => {
+  const { eventId } = req.body;
+
+  try {
+    // Find the event
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Check if the event is free
+    if (event.price > 0) {
+      return res.status(400).json({ message: 'This endpoint is only for free events' });
+    }
+
+    // Check if tickets are available
+    const ticketsSold = await Ticket.countDocuments({ eventId });
+    if (ticketsSold >= event.ticketsAvailable) {
+      return res.status(400).json({ message: 'No tickets available for this event' });
+    }
+
+    // Find the user
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate QR Code data
+    const qrCodeData = `${user._id}|${event._id}|${new Date().toISOString()}`;
+    let qrCodeBase64;
+    try {
+      qrCodeBase64 = await QRCode.toDataURL(qrCodeData);
+    } catch (qrError) {
+      logger.error(`Error generating QR Code: ${qrError.message}`);
+      return res.status(500).json({ message: 'Error generating QR Code' });
+    }
+
+    // Upload QR code to Cloudinary
+    let cloudinaryUpload;
+    try {
+      cloudinaryUpload = await cloudinary.uploader.upload(qrCodeBase64, {
+        folder: 'tickets',
+        public_id: `free_ticket_${user._id}_${event._id}`,
+        overwrite: true,
+      });
+    } catch (uploadError) {
+      logger.error(`Error uploading QR Code to Cloudinary: ${uploadError.message}`);
+      return res.status(500).json({ message: 'Error uploading QR Code to Cloudinary' });
+    }
+
+    const qrCodeCloudinaryUrl = cloudinaryUpload.secure_url;
+
+    // Create and save the ticket
+    const newTicket = new Ticket({
+      eventId: event._id,
+      buyerId: user._id,
+      QRCode: qrCodeData,
+      QRCodeImage: qrCodeCloudinaryUrl,
+    });
+
+    const savedTicket = await newTicket.save();
+
+    // Create and save the purchase record
+    const newPurchase = new Purchase({
+      userId: user._id,
+      ticketId: savedTicket._id,
+      eventId: event._id,
+      amount: 0, // Free event
+      currency: event.currency,
+      paid: true,
+    });
+
+    await newPurchase.save();
+
+    // Send confirmation email
+    const emailContent = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.5; color: #333;">
+        <div style="max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
+          <div style="background-color: #aa336a; color: #fff; padding: 20px; text-align: center;">
+            <h1>Your Ticket for ${event.name}</h1>
+          </div>
+          <div style="padding: 20px;">
+            <p>Thank you for reserving your free ticket! Here are your ticket details:</p>
+            <ul>
+              <li><strong>Event:</strong> ${event.name}</li>
+              <li><strong>Date:</strong> ${new Date(event.dateOfEvent).toLocaleDateString()}</li>
+              <li><strong>Price:</strong> Free</li>
+              <li><strong>Reservation Date:</strong> ${new Date().toLocaleDateString()}</li>
+            </ul>
+            <p>Scan the QR code below at the event entrance:</p>
+            <div style="text-align: center; margin: 20px 0;">
+              <img src="${qrCodeCloudinaryUrl}" alt="QR Code" style="width: 200px; height: 200px;" />
+            </div>
+            <p>We look forward to seeing you at the event!</p>
+          </div>
+          <div style="background-color: #f8f8f8; padding: 20px; text-align: center; border-top: 1px solid #ddd;">
+            <p>If you have any questions, contact us at <a href="mailto:${process.env.EMAIL_USER}" style="color: #aa336a;">${process.env.EMAIL_USER}</a></p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: `Your Ticket for ${event.name}`,
+      html: emailContent,
+    });
+
+    // Return success response
+    return res.status(200).json({
+      message: 'Ticket reserved successfully.',
+      ticket: {
+        QRCodeImage: qrCodeCloudinaryUrl,
+        details: savedTicket,
+      },
+    });
+  } catch (error) {
+    logger.error(`Error reserving free ticket: ${error.message}`);
+    return res.status(500).json({ message: 'Error reserving free ticket', error: error.message });
+  }
+});
+
+
 // Validate Ticket
 router.post('/validate', authenticateToken, async (req, res) => {
   const { qrCodeData, eventId } = req.body;

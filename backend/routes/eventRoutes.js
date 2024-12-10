@@ -38,6 +38,7 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
       location,
       city,
       isAlphantom,
+      hide, // New field
     } = req.body;
 
     const newEvent = new Event({
@@ -59,6 +60,7 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
       mainImage: req.files['mainImage'] ? req.files['mainImage'][0].path : null,
       eventListImage: req.files['eventListImage'] ? req.files['eventListImage'][0].path : null,
       isAlphantom: isAlphantom === 'true',
+      hide: hide === 'true', // Convert to boolean
     });
 
     const savedEvent = await newEvent.save();
@@ -67,6 +69,7 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
     res.status(500).json({ message: error.message });
   }
 });
+
 router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) => {
   try {
     const {
@@ -85,6 +88,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
       location,
       city,
       isAlphantom,
+      hide, // New field
     } = req.body;
 
     const updateFields = {
@@ -103,6 +107,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
       location,
       city,
       isAlphantom: isAlphantom === 'true',
+      hide: hide === 'true', // Convert to boolean
     };
 
     if (req.files['bannerImage']) {
@@ -129,7 +134,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
 
 
 // Get All Events backend.happiness.sa/api/events/
-router.get('/', async (req, res) => {
+router.get('/admin/', async (req, res) => {
   try {
     const events = await Event.find();
     res.status(200).json(events);
@@ -138,6 +143,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const { showHidden } = req.query;
+
+    const filter = {};
+    if (showHidden !== 'true') {
+      filter.hide = false; // Only show visible events by default
+    }
+
+    const events = await Event.find(filter);
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 // Get Event by ID
 router.get('/:id', async (req, res) => {
   try {

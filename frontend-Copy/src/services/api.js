@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Set up a base instance with the backend URL from .env
 const api = axios.create({
-  baseURL:'http://localhost:5000',
+  baseURL:'http://localhost:5001',
 });//'http://localhost:5000'
 // process.env.REACT_APP_BACKEND_URL
 // Add a request interceptor to include the Authorization header
@@ -24,6 +24,17 @@ api.interceptors.request.use(
 export const fetchEvents = async () => {
   try {
     const response = await api.get('/api/events');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw error;
+  }
+};
+
+// Get All Events
+export const fetchEventsAdmin = async () => {
+  try {
+    const response = await api.get('/api/events/admin');
     return response.data;
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -190,6 +201,18 @@ export const forgotPassword = async (data) => {
     throw error;
   }
 };
+
+// Purchase Free Ticket
+export const purchaseFreeTicket = async (eventId) => {
+  try {
+    const response = await api.post('/api/tickets/purchase/free', { eventId });
+    return response.data;
+  } catch (error) {
+    console.error('Error purchasing free ticket:', error);
+    throw error;
+  }
+};
+
 
 // Reset Password
 export const resetPassword = async ({ token, password }) => {

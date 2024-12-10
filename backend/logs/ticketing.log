@@ -286,3 +286,4 @@
 2024-11-30T10:48:05.775Z [INFO]: Ticket already exists for this tap_id
 2024-11-30T10:48:05.777Z [INFO]: Ticket already exists for this tap_id
 2024-12-02T15:52:38.178Z [ERROR]: Rate limit exceeded: Too many requests to Tap Payments API.
+2024-12-10T12:41:12.390Z [ERROR]: Error initiating payment: Request failed with status code 400

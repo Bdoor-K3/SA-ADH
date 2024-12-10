@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getEventById, purchaseTicket, verifyPayment } from '../services/api';
+import { getEventById, purchaseTicket, purchaseFreeTicket, verifyPayment } from '../services/api';
 import './EventDetails.css';
 
 function EventDetails() {
@@ -62,11 +62,19 @@ function EventDetails() {
     }
 
     try {
-      const response = await purchaseTicket(id);
-      if (response.url) {
-        window.location.href = response.url;
+      if (event.price === 0) {
+        // Use the free ticket endpoint
+        const response = await purchaseFreeTicket(id);
+        // Redirect to Ticket Page with ticket details
+        navigate('/ticket', { state: { ticket: response.ticket, event } });
       } else {
-        alert(t('eventDetails.error.noPaymentUrl'));
+        // Use the payment-required endpoint
+        const response = await purchaseTicket(id);
+        if (response.url) {
+          window.location.href = response.url; // Redirect to payment URL
+        } else {
+          alert(t('eventDetails.error.noPaymentUrl'));
+        }
       }
     } catch (err) {
       setError(err.response?.data?.message || t('eventDetails.error.purchaseTicket'));
@@ -84,77 +92,61 @@ function EventDetails() {
 
   return (
     <div className={`event-details-container ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
-    {/* Breadcrumb Header */}
-    <div className="event-details-header">
-      <h2>
-        {t('eventDetails.breadcrumb')} &gt; {event.name}
-      </h2>
-    </div>
-  
-    {/* Banner Section */}
-    <div className="event-banner" style={{ backgroundImage: `url(${event.bannerImage})` }}>
-      <div className="banner-overlay"></div>
-    </div>
-  
-    {/* Main Content Section */}
-    <div className="event-details-content">
-      {/* Right Section: Ticket Purchase Box */}
-      <div className="ticket-purchase-box">
+      <div className="event-details-header">
+        <h2>
+          {t('eventDetails.breadcrumb')} &gt; {event.name}
+        </h2>
+      </div>
+      <div className="event-banner" style={{ backgroundImage: `url(${event.bannerImage})` }}>
+        <div className="banner-overlay"></div>
+      </div>
+      <div className="event-details-content">
+        <div className="ticket-purchase-box">
+          <p className="price-info">
+            {t('eventDetails.priceStart')} {event.price} {event.currency}{' '}
+            {t('eventDetails.taxIncluded')}
+          </p>
+          <button className="purchase-button" onClick={handlePurchaseTicket}>
+            {t('eventDetails.bookNow')}
+          </button>
+        </div>
+        <div className="event-info">
+          <div className="event-info-box">
+            <div className="event-date-location">
+              <div className="date-box">
+                <p className="date-label">{t('eventDetails.date')}</p>
+                <p className="date-value">
+                  {new Date(event.purchaseStartDate).toLocaleDateString()} -{' '}
+                  {new Date(event.purchaseEndDate).toLocaleDateString()}
+                  <span> </span>{event.timeStart}-{event.timeEnd}
+                </p>
+              </div>
+              <div className="location-box" onClick={handleOpenLocation}>
+                <p className="location-label">{t('eventDetails.location')}</p>
+                <p className="location-value">{event.city}</p>
+              </div>
+            </div>
+          </div>
+          <div className="event-description">
+            <h3>{t('eventDetails.about')}</h3>
+            <p>{event.description}</p>
+            <h3>{t('eventDetails.termsAndConditions')}</h3>
+            <p>
+              {t('eventDetails.terms')} {new Date(event.purchaseStartDate).toLocaleDateString()}.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="fixed-price-box">
         <p className="price-info">
-          {t('eventDetails.priceStart')} {event.price} {event.currency}{' '}
-          {t('eventDetails.taxIncluded')}
+          {t('eventDetails.priceStart')} {event.price} {event.currency}
         </p>
         <button className="purchase-button" onClick={handlePurchaseTicket}>
           {t('eventDetails.bookNow')}
         </button>
       </div>
-  
-      {/* Left Section: Event Info */}
-      <div className="event-info">
-        {/* Date and Location Box */}
-        <div className="event-info-box">
-          <div className="event-date-location">
-            <div className="date-box">
-              <p className="date-label">{t('eventDetails.date')}</p>
-              <p className="date-value">
-                {new Date(event.purchaseStartDate).toLocaleDateString()} -{' '}
-                {new Date(event.purchaseEndDate).toLocaleDateString()}   
-
-                <span>       </span>{event.timeStart}-{event.timeEnd}
-
-              </p>
-            </div>
-            <div className="location-box" onClick={handleOpenLocation}>
-              <p className="location-label">{t('eventDetails.location')}</p>
-              <p className="location-value">{event.city}</p>
-            </div>
-          </div>
-        </div>
-  
-        {/* Event Description */}
-        <div className="event-description">
-          <h3>{t('eventDetails.about')}</h3>
-          <p>{event.description}</p>
-  
-          <h3>{t('eventDetails.termsAndConditions')}</h3>
-          <p>
-            {t('eventDetails.terms')} {new Date(event.purchaseStartDate).toLocaleDateString()}.
-          </p>
-        </div>
-      </div>
     </div>
-  
-    {/* Fixed Bottom Price Box */}
-    <div className="fixed-price-box">
-      <p className="price-info">
-        {t('eventDetails.priceStart')} {event.price} {event.currency}
-      </p>
-      <button className="purchase-button" onClick={handlePurchaseTicket}>
-        {t('eventDetails.bookNow')}
-      </button>
-    </div>
-  </div>
-);
+  );
 }
 
 export default EventDetails;

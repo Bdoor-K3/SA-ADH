@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { fetchUserProfile, updateUser } from '../services/api'; // Include updateUser API
+import { fetchUserProfile, updateUser, forgotPassword } from '../services/api'; // Include forgotPassword API
 import './Profile.css';
 
 function Profile() {
@@ -11,8 +11,9 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false); // Toggle for editing mode
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -34,7 +35,6 @@ function Profile() {
         setUser(data.user);
         setPurchaseHistory(data.purchaseHistory || []);
 
-        // Populate the form data with user details
         setFormData({
           fullName: data.user.fullName || '',
           email: data.user.email || '',
@@ -78,14 +78,26 @@ function Profile() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await updateUser(user._id, formData); // Use updateUser API
+      await updateUser(user._id, formData);
       alert(t('profile.updateSuccess'));
       setIsEditing(false);
-      const updatedUser = { ...user, ...formData }; // Reflect updated data
+      const updatedUser = { ...user, ...formData };
       setUser(updatedUser);
     } catch (err) {
       console.error('Error updating profile:', err);
       setError(t('profile.updateError'));
+    }
+  };
+
+  const handleResetPassword = async () => {
+    setError('');
+    setSuccessMessage('');
+    try {
+      const response = await forgotPassword({ email: user.email }); // Ensure email is sent as an object
+      setSuccessMessage(response.message || t('profile.resetPasswordSuccess'));
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || t('profile.resetPasswordError');
+      setError(errorMessage);
     }
   };
 
@@ -105,9 +117,10 @@ function Profile() {
     <div className={`profile ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
       <h1>{t('profile.title')}</h1>
       <div className="profile-container">
-        {/* Personal Details */}
         <div className="profile-details">
           <h2>{t('profile.sections.personalDetails')}</h2>
+          {successMessage && <p className="success-message">{successMessage}</p>}
+          {error && <p className="error-message">{error}</p>}
           {isEditing ? (
             <form onSubmit={handleUpdate} className="profile-update-form">
               <input
@@ -210,7 +223,23 @@ function Profile() {
               </p>
               <p><strong>{t('profile.labels.birthdate')}:</strong> {user.birthdate || t('profile.placeholders.noBirthdate')}</p>
               <p><strong>{t('profile.labels.gender')}:</strong> {user.gender || t('profile.placeholders.noGender')}</p>
-              {user.role === 'organizer' && (
+              <button
+                className="profile-button"
+                onClick={() => setIsEditing(true)}
+              >
+                {t('profile.buttons.edit')}
+              </button>
+              <button
+                className="profile-button reset-password-button"
+                onClick={handleResetPassword}
+              >
+                {t('profile.buttons.resetPassword')}
+              </button>
+            </>
+          )}
+        </div>
+
+        {user.role === 'organizer' && (
             <button
               className="profile-button"
               onClick={() => window.location.href = '/organizer'}
@@ -226,17 +255,7 @@ function Profile() {
               {t('profile.buttons.goToAdmin')}
             </button>
           )}
-              <button
-                className="profile-button"
-                onClick={() => setIsEditing(true)}
-              >
-                {t('profile.buttons.edit')}
-              </button>
-            </>
-          )}
-        </div>
 
-        {/* Purchase History */}
         <div className="purchase-history">
           <h2>{t('profile.sections.purchaseHistory')}</h2>
           {purchaseHistory.length === 0 ? (
@@ -245,11 +264,9 @@ function Profile() {
             <ul className="ticket-list">
               {purchaseHistory.map((purchase, index) => {
                 const event = purchase.eventId;
-
                 if (!event) {
                   return null;
                 }
-
                 return (
                   <li key={index} className="ticket-item">
                     <p><strong>{t('profile.labels.event')}:</strong> {event.name || t('profile.labels.noEvent')}</p>

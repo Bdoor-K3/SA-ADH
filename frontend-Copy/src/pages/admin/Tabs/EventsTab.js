@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { fetchEvents, createEvent, updateEvent, deleteEvent, fetchOrganizers } from '../../../services/api';
+import { fetchEventsAdmin, createEvent, updateEvent, deleteEvent, fetchOrganizers } from '../../../services/api';
 import './EventsTab.css';
 
 function EventsTab() {
@@ -26,6 +26,8 @@ function EventsTab() {
     mainImage: null,
     eventListImage: null,
     isAlphantom: false,
+    hide: false, // Add this field to formData
+
   });
   const [editEventId, setEditEventId] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,7 +35,7 @@ function EventsTab() {
   useEffect(() => {
     const loadEvents = async () => {
       try {
-        const data = await fetchEvents();
+        const data = await fetchEventsAdmin();
         setEvents(data || []);
       } catch (error) {
         console.error(t('eventsTab.alerts.fetchError'), error);
@@ -138,6 +140,8 @@ function EventsTab() {
       mainImage: null,
       eventListImage: null,
       isAlphantom: event.isAlphantom || false,
+      hide: event.hide || false, // Add this to handle the hide field
+
     });
   };
 
@@ -311,6 +315,15 @@ function EventsTab() {
           />
           {t('eventsTab.form.isAlphantom')}
         </label>
+        <label>
+  <input
+    type="checkbox"
+    checked={formData.hide}
+    onChange={(e) => setFormData({ ...formData, hide: e.target.checked })}
+  />
+  {t('eventsTab.form.hide')} {/* Add translation key for the label */}
+</label>
+
 
         <button type="submit" className="submit-button" disabled={loading}>
           {loading ? t('eventsTab.alerts.loading') : t(editEventId ? 'eventsTab.form.submit.update' : 'eventsTab.form.submit.create')}
