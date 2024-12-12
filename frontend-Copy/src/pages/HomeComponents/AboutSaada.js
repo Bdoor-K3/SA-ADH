@@ -26,27 +26,21 @@ const AboutSaada = ({ t }) => {
         <div className="statistics-numbers">
           <div className="stat-item">
             <div className="stat-circle">
-              <span className="stat-value">100</span>
+              <span className="stat-value">22</span>
             </div>
             <p className="stat-label">{t('about.saada.events')}</p>
           </div>
           <div className="stat-item">
             <div className="stat-circle">
-              <span className="stat-value">75</span>
+              <span className="stat-value">5000</span>
             </div>
             <p className="stat-label">{t('about.saada.clients')}</p>
           </div>
           <div className="stat-item">
             <div className="stat-circle">
-              <span className="stat-value">5</span>
-            </div>
-            <p className="stat-label">{t('about.saada.partners')}</p>
-          </div>
-          <div className="stat-item">
-            <div className="stat-circle">
               <span className="stat-value">12</span>
             </div>
-            <p className="stat-label">{t('about.saada.awards')}</p>
+            <p className="stat-label">{t('about.saada.partners')}</p>
           </div>
         </div>
       </div>

@@ -64,7 +64,7 @@ function Home() {
         t={t}
       />
       <EventList events={events} handleViewDetails={handleViewDetails} t={t} />
-      <Categories handleCategoryClick={handleCategoryClick} t={t} />
+      
       <AboutSaada t={t} />
       <Sponsors t={t} />
     </div>
@@ -72,3 +72,4 @@ function Home() {
 }
 
 export default Home;
+//     <Categories handleCategoryClick={handleCategoryClick} t={t} />

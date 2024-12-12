@@ -139,3 +139,20 @@ select {
 .signup-button:hover {
   background-color: #e056b6; /* Slightly darker pink for hover effect */
 }
+.phone-input-container {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.react-tel-input .form-control {
+  font-size: 16px;
+  height: 40px;
+}
+
+.react-tel-input .flag-dropdown {
+  margin-right: 5px;
+}
+label{
+  padding-top: 10%;
+}

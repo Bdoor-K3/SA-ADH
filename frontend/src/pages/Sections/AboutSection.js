@@ -63,29 +63,6 @@ function AboutSection() {
           </div>
         </div>
 
-        {/* Statistics Section */}
-        <div className="stats">
-          <h3>{t('about.stats.title')}</h3>
-          <p>{t('about.stats.description')}</p>
-          <div className="stats-container">
-            <div className="stat-item">
-              <span className="stat-number">500</span>
-              <span className="stat-label">{t('about.stats.events')}</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">12,000+</span>
-              <span className="stat-label">{t('about.stats.ticketsSold')}</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">8</span>
-              <span className="stat-label">{t('about.stats.categories')}</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">10</span>
-              <span className="stat-label">{t('about.stats.partyOperators')}</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

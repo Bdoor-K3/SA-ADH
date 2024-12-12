@@ -18,6 +18,7 @@ app.use('/api/logs', require('./routes/logRoutes'));
 app.use('/api/tickets', require('./routes/ticketRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
 
 app.get('/', (req, res) => res.send('API is running...'));
 

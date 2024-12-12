@@ -7,32 +7,12 @@ const router = express.Router();
 
 // Secret for JWT
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
-
+// Registration Endpoint
 router.post('/register', async (req, res) => {
-  const {
-    fullName,
-    email,
-    phoneNumber,
-    countryCode, // Accept countryCode
-    address: { city, region, address1, address2 },
-    birthdate,
-    gender,
-    password,
-  } = req.body;
+  const { fullName, email, phoneNumber, countryCode, password } = req.body;
 
   // Validate required fields
-  if (
-    !fullName ||
-    !email ||
-    !phoneNumber ||
-    !countryCode || // Validate countryCode
-    !city ||
-    !region ||
-    !address1 ||
-    !birthdate ||
-    !gender ||
-    !password
-  ) {
+  if (!fullName || !email || !phoneNumber || !countryCode || !password) {
     return res.status(400).json({ message: 'All required fields must be provided.' });
   }
 
@@ -51,10 +31,7 @@ router.post('/register', async (req, res) => {
       fullName,
       email,
       phoneNumber,
-      countryCode, // Save countryCode
-      address: { city, region, address1, address2 },
-      birthdate,
-      gender,
+      countryCode,
       password: hashedPassword,
     });
 
@@ -64,6 +41,7 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Error registering user.', error: error.message });
   }
 });
+
 
 // Login a user
 router.post('/login', async (req, res) => {
@@ -114,10 +92,12 @@ router.post('/login', async (req, res) => {
 
 // Nodemailer setup
 const transporter = nodemailer.createTransport({
-  service: 'Gmail', // Use your email service
+  host: 'mail.happiness.sa', // SMTP Host from Plesk
+  port: 465, // For SSL
+  secure: true, // True for SSL
   auth: {
-    user: process.env.EMAIL_USER, // Your email
-    pass: process.env.EMAIL_PASS, // Your email password or app password
+    user: process.env.EMAIL_USER1_Contact, // Your email
+    pass: process.env.EMAIL_PASS1_Contact, // Your email password or app password
   },
 });
 
@@ -183,7 +163,7 @@ router.post('/forgot-password', async (req, res) => {
 
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_USER1_Contact,
       to: email,
       subject: 'Password Reset Request',
       html: resetLinkContent, // Use the updated email content here

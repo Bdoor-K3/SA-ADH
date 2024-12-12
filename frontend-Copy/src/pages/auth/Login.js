@@ -35,7 +35,6 @@ function Login() {
         <h2 className="auth-title">{t('login.title')}</h2>
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label htmlFor="email">{t('login.form.emailLabel')}</label>
             <input
               type="email"
               id="email"
@@ -46,7 +45,6 @@ function Login() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">{t('login.form.passwordLabel')}</label>
             <input
               type="password"
               id="password"

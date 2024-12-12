@@ -19,6 +19,16 @@
   gap: 20px;
 }
 
+/* RTL and LTR Support */
+.footer.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.footer.ltr {
+  direction: ltr;
+  text-align: left;
+}
 
 .footer-section h3 {
   font-size: 20px;
@@ -32,10 +42,10 @@
   margin: 0;
 }
 
-/* Quick Links Section with Custom Arrows */
+/* Quick Links Section with Fixed Arrows */
+/* General Styling for Links */
 .links-section ul li {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
 }
@@ -45,23 +55,26 @@
   text-decoration: none;
   font-size: 16px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 10px; /* Add space between arrow and text */
 }
 
-.links-section ul li a:hover {
-  text-decoration: underline;
-}
-
-.links-section ul li a::after {
+/* Arrow Icon Before the Text */
+.links-section ul li a::before {
   content: '';
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 24px; /* Adjust size */
+  height: 24px; /* Adjust size */
   background-image: url('../pages/assets/Footericon/arrow-icon.svg');
-  background-size: cover;
-  margin-left: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: scaleX(1); /* Default direction for RTL */
+}
+
+/* Flip the Arrow for LTR (English) */
+.footer.ltr .links-section ul li a::before {
+  transform: scaleX(-1); /* Flip the arrow horizontally */
 }
 
 /* About Section with Icons */
@@ -103,36 +116,29 @@
   margin-top: 15px;
 }
 
-.social-icons {
+.footer-social-icons {
   display: flex;
   gap: 20px;
 }
 
-.social-icons a {
+.footer-social-icons a {
   width: 40px;
   height: 40px;
   display: inline-block;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
   transition: transform 0.3s;
 }
 
-.social-icons a.facebook {
-  background-image: url('../pages/assets/Footericon/facebook-icon.svg');
-}
-
-.social-icons a.twitter {
+.footer-social-icons a.twitter {
   background-image: url('../pages/assets/Footericon/twitter-icon.svg');
 }
 
-.social-icons a.instagram {
+.footer-social-icons a.instagram {
   background-image: url('../pages/assets/Footericon/instagram-icon.svg');
 }
 
-.social-icons a.dribbble {
-  background-image: url('../pages/assets/Footericon/dribbble-icon.svg');
-}
-
-.social-icons a:hover {
+.footer-social-icons a:hover {
   transform: scale(1.2);
 }
 

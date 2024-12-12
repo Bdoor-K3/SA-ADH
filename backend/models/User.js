@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema(
     countryCode: { type: String, required: true }, // Add countryCode field
     email: { type: String, required: true, unique: true },
     address: {
-      city: { type: String, required: true },
-      region: { type: String, required: true },
-      address1: { type: String, required: true },
+      city: { type: String, required: false },
+      region: { type: String, required: false },
+      address1: { type: String, required: false },
       address2: { type: String },
     },
-    birthdate: { type: Date, required: true },
-    gender: { type: String, enum: ['male', 'female', 'other'], required: true },
+    birthdate: { type: Date, required: false },
+    gender: { type: String, enum: ['male', 'female', 'other'], required: false },
     role: { type: String, default: 'customer', enum: ['customer', 'admin', 'organizer'] },
     password: { type: String, required: true },
     resetToken: { type: String },

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { fetchUserProfile, updateUser, forgotPassword } from '../services/api'; // Include forgotPassword API
+import PhoneInput from 'react-phone-number-input';
+import countries from 'world-countries/countries.json';
+import 'react-phone-number-input/style.css';
 import './Profile.css';
 
 function Profile() {
@@ -18,6 +21,7 @@ function Profile() {
     fullName: '',
     email: '',
     phoneNumber: '',
+    countryCode: '',
     address: {
       city: '',
       region: '',
@@ -27,6 +31,12 @@ function Profile() {
     birthdate: '',
     gender: '',
   });
+
+ // Extract country names from the countries dataset
+ const countryOptions = countries.map((country) => ({
+  name: country.name.common,
+  code: country.cca2,
+}));
 
   useEffect(() => {
     const loadUserProfile = async () => {
@@ -39,6 +49,7 @@ function Profile() {
           fullName: data.user.fullName || '',
           email: data.user.email || '',
           phoneNumber: data.user.phoneNumber || '',
+          countryCode: data.user.countryCode || '',
           address: {
             city: data.user.address?.city || '',
             region: data.user.address?.region || '',
@@ -58,6 +69,27 @@ function Profile() {
 
     loadUserProfile();
   }, [t]);
+
+  const handlePhoneChange = (value) => {
+    if (value) {
+      const matches = value.match(/^(\+?\d{1,3})?\s?(.*)$/);
+      if (matches) {
+        const countryCode = matches[1] || '';
+        const phoneNumber = matches[2] || '';
+        setFormData((prev) => ({
+          ...prev,
+          countryCode,
+          phoneNumber,
+        }));
+      }
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        countryCode: '',
+        phoneNumber: '',
+      }));
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -139,13 +171,18 @@ function Profile() {
                 onChange={handleInputChange}
                 required
               />
-              <input
-                type="text"
-                name="phoneNumber"
-                placeholder={t('profile.labels.phone')}
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-              />
+              <div className="phone-input-container">
+                <label htmlFor="phoneNumber">{t('profile.labels.phone')}</label>
+                <PhoneInput
+                  id="phoneNumber"
+                  value={`${formData.countryCode} ${formData.phoneNumber}`}
+                  onChange={handlePhoneChange}
+                  defaultCountry="US"
+                  international
+                  countryCallingCodeEditable={false}
+                />
+              </div>
+
               <input
                 type="text"
                 name="address.city"
@@ -154,14 +191,28 @@ function Profile() {
                 onChange={handleInputChange}
                 required
               />
-              <input
-                type="text"
-                name="address.region"
-                placeholder={t('profile.labels.region')}
-                value={formData.address.region}
-                onChange={handleInputChange}
-                required
-              />
+               <div>
+                <label htmlFor="region">{t('profile.labels.country')}</label>
+                <select
+                  id="region"
+                  name="address.region"
+                  value={formData.address.region}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      address: { ...prev.address, region: e.target.value },
+                    }))
+                  }
+                  required
+                >
+                  <option value="">{t('profile.placeholders.selectCountry')}</option>
+                  {countryOptions.map((country) => (
+                    <option key={country.code} value={country.name}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <input
                 type="text"
                 name="address.address1"
@@ -208,21 +259,33 @@ function Profile() {
               </button>
             </form>
           ) : (
-            <>
-              <p><strong>{t('profile.labels.name')}:</strong> {user.fullName}</p>
-              <p><strong>{t('profile.labels.email')}:</strong> {user.email}</p>
-              <p>
-                <strong>{t('profile.labels.phone')}:</strong>{' '}
-                {user.phoneNumber || t('profile.placeholders.noPhone')}
-              </p>
-              <p>
-                <strong>{t('profile.labels.address')}:</strong>{' '}
-                {user.address
-                  ? `${user.address.address1}, ${user.address.city}, ${user.address.region}`
-                  : t('profile.placeholders.noAddress')}
-              </p>
-              <p><strong>{t('profile.labels.birthdate')}:</strong> {user.birthdate || t('profile.placeholders.noBirthdate')}</p>
-              <p><strong>{t('profile.labels.gender')}:</strong> {user.gender || t('profile.placeholders.noGender')}</p>
+            <div className="profile-card">
+              <div className="card-item">
+                <i className="fas fa-user"></i>
+                <p><strong>{t('profile.labels.name')}:</strong> {user.fullName}</p>
+              </div>
+              <div className="card-item">
+                <i className="fas fa-envelope"></i>
+                <p><strong>{t('profile.labels.email')}:</strong> {user.email}</p>
+              </div>
+              <div className="card-item">
+                <i className="fas fa-phone"></i>
+                <p><strong>{t('profile.labels.phone')}:</strong> {user.phoneNumber || t('profile.placeholders.noPhone')}</p>
+              </div>
+              <div className="card-item">
+                <i className="fas fa-map-marker-alt"></i>
+                <p>
+                  <strong>{t('profile.labels.address')}:</strong> {user.address ? `${user.address.address1}, ${user.address.city}, ${user.address.region}` : t('profile.placeholders.noAddress')}
+                </p>
+              </div>
+              <div className="card-item">
+                <i className="fas fa-calendar"></i>
+                <p><strong>{t('profile.labels.birthdate')}:</strong> {user.birthdate ? new Date(user.birthdate).toLocaleDateString() : t('profile.placeholders.noBirthdate')}</p>
+              </div>
+              <div className="card-item">
+                <i className="fas fa-venus-mars"></i>
+                <p><strong>{t('profile.labels.gender')}:</strong> {user.gender || t('profile.placeholders.noGender')}</p>
+              </div>
               <button
                 className="profile-button"
                 onClick={() => setIsEditing(true)}
@@ -235,26 +298,26 @@ function Profile() {
               >
                 {t('profile.buttons.resetPassword')}
               </button>
-            </>
+            </div>
           )}
         </div>
 
         {user.role === 'organizer' && (
-            <button
-              className="profile-button"
-              onClick={() => window.location.href = '/organizer'}
-            >
-              {t('profile.buttons.goToOrganizer')}
-            </button>
-          )}
-          {user.role === 'admin' && (
-            <button
-              className="profile-button"
-              onClick={() => window.location.href = '/admin'}
-            >
-              {t('profile.buttons.goToAdmin')}
-            </button>
-          )}
+          <button
+            className="profile-button"
+            onClick={() => window.location.href = '/organizer'}
+          >
+            {t('profile.buttons.goToOrganizer')}
+          </button>
+        )}
+        {user.role === 'admin' && (
+          <button
+            className="profile-button"
+            onClick={() => window.location.href = '/admin'}
+          >
+            {t('profile.buttons.goToAdmin')}
+          </button>
+        )}
 
         <div className="purchase-history">
           <h2>{t('profile.sections.purchaseHistory')}</h2>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { fetchUsers, updateUser, deleteUser } from '../../../services/api';
+import PhoneInput from 'react-phone-number-input';
+import countries from 'world-countries/countries.json';
+import 'react-phone-number-input/style.css';
 import './UsersTab.css';
 
 function UsersTab() {
@@ -24,6 +27,12 @@ function UsersTab() {
   });
   const [editUserId, setEditUserId] = useState(null);
 
+  // Extract country names from the countries dataset
+  const countryOptions = countries.map((country) => ({
+    name: country.name.common,
+    code: country.cca2,
+  }));
+
   useEffect(() => {
     const loadUsers = async () => {
       const data = await fetchUsers();
@@ -31,6 +40,28 @@ function UsersTab() {
     };
     loadUsers();
   }, []);
+
+
+  const handlePhoneChange = (value) => {
+    if (value) {
+      const matches = value.match(/^(\+?\d{1,3})?\s?(.*)$/);
+      if (matches) {
+        const countryCode = matches[1] || '';
+        const phoneNumber = matches[2] || '';
+        setUserFormData((prev) => ({
+          ...prev,
+          countryCode,
+          phoneNumber,
+        }));
+      }
+    } else {
+      setUserFormData((prev) => ({
+        ...prev,
+        countryCode: '',
+        phoneNumber: '',
+      }));
+    }
+  };
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
@@ -123,29 +154,40 @@ function UsersTab() {
     />
   </div>
 
-  <div>
-    <label htmlFor="countryCode">{t('usersTab.form.countryCode')}</label>
-    <input
-      id="countryCode"
-      type="text"
-      placeholder={t('usersTab.form.countryCode')}
-      value={userFormData.countryCode}
-      onChange={(e) => setUserFormData({ ...userFormData, countryCode: e.target.value })}
-      required
-    />
-  </div>
+  <div className="phone-input-container">
+          <label htmlFor="phoneNumber">{t('usersTab.form.phoneNumber')}</label>
+          <PhoneInput
+            id="phoneNumber"
+            value={`${userFormData.countryCode} ${userFormData.phoneNumber}`}
+            onChange={handlePhoneChange}
+            defaultCountry="US"
+            international
+            countryCallingCodeEditable={false}
+          />
+        </div>
 
-  <div>
-    <label htmlFor="phoneNumber">{t('usersTab.form.phoneNumber')}</label>
-    <input
-      id="phoneNumber"
-      type="text"
-      placeholder={t('usersTab.form.phoneNumber')}
-      value={userFormData.phoneNumber}
-      onChange={(e) => setUserFormData({ ...userFormData, phoneNumber: e.target.value })}
-      required
-    />
-  </div>
+        <div>
+          <label htmlFor="region">{t('usersTab.form.region')}</label>
+          <select
+            id="region"
+            name="address.region"
+            value={userFormData.address.region}
+            onChange={(e) =>
+              setUserFormData({
+                ...userFormData,
+                address: { ...userFormData.address, region: e.target.value },
+              })
+            }
+            required
+          >
+            <option value="">{t('usersTab.form.selectRegion')}</option>
+            {countryOptions.map((country) => (
+              <option key={country.code} value={country.name}>
+                {country.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
   <div>
     <label htmlFor="city">{t('usersTab.form.city')}</label>
@@ -161,19 +203,6 @@ function UsersTab() {
     />
   </div>
 
-  <div>
-    <label htmlFor="region">{t('usersTab.form.region')}</label>
-    <input
-      id="region"
-      type="text"
-      placeholder={t('usersTab.form.region')}
-      value={userFormData.address.region}
-      onChange={(e) =>
-        setUserFormData({ ...userFormData, address: { ...userFormData.address, region: e.target.value } })
-      }
-      required
-    />
-  </div>
 
   <div>
     <label htmlFor="address1">{t('usersTab.form.address1')}</label>

@@ -93,9 +93,10 @@ function App() {
           }
         />
       </Routes>
-      <Footer />
+    <Footer />
     </Router>
   );
 }
 
 export default App;
+// /   

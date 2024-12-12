@@ -6,10 +6,23 @@ import reportWebVitals from './reportWebVitals';
 import './i18n'; // Import i18n configuration
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+import { useTranslation } from 'react-i18next';
+
+// Wrapper to handle global direction change
+function AppWithDirection() {
+  const { i18n } = useTranslation();
+
+  React.useEffect(() => {
+    document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr'; // Set the direction based on language
+  }, [i18n.language]);
+
+  return <App />;
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AppWithDirection />
   </React.StrictMode>
 );
 

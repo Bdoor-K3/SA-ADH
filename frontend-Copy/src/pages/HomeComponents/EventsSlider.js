@@ -15,20 +15,13 @@ const EventsSlider = ({ events, handleViewDetails, sliderSettings, t }) => {
                 backgroundImage: `url(${event.bannerImage})`,
               }}
             >
-              {/* Overlay Content */}
-              <div className="custom-event-overlay">
-                <h2 className="custom-event-title">{event.name}</h2>
-                <p className="custom-event-description">{event.description}</p>
-                <div className="custom-event-price">
-                  {t ? t('home.price') : 'Price'}: {event.price} USD
-                </div>
-                <button
-                  className="custom-book-button"
-                  onClick={() => handleViewDetails(event._id)}
-                >
-                  {t ? t('home.bookNow') : 'Book Now'}
-                </button>
-              </div>
+              {/* Book Now Button */}
+              <button
+                className="custom-book-button-left"
+                onClick={() => handleViewDetails(event._id)}
+              >
+                {t ? t('home.bookNow') : 'Book Now'}
+              </button>
             </div>
           </div>
         ))}

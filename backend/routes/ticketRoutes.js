@@ -183,9 +183,12 @@ router.post('/purchase', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Error initiating payment', error: errorMessage });
   }
 });
+
 // Configure NodeMailer transporter
 const transporter = nodemailer.createTransport({
-  service: 'Gmail', // Replace with your email provider
+  host: 'mail.happiness.sa', // SMTP Host from Plesk
+  port: 465, // For SSL
+  secure: true, // True for SSL
   auth: {
     user: process.env.EMAIL_USER, // Use email user from .env
     pass: process.env.EMAIL_PASS, // Use email password from .env // Your email password or app password

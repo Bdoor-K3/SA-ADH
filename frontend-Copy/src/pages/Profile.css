@@ -1,9 +1,9 @@
-/* General Profile Page Styling */
 .profile {
   max-width: 100%;
   margin: auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 .profile-container {
@@ -12,27 +12,52 @@
   gap: 30px;
 }
 
-/* Profile Details Section */
+.profile-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
 .profile-details {
-  background: #fff;
+  background: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
 }
 
-.profile-details h2 {
+.profile-card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns for larger screens */
+  gap: 20px;
+}
+.profile-buttons {
+  grid-column: 1 / -1; /* Buttons span both columns */
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.card-item {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-item i {
   font-size: 1.5rem;
-  margin-bottom: 15px;
+  color: #00bfff;
 }
 
-.profile-details p {
+.card-item p {
+  margin: 0;
   font-size: 1rem;
-  margin: 10px 0;
+  color: #333;
 }
 
 .profile-button {
-  display: block;
   margin-top: 20px;
   padding: 10px;
   background-color: #00bfff;
@@ -41,7 +66,6 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-  text-align: center;
 }
 
 .profile-button:hover {
@@ -50,16 +74,10 @@
 
 /* Purchase History Section */
 .purchase-history {
-  background: #fff;
+  background: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-}
-
-.purchase-history h2 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
 }
 
 .ticket-list {
@@ -69,16 +87,11 @@
 }
 
 .ticket-item {
-  background: #f9f9f9;
+  background: #fff;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
-}
-
-.ticket-item p {
-  font-size: 0.875rem;
-  margin: 5px 0;
 }
 
 .view-ticket-button {
@@ -98,34 +111,51 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .profile-container {
-    flex-direction: column;
+  .profile-card {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
   }
 
   .profile-details,
   .purchase-history {
     padding: 15px;
   }
-}
 
-@media (max-width: 480px) {
-  .profile-details h2,
-  .purchase-history h2 {
-    font-size: 1.25rem;
+  .profile-title {
+    font-size: 1.8rem;
   }
 
-  .profile-details p,
-  .ticket-item p {
-    font-size: 0.875rem;
+  .card-item p {
+    font-size: 0.9rem;
   }
 
   .profile-button,
   .view-ticket-button {
-    font-size: 0.75rem;
-    padding: 8px 10px;
+    font-size: 0.9rem;
+    padding: 10px 12px;
   }
 
   .ticket-item {
     padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-title {
+    font-size: 1.5rem;
+  }
+
+  .profile-details,
+  .purchase-history {
+    padding: 10px;
+  }
+
+  .card-item p {
+    font-size: 0.85rem;
+  }
+
+  .profile-button,
+  .view-ticket-button {
+    font-size: 0.8rem;
+    padding: 8px 10px;
   }
 }

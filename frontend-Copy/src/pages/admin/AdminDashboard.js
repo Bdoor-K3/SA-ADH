@@ -4,6 +4,7 @@ import EventsTab from './Tabs/EventsTab';
 import UsersTab from './Tabs/UsersTab';
 import TicketsTab from './Tabs/TicketsTab';
 import LogsTab from './Tabs/LogsTab';
+import ContactTab from './Tabs/ContactTab';
 import './AdminDashboard.css';
 
 function AdminDashboard() {
@@ -15,6 +16,7 @@ function AdminDashboard() {
     { key: 'users', label: t('adminDashboard.tabs.users') },
     { key: 'tickets', label: t('adminDashboard.tabs.tickets') },
     { key: 'logs', label: t('adminDashboard.tabs.logs') },
+    { key: 'contacts', label: t('adminDashboard.tabs.contacts') },
   ];
 
   return (
@@ -40,6 +42,8 @@ function AdminDashboard() {
         {currentTab === 'users' && <UsersTab />}
         {currentTab === 'tickets' && <TicketsTab />}
         {currentTab === 'logs' && <LogsTab />}
+        {currentTab === 'contacts' && <ContactTab />}
+
       </div>
     </div>
   );

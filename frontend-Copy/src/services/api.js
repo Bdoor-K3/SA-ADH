@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Set up a base instance with the backend URL from .env
 const api = axios.create({
-  baseURL:'http://localhost:5001',
+  baseURL:process.env.REACT_APP_BACKEND_URL,
 });//'http://localhost:5000'
 // process.env.REACT_APP_BACKEND_URL
 // Add a request interceptor to include the Authorization header
@@ -238,6 +238,36 @@ export const markTicketAsUsed = async (ticketId) => {
     return response.data;
   } catch (error) {
     console.error('Error marking ticket as used:', error);
+    throw error;
+  }
+};
+export const submitContactForm = async (formData) => {
+  try {
+    const response = await api.post('/api/contact', formData);
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    throw error;
+  }
+};
+// Fetch all contacts
+export const fetchContacts = async () => {
+  try {
+    const response = await api.get('/api/contact'); // Adjust the endpoint as per your backend
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching contacts:', error);
+    throw error;
+  }
+};
+
+// Delete a contact
+export const deleteContact = async (contactId) => {
+  try {
+    const response = await api.delete(`/api/contact/${contactId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting contact:', error);
     throw error;
   }
 };

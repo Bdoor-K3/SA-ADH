@@ -1,9 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { submitContactForm } from '../../services/api'; // Adjust the path to your api.js
 import './ContactSection.css';
 
 function ContactSection() {
-  const { t, i18n } = useTranslation(); // Added i18n for direction handling
+  const { t, i18n } = useTranslation();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null); // For success or error messages
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(null);
+
+    try {
+      const response = await submitContactForm(formData);
+      setSuccess({ message: response.message, type: 'success' });
+      setFormData({ name: '', email: '', phone: '', message: '' }); // Clear form
+    } catch (error) {
+      setSuccess({
+        message: error.response?.data?.message || 'Submission failed. Try again later.',
+        type: 'error',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className={`contact-section ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
@@ -21,27 +56,47 @@ function ContactSection() {
       <div className="contact-content">
         <div className="contact-form">
           <h3>{t('contact.form.title')}</h3>
-          <form>
+          {/* Display Success or Error Messages */}
+          {success && (
+            <div className={`alert ${success.type}`}>
+              {success.message}
+            </div>
+          )}
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
+              name="name"
               placeholder={t('contact.form.namePlaceholder')}
+              value={formData.name}
+              onChange={handleChange}
               required
             />
             <input
               type="email"
+              name="email"
               placeholder={t('contact.form.emailPlaceholder')}
+              value={formData.email}
+              onChange={handleChange}
               required
             />
             <input
               type="text"
+              name="phone"
               placeholder={t('contact.form.phonePlaceholder')}
+              value={formData.phone}
+              onChange={handleChange}
               required
             />
             <textarea
+              name="message"
               placeholder={t('contact.form.messagePlaceholder')}
+              value={formData.message}
+              onChange={handleChange}
               required
             ></textarea>
-            <button type="submit">{t('contact.form.submitButton')}</button>
+            <button type="submit" disabled={loading}>
+              {loading ? t('contact.form.submitting') : t('contact.form.submitButton')}
+            </button>
           </form>
         </div>
 
@@ -52,19 +107,15 @@ function ContactSection() {
             {t('contact.info.address')}
           </p>
           <p>
-            <strong>{t('contact.info.emailLabel')}:</strong> info@Tathazer.net
+            <strong>{t('contact.info.emailLabel')}:</strong> Contactus@happiness.sa
           </p>
           <p>
-            <strong>{t('contact.info.phoneLabel')}:</strong> +59 123456789121
           </p>
           <div className="social-icons">
-            <a href="#facebook" className="social-icon" aria-label="Facebook">
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="#twitter" className="social-icon" aria-label="Twitter">
+            <a href="https://x.com/saadah_me?s=21" className="social-icon" aria-label="Twitter">
               <i className="fab fa-twitter"></i>
             </a>
-            <a href="#instagram" className="social-icon" aria-label="Instagram">
+            <a href="https://www.instagram.com/saadah.me?igsh=Mjk2Z291MzQ2eGJ0" className="social-icon" aria-label="Instagram">
               <i className="fab fa-instagram"></i>
             </a>
           </div>

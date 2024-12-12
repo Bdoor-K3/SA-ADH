@@ -20,6 +20,7 @@ const upload = multer({ storage }).fields([
   { name: 'mainImage', maxCount: 1 },
   { name: 'eventListImage', maxCount: 1 },
 ]);
+
 router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => {
   try {
     const {
@@ -69,6 +70,8 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
     res.status(500).json({ message: error.message });
   }
 });
+
+
 
 router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) => {
   try {

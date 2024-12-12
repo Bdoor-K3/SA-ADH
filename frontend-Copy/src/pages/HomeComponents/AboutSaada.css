@@ -1,110 +1,113 @@
+/* Root Section */
 #about-saada {
-  background: #fff;
-  padding: 2rem;
+  background: #f9f9f9; /* Light background for better contrast */
+  padding: 4rem 2rem;
   text-align: center;
 }
 
+/* About Section */
 .about-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1000px;
+  justify-content: center; /* Center content vertically */
+  max-width: 1200px;
   margin: auto;
+  gap: 2rem; /* Space between content sections */
 }
 
 .about-content {
-  text-align: center;
-  flex: 1;
-  margin-right: 2rem; /* Space between content and the image */
+  text-align: justify; /* Justify the text for a clean look */
+  line-height: 1.8;
 }
 
 .about-logo {
-  width: 100px;
+  width: 120px;
   margin-bottom: 1rem;
 }
 
 .about-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #333;
   margin-bottom: 1rem;
 }
 
 .about-description {
-  font-size: 1rem;
-  color: #666;
-  line-height: 1.8;
-}
-
-.about-image {
-  flex: 1;
+  font-size: 1.2rem;
+  color: #555;
 }
 
 .about-image img {
-  width: 150px; /* Adjust the size of the ticket image */
+  width: 180px; /* Adjust the size of the ticket image */
   height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
 @media (min-width: 768px) {
   .about-container {
     flex-direction: row; /* Arrange content and image side by side */
-    align-items: center;
     text-align: left;
   }
 
   .about-content {
-    text-align: left; /* Align text to the left */
+    flex: 1; /* Take up equal space */
+    margin-right: 2rem;
   }
 
   .about-image img {
-    width: 200px; /* Increase the size of the ticket image for larger screens */
+    width: 220px; /* Larger size for desktop */
   }
 }
 
+/* Statistics Section */
 .statistics-section {
-  margin-top: 3rem;
+  margin-top: 4rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content */
+  gap: 2rem; /* Add space between sections */
 }
 
 .statistics-logo {
   width: 100px;
-  margin: 0 auto 1rem;
+  margin-bottom: 1rem;
 }
 
 .statistics-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 2rem;
 }
 
 .statistics-numbers {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
   flex-wrap: wrap; /* Allow wrapping for responsiveness */
 }
 
 .stat-item {
   text-align: center;
-  background: none!important;
-  box-shadow: none!important;
-
+  max-width: 120px; /* Consistent sizing */
 }
 
 .stat-circle {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #fc5ba6, #11ddff);
+  background: linear-gradient(to bottom, #ff79c6, #00bfff); 
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
 }
 
 .stat-value {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: white;
 }
@@ -112,18 +115,18 @@
 .stat-label {
   margin-top: 0.5rem;
   font-size: 1rem;
-  color: #666;
+  color: #555;
 }
 
 /* Responsive Design for Statistics */
 @media (min-width: 768px) {
   .stat-circle {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
 
   .stat-value {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
   }
 
   .stat-label {

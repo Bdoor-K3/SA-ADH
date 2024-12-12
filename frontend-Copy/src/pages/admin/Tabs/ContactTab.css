@@ -1,0 +1,46 @@
+.contact-tab {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .contact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  .contact-table th,
+  .contact-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .contact-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .delete-button {
+    padding: 5px 10px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #c9302c;
+  }
+  

@@ -1,419 +1,451 @@
 {
-    "header": {
-      "home": "Home",
-      "events": "Events",
-      "about": "About Us",
-      "faqs": "FAQs",
-      "contact": "Contact Us",
-      "profile": "Profile",
-      "login": "Login",
-      "signup": "Sign Up",
-      "logout": "Logout",
-      "find_us_on":" Find us here "
-
-    },"footer": {
-    "about": "About Tathaker",
-    "address": "📍 8273 Riyadh, Saudi Arabia",
-    "email": "📧 info@tathaker.net",
-    "phone": "📞 +59 123456789121",
-    "links": "Direct Links",
-    "home": "Home",
-    "events": "Events",
-    "aboutUs": "About Us",
-    "contact": "Contact Us",
-    "social": "Social Media",
-    "copyright": "©2019 Tathaker.com. All rights reserved",
-    "poweredBy": "Powered by ❤️ Your Vision"
-  },  "adminDashboard": {
-    "title": "Admin Dashboard",
-    "tabs": {
-      "events": "Manage Events",
-      "users": "Manage Users",
-      "tickets": "Manage Tickets",
-      "logs": "View Logs"
-    }
-  },  "eventsTab": {
-    "title": {
-      "edit": "Edit Event",
-      "create": "Create Event",
-      "existing": "Existing Events"
-    },
-    "form": {
-      "eventName": "Event Name",
-      "description": "Description",
-      "category": "Category",
-      "location": "Location",
-      "city": "City",
-      "dateOfEvent": "Date of Event",
-      "price": "Price",
-      "currency": "Currency",
-      "ticketsAvailable": "Tickets Available",
-      "purchaseStartDate": "Purchase Start Date",
-      "purchaseEndDate": "Purchase End Date",
-      "organizers": "Organizers",
-      "submit": {
-        "create": "Create Event",
-        "update": "Update Event"
-      }
-    },
-    "event": {
-      "currency": "Currency",
-      "category": "Category",
-      "location": "Location",
+  "ticketPage": {
+      "loading": "Loading ticket details...",
+      "defaultCity": "Not Specified",
+      "sendButton": "Send Ticket",
+      "presentCode": "Please present this code at the event.",
+      "date": "Date",
+      "qrCodeUnavailable": "QR Code not available.",
       "city": "City"
-    },
-    "actions": {
-      "edit": "Edit",
-      "delete": "Delete"
-    },
-    "alerts": {
-      "fetchError": "Error fetching events.",
-      "fetchOrganizersError": "Error fetching organizers.",
-      "submitError": "Error submitting the event.",
-      "updated": "Event updated successfully.",
-      "created": "Event created successfully.",
-      "confirmDelete": "Are you sure you want to delete this event?",
-      "deleted": "Event deleted successfully.",
-      "loading": "Processing...",
-      "noEvents": "No events found.",
-      "selectOrganizer": "Please select at least one organizer."
-    }
-  },  "usersTab": {
-    "title": {
-      "edit": "Edit User",
-      "manage": "Manage Users",
-      "existing": "Existing Users"
-    },
-    "form": {
-      "fullName": "Full Name",
-      "email": "Email",
-      "phoneNumber": "Phone Number",
-      "city": "City",
-      "region": "Region",
-      "address1": "Address Line 1",
-      "address2": "Address Line 2 (optional)",
-      "age": "Age",
-      "gender": "Select Gender",
-      "genderOptions": {
-        "male": "Male",
-        "female": "Female",
-        "other": "Other"
+  },
+  "profile": {
+      "labels": {
+          "gender": "Gender",
+          "role": "Role",
+          "address1": "Address Line 1",
+          "genderOptions": {
+              "other": "Other",
+              "male": "Male",
+              "female": "Female"
+          },
+          "event": "Event",
+          "address": "Address",
+          "name": "Full Name",
+          "birthdate": "Birthdate",
+          "city": "City",
+          "phone": "Phone Number",
+          "email": "Email",
+          "region": "Region",
+          "purchaseDate": "Purchase Date",
+          "amount": "Amount",
+          "date": "Event Date",
+          "address2": "Address Line 2"
       },
-      "role": "Select Role",
-      "roleOptions": {
-        "customer": "Customer",
-        "admin": "Admin",
-        "organizer": "Organizer"
+      "sections": {
+          "purchaseHistory": "Purchase History",
+          "personalDetails": "Personal Details"
       },
-      "password": "Password",
-      "submit": {
-        "add": "Add User",
-        "update": "Update User"
-      }
-    },
-    "user": {
-      "email": "Email",
-      "phone": "Phone",
-      "address": "Address",
-      "age": "Age",
-      "gender": "Gender",
-      "role": "Role"
-    },
-    "actions": {
-      "edit": "Edit",
-      "delete": "Delete"
-    },
-    "alerts": {
-      "updated": "User updated successfully!",
-      "deleted": "User deleted successfully!",
-      "added": "New user added successfully!",
-      "submitError": "Error creating/updating user."
-    }
-  },   "login": {
-    "title": "Login",
-    "form": {
-      "emailLabel": "Email Address",
-      "emailPlaceholder": "Enter your email",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "submitButton": "Login",
-      "forgotPasswordchid": "Forgot Password?",
-      "register": "Create a New Account"
-    },
-    "error": {
-      "invalidCredentials": "Invalid email or password"
-    }
+      "placeholders": {
+          "noPhone": "No phone number provided.",
+          "noGender": "No gender specified.",
+          "noAddress": "No address provided.",
+          "noBirthdate": "No birthdate provided.",
+          "noTickets": "No tickets purchased yet.",
+          "noEvent": "No event details available."
+      },
+      "buttons": {
+          "edit": "Edit Profile",
+          "save": "Save Changes",
+          "viewTicket": "View Ticket",
+          "cancel": "Cancel",
+          "goToAdmin": "Go to Admin Dashboard",
+          "goToOrganizer": "Go to Organizer Dashboard"
+      },
+      "updateError": "Failed to update profile. Please try again.",
+      "error": "An error occurred while loading your profile.",
+      "updateSuccess": "Profile updated successfully!",
+      "title": "Profile",
+      "noData": "No user data available.",
+      "loading": "Loading..."
   },
   "signup": {
-    "title": "Sign Up",
-    "subtitle": "Please complete the form to create your account",
-    "backToLogin": "Back to Login",
-    "form": {
-      "fullName": "Full Name",
-      "email": "Email Address",
-      "phoneNumber": "Phone Number",
-      "city": "City",
-      "region": "Region",
-      "address1": "Address Line 1",
-      "address2": "Address Line 2 (Optional)",
-      "age": "Age",
-      "gender": "Gender",
-      "genderOptions": {
-        "male": "Male",
-        "female": "Female"
+      "form": {
+          "continueWithApple": "Continue with Apple",
+          "address1": "Address Line 1",
+          "age": "Age",
+          "password": "Password",
+          "phoneNumber": "Phone Number",
+          "continueWithGoogle": "Continue with Google",
+          "confirmPassword": "Confirm Password",
+          "region": "Region",
+          "gender": "Gender",
+          "submitButton": "Sign Up",
+          "genderOptions": {
+              "female": "Female",
+              "male": "Male"
+          },
+          "city": "City",
+          "fullName": "Full Name",
+          "email": "Email Address",
+          "address2": "Address Line 2 (Optional)"
       },
-      "password": "Password",
-      "confirmPassword": "Confirm Password",
-      "submitButton": "Sign Up",
-      "continueWithGoogle": "Continue with Google",
-      "continueWithApple": "Continue with Apple"
-    },
-    "messages": {
-      "passwordMismatch": "Passwords do not match",
-      "success": "Account created successfully",
-      "failure": "Failed to create account. Please try again"
-    },
-    "or": "or",
-    "terms": "By signing up, I agree to the Terms and Conditions."
+      "backToLogin": "Back to Login",
+      "messages": {
+          "success": "Account created successfully",
+          "passwordMismatch": "Passwords do not match",
+          "failure": "Failed to create account. Please try again"
+      },
+      "subtitle": "Please complete the form to create your account",
+      "or": "or",
+      "terms": "By signing up, I agree to the Terms and Conditions.",
+      "title": "Sign Up"
   },
-  "forgotPasswordparent": {
-    "title": "Forgot Password",
-    "subtitle": "Enter your email to reset your password",
-    "form": {
-      "emailLabel": "Email Address",
-      "emailPlaceholder": "Enter your email",
-      "submitButton": "Reset Password"
-    },
-    "success": "Password reset instructions have been sent to your email",
-    "error": "Failed to send reset instructions. Please try again"
+  "eventDetails": {
+      "about": "About the Event",
+      "error": {
+          "verifyPayment": "Failed to verify payment. Please contact support.",
+          "locationUnavailable": "Location link is unavailable.",
+          "purchaseTicket": "Failed to purchase ticket. Please try again.",
+          "fetchDetails": "Failed to fetch event details. Please try again.",
+          "noPaymentUrl": "No payment URL provided."
+      },
+      "breadcrumb": "Event Details",
+      "priceStart": "Starting at:",
+      "loading": "Loading event details...",
+      "date": "Event Date",
+      "bookNow": "Book Now",
+      "termsAndConditions": "Terms and Conditions",
+      "loginPrompt": "Please log in to purchase tickets.",
+      "terms": "Tickets are non-refundable. Valid for the event date only.",
+      "purchasePeriod": "Purchase period:",
+      "location": "Location",
+      "taxIncluded": "(Taxes included)"
   },
-  "resetPassword": {
-    "title": "Reset Password",
-    "subtitle": "Enter your new password below",
-    "form": {
-      "passwordLabel": "New Password",
-      "passwordPlaceholder": "Enter your new password",
-      "submitButton": "Reset Password"
-    },
-    "success": "Password reset successfully. Redirecting to login...",
-    "error": "Failed to reset password. Please try again"
-  },    "eventDetails": {
-    "breadcrumb": "Event Details",
-    "loading": "Loading event details...",
-    "error": {
-      "fetchDetails": "Failed to fetch event details. Please try again.",
-      "verifyPayment": "Failed to verify payment. Please contact support.",
-      "purchaseTicket": "Failed to purchase ticket. Please try again.",
-      "noPaymentUrl": "No payment URL provided.",
-      "locationUnavailable": "Location link is unavailable."
-    },
-    "loginPrompt": "Please log in to purchase tickets.",
-    "priceStart": "Starting at:",
-    "taxIncluded": "(Taxes included)",
-    "bookNow": "Book Now",
-    "date": "Event Date",
-    "location": "Location",
-    "about": "About the Event",
-    "termsAndConditions": "Terms and Conditions",
-    "terms": "Tickets are non-refundable. Valid for the event date only.",
-    "purchasePeriod": "Purchase period:"
-  }
-  , 
-    "eventsPage": {
-      "searchPlaceholder": "Search events...",
+  "home": {
+      "sponsors": {
+          "title": "The names of the twelve partners will be attached in a Word file and the logo of each company will be sent to Abdulrahman.",
+          "description": "We thank our sponsors for their invaluable support in making these events possible."
+      },
+      "categories": {
+          "Adventure": "Adventure",
+          "Sports": "Sports",
+          "Theater": "Theater",
+          "Music": "Music"
+      },
+      "about": {
+          "title": "About Saada",
+          "description": "Sadaa is your ultimate destination for purchasing tickets to a variety of events and occasions, including concerts, sports shows, and cultural festivals. We believe that every event is an opportunity to spread joy, and we provide an easy-to-use interface with secure payment options, allowing you to book your ticket quickly and easily."
+      },
+      "bookNow": "Book Now",
+      "latestEvents": "Latest Events",
+      "slider": {
+          "next": "Next",
+          "previous": "Previous"
+      },
+      "exploreCategories": "Explore Categories",
+      "events": {
+          "title": "Upcoming Events",
+          "viewDetails": "View Details"
+      },
+      "title": "Home"
+  },
+  "content": {
+      "whoWeAre": {
+          "part2": "Our Mission: To provide an easy and secure ticket purchasing experience, ensuring high quality and excellent service, enabling our visitors to enjoy the best events and occasions, and helping to create memorable moments that last a lifetime.",
+          "part1": "NaN"
+      },
+      "whyChooseUs": {
+          "part1": "We offer an easy user interface, variety of events, secure shopping experience, ability to add events.",
+          "part2": "NaN"
+      },
+      "ourVision": {
+          "part2": "Our Vision: To be the leading platform that provides tickets for the best events, contributing to creating moments filled with happiness and joy for all our visitors, and enhancing the value of shared experiences",
+          "part1": "Our Vision: To be the leading platform that provides tickets for the best events, contributing to creating moments filled with happiness and joy for all our visitors, and enhancing the value of shared experiences"
+      }
+  },
+  "organizerDashboard": {
+      "event": {
+          "scanTickets": "Scan Tickets",
+          "date": "Date"
+      },
+      "title": "Organizer Dashboard",
+      "assignedEvents": "Assigned Events",
+      "noEvents": " No event Assigned to you yet"
+  },
+  "usersTab": {
+      "title": {
+          "existing": "Existing Users",
+          "edit": "Edit User",
+          "manage": "Manage Users"
+      },
+      "user": {
+          "gender": "Gender",
+          "age": "Age",
+          "role": "Role",
+          "email": "Email",
+          "address": "Address",
+          "phone": "Phone"
+      },
+      "actions": {
+          "edit": "Edit",
+          "delete": "Delete"
+      },
+      "form": {
+          "age": "Age",
+          "phoneNumber": "Phone Number",
+          "submit": {
+              "add": "Add User",
+              "update": "Update User"
+          },
+          "genderOptions": {
+              "other": "Other",
+              "male": "Male",
+              "female": "Female"
+          },
+          "email": "Email",
+          "address2": "Address Line 2 (optional)",
+          "roleOptions": {
+              "admin": "Admin",
+              "customer": "Customer",
+              "organizer": "Organizer"
+          },
+          "password": "Password",
+          "city": "City",
+          "region": "Region",
+          "gender": "Select Gender",
+          "fullName": "Full Name",
+          "role": "Select Role",
+          "address1": "Address Line 1"
+      },
+      "alerts": {
+          "deleted": "User deleted successfully!",
+          "added": "New user added successfully!",
+          "submitError": "Error creating/updating user.",
+          "updated": "User updated successfully!"
+      }
+  },
+  "header": {
+      "faqs": "FAQs",
+      "find_us_on": " Find us here ",
+      "events": "Events",
+      "about": "About Us",
+      "login": "Login",
+      "contact": "Contact Us",
+      "logout": "Logout",
+      "profile": "Profile",
+      "signup": "Sign Up",
+      "home": "Home"
+  },
+  "eventsPage": {
       "filter": {
-        "title": "Filter Events",
-        "category": "Category",
-        "selectCategory": "Select a category",
-        "categories": {
-          "sports": "Sports",
-          "theatre": "Theatre"
-        },
-        "date": "Event Date",
-        "apply": "Apply Filters",
-        "clear": "Clear Filters",
-        "close": "Close"
+          "category": "Category",
+          "title": "Filter Events",
+          "categories": {
+              "theatre": "Theatre",
+              "sports": "Sports"
+          },
+          "close": "Close",
+          "clear": "Clear Filters",
+          "selectCategory": "Select a category",
+          "apply": "Apply Filters",
+          "date": "Event Date"
       },
       "eventCard": {
-        "price": "Price:",
-        "bookNow": "Book Now",
-        "details": "View Details"
-      }
-    }
-  
-  ,    "home": {
-    "latestEvents": "Latest Events",
-    "bookNow": "Book Now",
-    "title": "Home",
-    "slider": {
-      "next": "Next",
-      "previous": "Previous"
-    },
-    "events": {
-      "title": "Upcoming Events",
-      "viewDetails": "View Details"
-    },
-    "exploreCategories": "Explore Categories",
-    "categories": {
-      "Music": "Music",
-      "Sports": "Sports",
-      "Theater": "Theater",
-      "Adventure": "Adventure"
-    },
-    "about": {
-      "title": "About Saada",
-      "description": "Saada is your ultimate platform for discovering and experiencing the best events in your city. Explore, book, and enjoy!"
-    },
-    "sponsors": {
-      "title": "Our Sponsors",
-      "description": "We thank our sponsors for their invaluable support in making these events possible."
-    }
-  },   "profile": {
-    "title": "Profile",
-    "loading": "Loading...",
-    "error": "An error occurred while loading your profile.",
-    "noData": "No user data available.",
-    "sections": {
-      "personalDetails": "Personal Details",
-      "purchaseHistory": "Purchase History"
-    },
-    "labels": {
-      "name": "Full Name",
-      "email": "Email",
-      "phone": "Phone Number",
-      "address": "Address",
-      "city": "City",
-      "region": "Region",
-      "address1": "Address Line 1",
-      "address2": "Address Line 2",
-      "birthdate": "Birthdate",
-      "gender": "Gender",
-      "genderOptions": {
-        "male": "Male",
-        "female": "Female",
-        "other": "Other"
+          "details": "View Details",
+          "bookNow": "Book Now",
+          "price": "Price:"
       },
-      "role": "Role",
-      "event": "Event",
-      "date": "Event Date",
-      "purchaseDate": "Purchase Date",
-      "amount": "Amount"
-    },
-    "placeholders": {
-      "noPhone": "No phone number provided.",
-      "noAddress": "No address provided.",
-      "noBirthdate": "No birthdate provided.",
-      "noGender": "No gender specified.",
-      "noTickets": "No tickets purchased yet.",
-      "noEvent": "No event details available."
-    },
-    "buttons": {
-      "edit": "Edit Profile",
-      "save": "Save Changes",
-      "cancel": "Cancel",
-      "viewTicket": "View Ticket",
-      "goToOrganizer": "Go to Organizer Dashboard",
-      "goToAdmin": "Go to Admin Dashboard"
-    },
-    "updateSuccess": "Profile updated successfully!",
-    "updateError": "Failed to update profile. Please try again."
-  }
-   ,  "about": {
-    "saada": {
-      "title": "About Saada",
-      "description": "Saada is your go-to platform for discovering and experiencing amazing events. We connect people to extraordinary experiences in their cities.",
-      "numbersTitle": "Our Numbers Speak for Themselves",
+      "searchPlaceholder": "Search events..."
+  },
+  "adminDashboard": {
+      "tabs": {
+          "users": "Manage Users",
+          "tickets": "Manage Tickets",
+          "events": "Manage Events",
+          "logs": "View Logs"
+      },
+      "title": "Admin Dashboard"
+  },
+  "eventsTab": {
+      "title": {
+          "create": "Create Event",
+          "edit": "Edit Event",
+          "existing": "Existing Events"
+      },
+      "alerts": {
+          "noEvents": "No events found.",
+          "selectOrganizer": "Please select at least one organizer.",
+          "fetchError": "Error fetching events.",
+          "created": "Event created successfully.",
+          "fetchOrganizersError": "Error fetching organizers.",
+          "deleted": "Event deleted successfully.",
+          "updated": "Event updated successfully.",
+          "submitError": "Error submitting the event.",
+          "confirmDelete": "Are you sure you want to delete this event?",
+          "loading": "Processing..."
+      },
+      "form": {
+          "category": "Category",
+          "location": "Location",
+          "dateOfEvent": "Date of Event",
+          "city": "City",
+          "eventName": "Event Name",
+          "price": "Price",
+          "purchaseEndDate": "Purchase End Date",
+          "description": "Description",
+          "submit": {
+              "update": "Update Event",
+              "create": "Create Event"
+          },
+          "organizers": "Organizers",
+          "ticketsAvailable": "Tickets Available",
+          "currency": "Currency",
+          "purchaseStartDate": "Purchase Start Date"
+      },
+      "actions": {
+          "edit": "Edit",
+          "delete": "Delete"
+      },
+      "event": {
+          "category": "Category",
+          "location": "Location",
+          "currency": "Currency",
+          "city": "City"
+      }
+  },
+  "scanTickets": {
+      "validationMessage": {
+          "success": "Ticket validated successfully!",
+          "failure": "Error validating ticket."
+      },
+      "title": "Scan Tickets",
+      "nextScanButton": "Scan Next Ticket",
+      "scannerError": "Error scanning QR code. Please try again."
+  },
+  "qaSection": {
+      "faqs": {
+          "howToSetNameAndDate": {
+              "question": "How to set the event name & date?",
+              "answer": "Event names and dates can be set while creating or editing an event from the organizer’s dashboard."
+          },
+          "howToSetPrice": {
+              "question": "Set price for ticket?",
+              "answer": "Ticket prices can be added during the event creation process or updated later from the event management tab."
+          },
+          "howToBuyTicket": {
+              "question": "How to Buy a Ticket?",
+              "answer": "To get your ticket, visit the events portal, select your desired event, and click on the 'Book Now' button. Complete the payment process, and your ticket will instantly appear and be sent to your email."
+          },
+          "howToCreateEvent": {
+              "answer":"To add your events, please contact us, and we will add the event on your behalf and assign organizers to it. Kindly provide the account details of the organizers to complete the setup successfully."
+,
+              "question": "How to make a new event?"
+          }
+      },
+      "answerLabel": "Answer",
+      "subtitle": "Tathaker FAQs",
+      "title": "Find Your Answers"
+  },
+  "forgotPasswordparent": {
+      "form": {
+          "emailPlaceholder": "Enter your email",
+          "submitButton": "Reset Password",
+          "emailLabel": "Email Address"
+      },
+      "subtitle": "Enter your email to reset your password",
+      "title": "Forgot Password",
+      "error": "Failed to send reset instructions. Please try again",
+      "success": "Password reset instructions have been sent to your email"
+  },
+  "contact": {
+      "form": {
+          "emailPlaceholder": "Email Address *",
+          "namePlaceholder": "Your Name *",
+          "messagePlaceholder": "Message *",
+          "submitButton": "Contact Us",
+          "phonePlaceholder": "Phone Number *",
+          "title": "Get in touch with us "
+      },
+      "title": "Contact Us",
+      "info": {
+          "address": "8273 Riyadh, Saudi Arabia",
+          "emailLabel": "Email",
+          "title": "Our Contact Info",
+          "phoneLabel": "Phone",
+          "addressLabel": "Address"
+      },
+      "map": {
+          "title": "Location Map"
+      }
+  },
+  "footer": {
+      "links": "Direct Links",
+      "email": "info@happiness.sa",
+      "contact": "Contact Us",
       "events": "Events",
-      "clients": "Clients",
-      "partners": "Partners",
-      "awards": "Awards"
-    }
-  }
-,   "contact": {
-    "title": "Contact Us",
-    "map": {
-      "title": "Location Map"
-    },
-    "form": {
-      "title": "Get in touch With Us",
-      "namePlaceholder": "Your Name *",
-      "emailPlaceholder": "Email Address *",
-      "phonePlaceholder": "Phone Number *",
-      "messagePlaceholder": "Message *",
-      "submitButton": "Contact Us"
-    },
-    "info": {
-      "title": "Our Contact Info",
-      "addressLabel": "Address",
-      "address": "8273 Riyadh, Saudi Arabia",
-      "emailLabel": "Email",
-      "phoneLabel": "Phone"
-    }
-  }, "eventsSection": {
-    "title": "Upcoming Events",
-    "labels": {
-      "date": "Date",
-      "currency": "Currency",
-      "price": "Price"
-    }
-  }
-,  "qaSection": {
-    "title": "Find Your Answers",
-    "subtitle": "Tathaker FAQs",
-    "answerLabel": "Answer",
-    "faqs": {
-      "howToBuyTicket": {
-        "question": "How to Buy a Ticket?",
-        "answer": "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+      "poweredBy": "Powered by ❤️ Your Vision",
+      "home": "Home",
+      "aboutUs": "About Us",
+      "about": "Delete",
+      "address": "📍 8273 Riyadh, Saudi Arabia",
+      "social": "Social Media",
+      "phone": "Deleted",
+      "copyright": "©2024 happiness.com. All rights reserved"
+  },
+  "login": {
+      "form": {
+          "register": "Create a New Account",
+          "forgotPasswordchid": "Forgot Password?",
+          "emailPlaceholder": "Enter your email",
+          "emailLabel": "Email Address",
+          "forgotPasswordchild": "forgotPasswordchild",
+          "submitButton": "Login",
+          "passwordLabel": "Password",
+          "passwordPlaceholder": "Enter your password"
       },
-      "howToCreateEvent": {
-        "question": "How to make a new event?",
-        "answer": "To make a new event, go to your dashboard, click on 'Create Event,' and fill out the required details."
+      "error": {
+          "invalidCredentials": "Invalid email or password"
       },
-      "howToSetNameAndDate": {
-        "question": "How to set the event name & date?",
-        "answer": "Event names and dates can be set while creating or editing an event from the organizer’s dashboard."
+      "title": "Login"
+  },
+  "resetPassword": {
+      "subtitle": "Enter your new password below",
+      "form": {
+          "passwordLabel": "New Password",
+          "passwordPlaceholder": "Enter your new password",
+          "submitButton": "Reset Password"
       },
-      "howToSetPrice": {
-        "question": "Set price for ticket?",
-        "answer": "Ticket prices can be added during the event creation process or updated later from the event management tab."
+      "success": "Password reset successfully. Redirecting to login...",
+      "error": "Failed to reset password. Please try again",
+      "title": "Reset Password"
+  },
+  "forgotPassword": {
+      "messages": {
+          "success": "A reset link has been sent to your email.",
+          "error": "An error occurred while processing your request. Please try again."
+      },
+      "title": "Forgot Password",
+      "form": {
+          "emailPlaceholder": "Enter your email address",
+          "submitButton": "Send Reset Link"
       }
-    }
-  },"organizerDashboard": {
-    "title": "Organizer Dashboard",
-    "assignedEvents": "Assigned Events",
-    "event": {
-      "date": "Date",
-      "scanTickets": "Scan Tickets"
-    },
-    "noEvents": "No assigned events found."
-  },  "scanTickets": {
-    "title": "Scan Tickets",
-    "validationMessage": {
-      "success": "Ticket validated successfully!",
-      "failure": "Error validating ticket."
-    },
-    "scannerError": "Error scanning QR code. Please try again.",
-    "nextScanButton": "Scan Next Ticket"
-  }, "forgotPassword": {
-    "title": "Forgot Password",
-    "form": {
-      "emailPlaceholder": "Enter your email address",
-      "submitButton": "Send Reset Link"
-    },
-    "messages": {
-      "success": "A reset link has been sent to your email.",
-      "error": "An error occurred while processing your request. Please try again."
-    }
-  },  "ticketPage": {
-    "loading": "Loading ticket details...",
-    "qrCodeUnavailable": "QR Code not available.",
-    "presentCode": "Please present this code at the event.",
-    "sendButton": "Send Ticket",
-    "date": "Date",
-    "city": "City",
-    "defaultCity": "Not Specified"
+  },
+  "about": {
+      "saada": {
+          "clients": "Clients",
+          "events": "Events",
+          "numbersTitle": "Our Achievements in Numbers",
+          "partners": "Partners",
+          "awards": "Awards",
+          "title": "About Saada",
+          "description": "Sadaa is your ultimate destination for purchasing tickets to a variety of events and occasions, including concerts, sports shows, and cultural festivals. We believe that every event is an opportunity to spread joy, and we provide an easy-to-use interface with secure payment options, allowing you to book your ticket quickly and easily."
+      }
+  },
+  "imageAlt": "NaN",
+  "eventsSection": {
+      "labels": {
+          "date": "Date",
+          "price": "Price",
+          "currency": "Currency"
+      },
+      "title": "Upcoming Events"
+  },
+  "tabs": {
+      "ourVision": "ourVision",
+      "whoWeAre": "whoWeAre",
+      "whyChooseUs": "whyChooseUs"
+  },
+  "sponsors": {
+      "title":"Our Success Partners"
   }
-
 }
-

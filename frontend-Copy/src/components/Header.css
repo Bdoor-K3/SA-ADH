@@ -82,6 +82,7 @@
   background: none;
   border: none;
   cursor: pointer;
+
 }
 
 .user_menu .dropdown-toggle i {
@@ -91,7 +92,6 @@
 .user_menu .dropdown-menu {
   position: absolute;
   top: 30px;
-  right: 0;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -102,7 +102,7 @@
   flex-direction: column; /* Display items in a vertical list */
   gap: 10px; /* Add spacing between items */
   z-index: 1000;
-  width: 110px; /* Adjust the width for a wider dropdown */
+  width: 130px; /* Adjust the width for a wider dropdown */
 }
 
 /* Dropdown Item Styling */

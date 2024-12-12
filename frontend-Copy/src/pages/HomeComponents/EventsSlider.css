@@ -1,116 +1,56 @@
 .custom-slider-section {
-    width: 100%;
-    text-align: center;
-  }
-  .slick-slide{
-    margin: 0%;
-  }
-  .custom-ticket-card {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 90%;
-    max-width: 1600px;
-    margin: 2rem auto;
-    overflow: hidden;
-  }
-  
-  /* Event Banner */
+  width: 100%;
+  margin: 0; /* Remove margins */
+  padding: 0; /* Remove padding */
+  text-align: center;
+}
+
+.slick-slide {
+  margin: 0; /* Remove default margin between slides */
+}
+
+.custom-ticket-card {
+  width: 100%; /* Ensure the card fills the full width */
+  margin: 0; /* Remove default margin */
+  overflow: hidden;
+}
+
+/* Event Banner */
+.custom-event-banner {
+  width: 100%; /* Fill the full width of the page */
+  height: 400px; /* Set a consistent height for banners */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Book Button on Left */
+.custom-book-button-left {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #00cfff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.custom-book-button-left:hover {
+  background-color: #009dcc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .custom-event-banner {
-    width: 100%;
-    height: 400px; /* Set a consistent height for banners */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    height: 300px; /* Adjust height for smaller screens */
   }
-  
-  .custom-event-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% transparency */
-    z-index: 1; /* Place the semi-transparent background below the overlay content */
+
+  .custom-book-button-left {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
   }
-  
-  /* Overlay Content */
-  .custom-event-overlay {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 600px;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Shadow effect for overlay */
-    text-align: center;
-    z-index: 2; /* Place the content above the semi-transparent background */
-  }
-  
-  .custom-event-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #fff; /* White text for better visibility */
-    margin-bottom: 0.5rem;
-  }
-  
-  .custom-event-description {
-    font-size: 1rem;
-    color: #ddd; /* Light text for better contrast */
-    margin-bottom: 1rem;
-  }
-  
-  .custom-event-price {
-    font-size: 1rem;
-    color: #fff;
-    margin-bottom: 1rem;
-    font-weight: bold;
-  }
-  
-  .custom-book-button {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #00cfff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .custom-book-button:hover {
-    background-color: #009dcc;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .custom-event-banner {
-      height: 300px; /* Adjust height for smaller screens */
-    }
-  
-    .custom-event-overlay {
-      width: 95%;
-      padding: 1rem;
-    }
-  
-    .custom-event-title {
-      font-size: 1.5rem;
-    }
-  
-    .custom-event-description {
-      font-size: 0.9rem;
-    }
-  
-    .custom-book-button {
-      padding: 0.6rem 1.5rem;
-      font-size: 0.9rem;
-    }
-  }
-  
+}
