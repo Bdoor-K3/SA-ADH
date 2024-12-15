@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { fetchUserProfile, updateUser, forgotPassword } from '../services/api'; // Include forgotPassword API
+import { fetchUserProfile, updateUser, forgotPassword } from '../services/api';
 import PhoneInput from 'react-phone-number-input';
 import countries from 'world-countries/countries.json';
 import 'react-phone-number-input/style.css';
 import './Profile.css';
 
+/**
+ * Profile Component
+ * Displays and edits user profile data with validation for input fields.
+ */
 function Profile() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
-  const [error, setError] = useState('');
+  const [errorMessages, setErrorMessages] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -32,18 +36,27 @@ function Profile() {
     gender: '',
   });
 
-  // Extract country names from the countries dataset
+  /**
+   * Extracts country options from the dataset for dropdown menu.
+   */
   const countryOptions = countries.map((country) => ({
     name: country.name.common,
     code: country.cca2,
   }));
 
+  /**
+   * Loads user profile data and purchase history on component mount.
+   */
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
         const data = await fetchUserProfile();
-        setUser(data.user);   
+        if (!data || !data.user) {
+          setErrorMessages({ profile: t('profile.error') });
+          return;
+        }
 
+        setUser(data.user);
         setPurchaseHistory(data.purchaseHistory || []);
         setFormData({
           fullName: data.user.fullName || '',
@@ -60,8 +73,7 @@ function Profile() {
           gender: data.user.gender || '',
         });
       } catch (err) {
-        setError(t('profile.error'));
-        console.error(err);
+        setErrorMessages({ profile: t('profile.error') });
       } finally {
         setIsLoading(false);
       }
@@ -70,79 +82,106 @@ function Profile() {
     loadUserProfile();
   }, [t]);
 
-  const handlePhoneChange = (value) => {
-    if (value) {
-      const matches = value.match(/^\+?(\d{1,3})?\s?(.*)$/);
-      if (matches) {
-        const countryCode = matches[1] || '';
-        const phoneNumber = matches[2] || '';
-        setFormData((prev) => ({
-          ...prev,
-          countryCode,
-          phoneNumber,
-        }));
-      }
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        countryCode: '',
-        phoneNumber: '',
-      }));
+  /**
+   * Validates and sets error messages for individual fields.
+   */
+  const validateField = (name, value) => {
+    let error = '';
+
+    if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      error = t('profile.errors.invalidEmail');
     }
+
+    if (name === 'birthdate' && new Date(value) > new Date()) {
+      error = t('profile.errors.invalidBirthdate');
+    }
+
+    if (name === 'phoneNumber' && !/^\+?[1-9]\d{1,14}$/.test(value)) {
+      error = t('profile.errors.invalidPhone');
+    }
+
+    if (name.includes('address') && value.trim() === '') {
+      error = t('profile.errors.incompleteAddress');
+    }
+
+    setErrorMessages((prev) => ({ ...prev, [name]: error }));
+    return !error;
   };
 
+  /**
+   * Handles input changes and validates them in real-time.
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name.includes('address')) {
-      const addressField = name.split('.')[1];
-      setFormData((prev) => ({
-        ...prev,
-        address: {
-          ...prev.address,
-          [addressField]: value,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    validateField(name, value);
   };
 
+  /**
+   * Handles phone number changes and validates the input.
+   */
+  const handlePhoneChange = (value) => {
+    setFormData((prev) => ({ ...prev, phoneNumber: value }));
+    validateField('phoneNumber', value);
+  };
+
+  /**
+   * Validates the entire form before submission.
+   */
+  const validateFormData = () => {
+    const validations = [
+      validateField('email', formData.email),
+      validateField('phoneNumber', formData.phoneNumber),
+      validateField('birthdate', formData.birthdate),
+      validateField('address.city', formData.address.city),
+      validateField('address.region', formData.address.region),
+      validateField('address.address1', formData.address.address1),
+    ];
+    return validations.every((valid) => valid);
+  };
+
+  /**
+   * Handles profile update form submission.
+   */
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    if (!validateFormData()) {
+      return;
+    }
+
+    setErrorMessages({});
+    setSuccessMessage('');
     try {
       await updateUser(user._id, formData);
-      alert(t('profile.updateSuccess'));
+      setSuccessMessage(t('profile.updateSuccess'));
       setIsEditing(false);
       const updatedUser = { ...user, ...formData };
       setUser(updatedUser);
     } catch (err) {
-      console.error('Error updating profile:', err);
-      setError(t('profile.updateError'));
+      setErrorMessages({ form: t('profile.updateError') });
     }
   };
 
+  /**
+   * Handles password reset requests.
+   */
   const handleResetPassword = async () => {
-    setError('');
+    setErrorMessages({});
     setSuccessMessage('');
     try {
       const response = await forgotPassword({ email: user.email });
       setSuccessMessage(response.message || t('profile.resetPasswordSuccess'));
     } catch (err) {
-      const errorMessage = err.response?.data?.message || t('profile.resetPasswordError');
-      setError(errorMessage);
+      setErrorMessages({ resetPassword: t('profile.resetPasswordError') });
     }
   };
 
+  /**
+   * Render loading state if data is still being fetched.
+   */
   if (isLoading) {
     return <p className="loading">{t('profile.loading')}</p>;
-  }
-
-  if (error) {
-    return <p className="error">{error}</p>;
-  }
-
-  if (!user) {
-    return <p className="no-data">{t('profile.noData')}</p>;
   }
 
   return (
@@ -152,7 +191,9 @@ function Profile() {
         <div className="profile-details">
           <h2>{t('profile.sections.personalDetails')}</h2>
           {successMessage && <p className="success-message">{successMessage}</p>}
-          {error && <p className="error-message">{error}</p>}
+          {Object.values(errorMessages).map((msg, index) => (
+            msg && <p key={index} className="error-message">{msg}</p>
+          ))}
           {isEditing ? (
             <form onSubmit={handleUpdate} className="profile-update-form">
               <input
@@ -175,14 +216,13 @@ function Profile() {
                 <label htmlFor="phoneNumber">{t('profile.labels.phone')}</label>
                 <PhoneInput
                   id="phoneNumber"
-                  value={`${formData.countryCode} ${formData.phoneNumber}`}
+                  value={formData.phoneNumber}
                   onChange={handlePhoneChange}
                   defaultCountry="US"
                   international
                   countryCallingCodeEditable={false}
                 />
               </div>
-
               <input
                 type="text"
                 name="address.city"
@@ -191,28 +231,14 @@ function Profile() {
                 onChange={handleInputChange}
                 required
               />
-              <div>
-                <label htmlFor="region">{t('profile.labels.country')}</label>
-                <select
-                  id="region"
-                  name="address.region"
-                  value={formData.address.region}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      address: { ...prev.address, region: e.target.value },
-                    }))
-                  }
-                  required
-                >
-                  <option value="">{t('profile.placeholders.selectCountry')}</option>
-                  {countryOptions.map((country) => (
-                    <option key={country.code} value={country.name}>
-                      {country.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <input
+                type="text"
+                name="address.region"
+                placeholder={t('profile.labels.country')}
+                value={formData.address.region}
+                onChange={handleInputChange}
+                required
+              />
               <input
                 type="text"
                 name="address.address1"
@@ -220,13 +246,6 @@ function Profile() {
                 value={formData.address.address1}
                 onChange={handleInputChange}
                 required
-              />
-              <input
-                type="text"
-                name="address.address2"
-                placeholder={t('profile.labels.address2')}
-                value={formData.address.address2}
-                onChange={handleInputChange}
               />
               <input
                 type="date"

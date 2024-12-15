@@ -3,36 +3,74 @@ import { useTranslation } from 'react-i18next';
 import { submitContactForm } from '../../services/api'; // Adjust the path to your api.js
 import './ContactSection.css';
 
+/**
+ * ContactSection Component
+ * Displays a contact form, Google map, and contact information with social media links.
+ */
 function ContactSection() {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(); // Translation hook for multi-language support
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: '',
   });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(null); // For success or error messages
+  const [loading, setLoading] = useState(false); // Tracks the loading state during form submission
+  const [success, setSuccess] = useState(null); // Tracks success or error messages
 
-  // Handle input changes
+  /**
+   * Handles input changes and updates form data.
+   * @param {Object} e - The input change event.
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Handle form submission
+  /**
+   * Validates the input fields.
+   * Ensures all fields meet basic criteria before submission.
+   * @returns {boolean} - True if all validations pass, false otherwise.
+   */
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      setSuccess({ message: t('contact.form.validation.name'), type: 'error' });
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setSuccess({ message: t('contact.form.validation.email'), type: 'error' });
+      return false;
+    }
+    if (!/^\d{10}$/.test(formData.phone)) {
+      setSuccess({ message: t('contact.form.validation.phone'), type: 'error' });
+      return false;
+    }
+    if (!formData.message.trim()) {
+      setSuccess({ message: t('contact.form.validation.message'), type: 'error' });
+      return false;
+    }
+    return true;
+  };
+
+  /**
+   * Handles form submission and sends data to the server.
+   * Displays success or error messages based on the server response.
+   * @param {Object} e - The form submit event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setSuccess(null);
 
+    if (!validateForm()) return;
+
+    setLoading(true);
     try {
       const response = await submitContactForm(formData);
       setSuccess({ message: response.message, type: 'success' });
-      setFormData({ name: '', email: '', phone: '', message: '' }); // Clear form
+      setFormData({ name: '', email: '', phone: '', message: '' }); // Clear the form
     } catch (error) {
       setSuccess({
-        message: error.response?.data?.message || 'Submission failed. Try again later.',
+        message: error.response?.data?.message || t('contact.form.submissionError'),
         type: 'error',
       });
     } finally {
@@ -54,6 +92,7 @@ function ContactSection() {
 
       {/* Contact Content */}
       <div className="contact-content">
+        {/* Contact Form */}
         <div className="contact-form">
           <h3>{t('contact.form.title')}</h3>
           {/* Display Success or Error Messages */}
@@ -62,7 +101,7 @@ function ContactSection() {
               {success.message}
             </div>
           )}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <input
               type="text"
               name="name"
@@ -100,6 +139,7 @@ function ContactSection() {
           </form>
         </div>
 
+        {/* Contact Information */}
         <div className="contact-info">
           <h3>{t('contact.info.title')}</h3>
           <p>
@@ -108,8 +148,6 @@ function ContactSection() {
           </p>
           <p>
             <strong>{t('contact.info.emailLabel')}:</strong> Contactus@happiness.sa
-          </p>
-          <p>
           </p>
           <div className="social-icons">
             <a href="https://x.com/saadah_me?s=21" className="social-icon" aria-label="Twitter">

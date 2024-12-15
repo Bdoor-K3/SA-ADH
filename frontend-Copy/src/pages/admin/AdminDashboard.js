@@ -7,10 +7,15 @@ import LogsTab from './Tabs/LogsTab';
 import ContactTab from './Tabs/ContactTab';
 import './AdminDashboard.css';
 
+/**
+ * AdminDashboard Component
+ * Manages the admin panel with tabs for managing events, users, tickets, logs, and contacts.
+ */
 function AdminDashboard() {
-  const [currentTab, setCurrentTab] = useState('events'); // 'events', 'users', 'tickets', 'logs'
-  const { t } = useTranslation();
+  const [currentTab, setCurrentTab] = useState('events'); // State to track the active tab
+  const { t } = useTranslation(); // Translation hook for multi-language support
 
+  // Define tabs with keys and labels for translation
   const tabs = [
     { key: 'events', label: t('adminDashboard.tabs.events') },
     { key: 'users', label: t('adminDashboard.tabs.users') },
@@ -19,8 +24,21 @@ function AdminDashboard() {
     { key: 'contacts', label: t('adminDashboard.tabs.contacts') },
   ];
 
+  /**
+   * Handles tab switching.
+   * @param {string} tabKey - The key of the selected tab.
+   */
+  const handleTabChange = (tabKey) => {
+    if (tabs.some((tab) => tab.key === tabKey)) {
+      setCurrentTab(tabKey);
+    } else {
+      console.error('Invalid tab key:', tabKey);
+    }
+  };
+
   return (
     <div className="admin-dashboard">
+      {/* Admin Dashboard Title */}
       <h1>{t('adminDashboard.title')}</h1>
 
       {/* Tabs for Navigation */}
@@ -28,8 +46,9 @@ function AdminDashboard() {
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            onClick={() => setCurrentTab(tab.key)}
+            onClick={() => handleTabChange(tab.key)}
             className={currentTab === tab.key ? 'active' : ''}
+            aria-selected={currentTab === tab.key}
           >
             {tab.label}
           </button>
@@ -43,7 +62,6 @@ function AdminDashboard() {
         {currentTab === 'tickets' && <TicketsTab />}
         {currentTab === 'logs' && <LogsTab />}
         {currentTab === 'contacts' && <ContactTab />}
-
       </div>
     </div>
   );

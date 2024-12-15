@@ -9,28 +9,32 @@
       "city": "City"
   },
   "profile": {
-      "labels": {
-          "gender": "Gender",
-          "role": "Role",
-          "address1": "Address Line 1",
-          "genderOptions": {
-              "other": "Other",
-              "male": "Male",
-              "female": "Female"
-          },
-          "event": "Event",
-          "address": "Address",
-          "name": "Full Name",
-          "birthdate": "Birthdate",
-          "city": "City",
-          "phone": "Phone Number",
-          "email": "Email",
-          "region": "Region",
-          "purchaseDate": "Purchase Date",
-          "amount": "Amount",
-          "date": "Event Date",
-          "address2": "Address Line 2"
-      },
+    "labels": {
+        "gender": "Gender",
+        "role": "Role",
+        "address1": "Address Line 1",
+        "address2": "Address Line 2",
+        "genderOptions": {
+            "other": "Other",
+            "male": "Male",
+            "female": "Female"
+        },
+        "event": "Event",
+        "address": "Address",
+        "name": "Full Name",
+        "birthdate": "Birthdate",
+        "city": "City",
+        "phone": "Phone Number",
+        "email": "Email",
+        "region": "Region",
+        "purchaseDate": "Purchase Date",
+        "amount": "Amount",
+        "date": "Event Date",
+        "ticketClass": "Ticket Class",
+        "quantity": "Quantity",
+        "price": "Price"
+    
+    },
       "sections": {
           "purchaseHistory": "Purchase History",
           "personalDetails": "Personal Details"
@@ -49,7 +53,9 @@
           "viewTicket": "View Ticket",
           "cancel": "Cancel",
           "goToAdmin": "Go to Admin Dashboard",
-          "goToOrganizer": "Go to Organizer Dashboard"
+          "goToOrganizer": "Go to Organizer Dashboard",
+          "resetPassword":" Reset Password"
+
       },
       "updateError": "Failed to update profile. Please try again.",
       "error": "An error occurred while loading your profile.",

@@ -5,15 +5,15 @@ import './EventsTab.css';
 
 function EventsTab() {
   const { t } = useTranslation();
-  const [events, setEvents] = useState([]);
-  const [organizers, setOrganizers] = useState([]);
+  const [events, setEvents] = useState([]); // Stores events data
+  const [organizers, setOrganizers] = useState([]); // Stores organizers data
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     dateOfEvent: '',
     timeStart: '',
     timeEnd: '',
-    tickets: [], // Updated to handle tickets array
+    tickets: [],
     currency: 'SAR',
     purchaseStartDate: '',
     purchaseEndDate: '',
@@ -25,11 +25,12 @@ function EventsTab() {
     mainImage: null,
     eventListImage: null,
     isAlphantom: false,
-    hide: false, // Add this field to formData
+    hide: false,
   });
-  const [editEventId, setEditEventId] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [editEventId, setEditEventId] = useState(null); // Holds ID for editing events
+  const [loading, setLoading] = useState(false); // Indicates if a request is loading
 
+  // Fetch events and organizers data on component mount
   useEffect(() => {
     const loadEvents = async () => {
       try {
@@ -53,6 +54,7 @@ function EventsTab() {
     loadOrganizers();
   }, [t]);
 
+  // Handles form submission for creating or updating an event
   const handleEventSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,7 +66,7 @@ function EventsTab() {
     const eventData = new FormData();
     Object.keys(formData).forEach((key) => {
       if (key === 'tickets') {
-        eventData.append(key, JSON.stringify(formData[key])); // Convert tickets to JSON string
+        eventData.append(key, JSON.stringify(formData[key]));
       } else if (key === 'organizers') {
         formData.organizers.forEach((organizer, index) => {
           eventData.append(`organizers[${index}]`, organizer);
@@ -92,6 +94,7 @@ function EventsTab() {
     }
   };
 
+  // Resets the form to its initial state
   const resetForm = () => {
     setFormData({
       name: '',
@@ -99,7 +102,7 @@ function EventsTab() {
       dateOfEvent: '',
       timeStart: '',
       timeEnd: '',
-      tickets: [], // Reset tickets
+      tickets: [],
       currency: 'SAR',
       purchaseStartDate: '',
       purchaseEndDate: '',
@@ -111,16 +114,18 @@ function EventsTab() {
       mainImage: null,
       eventListImage: null,
       isAlphantom: false,
-      hide: false, // Reset hide
+      hide: false,
     });
     setEditEventId(null);
   };
 
+  // Handles file input changes
   const handleImageChange = (e, field) => {
     const file = e.target.files[0];
     setFormData({ ...formData, [field]: file });
   };
 
+  // Populates the form with an existing event's data for editing
   const handleEditEvent = (event) => {
     setEditEventId(event._id);
     setFormData({
@@ -129,7 +134,7 @@ function EventsTab() {
       dateOfEvent: event.dateOfEvent.slice(0, 10),
       timeStart: event.timeStart || '',
       timeEnd: event.timeEnd || '',
-      tickets: event.tickets || [], // Initialize tickets array
+      tickets: event.tickets || [],
       currency: event.currency,
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
       purchaseEndDate: event.purchaseEndDate.slice(0, 10),
@@ -141,10 +146,11 @@ function EventsTab() {
       mainImage: null,
       eventListImage: null,
       isAlphantom: event.isAlphantom || false,
-      hide: event.hide || false, // Handle the hide field
+      hide: event.hide || false,
     });
   };
 
+  // Deletes an event after confirmation
   const handleDeleteEvent = async (id) => {
     if (!window.confirm(t('eventsTab.alerts.confirmDelete'))) return;
     setLoading(true);
@@ -159,6 +165,7 @@ function EventsTab() {
     }
   };
 
+  // Toggles selection of an organizer
   const handleOrganizerSelection = (organizerId) => {
     setFormData((prevFormData) => {
       const organizers = prevFormData.organizers.includes(organizerId)
@@ -168,6 +175,7 @@ function EventsTab() {
     });
   };
 
+  // Updates tickets array based on user input
   const handleTicketsChange = (index, field, value) => {
     setFormData((prevFormData) => {
       const updatedTickets = [...prevFormData.tickets];
@@ -176,6 +184,7 @@ function EventsTab() {
     });
   };
 
+  // Adds a new ticket to the tickets array
   const addTicket = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -183,6 +192,7 @@ function EventsTab() {
     }));
   };
 
+  // Removes a ticket from the tickets array
   const removeTicket = (index) => {
     setFormData((prevFormData) => {
       const updatedTickets = [...prevFormData.tickets];
@@ -195,6 +205,7 @@ function EventsTab() {
     <div className="events-tab">
       <h2 className="tab-title">{t(editEventId ? 'eventsTab.title.edit' : 'eventsTab.title.create')}</h2>
       <form className="event-form" onSubmit={handleEventSubmit}>
+        {/* Form inputs for event details */}
         <label>{t('eventsTab.form.eventName')}</label>
         <input
           type="text"
@@ -269,6 +280,7 @@ function EventsTab() {
           <option value="QAR">QAR</option>
         </select>
 
+        {/* Tickets management */}
         <label>{t('eventsTab.form.tickets')}</label>
         {formData.tickets.map((ticket, index) => (
           <div key={index} className="ticket-item">
@@ -315,6 +327,7 @@ function EventsTab() {
           required
         />
 
+        {/* File upload inputs */}
         <label>{t('eventsTab.form.bannerImage')}</label>
         <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'bannerImage')} />
         {formData.bannerImage && <p>{formData.bannerImage.name}</p>}
@@ -327,6 +340,7 @@ function EventsTab() {
         <input type="file" accept="image/*" onChange={(e) => handleImageChange(e, 'eventListImage')} />
         {formData.eventListImage && <p>{formData.eventListImage.name}</p>}
 
+        {/* Organizers selection */}
         <div className="organizers-container">
           <label>{t('eventsTab.form.organizers')}</label>
           {organizers.map((organizer) => (
@@ -344,6 +358,7 @@ function EventsTab() {
           ))}
         </div>
 
+        {/* Additional options */}
         <label>
           <input
             type="checkbox"
@@ -366,6 +381,7 @@ function EventsTab() {
         </button>
       </form>
 
+      {/* Display existing events */}
       <h2 className="tab-title">{t('eventsTab.title.existing')}</h2>
       {Array.isArray(events) ? (
         <ul className="events-list">

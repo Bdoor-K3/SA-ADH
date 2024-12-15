@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import Events from './pages/EventsPage';
+import Home from './pages/Sections/Home';
+import Events from './pages/Sections/EvenSection/EventsPage';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
-import TicketPage from './pages/TicketPage';
+import TicketPage from './pages/Sections/EvenSection/TicketPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AdminDashboard from './pages/admin/AdminDashboard';
-import EventDetails from './pages/EventDetails';
-import Profile from './pages/Profile';
+import EventDetails from './pages/Sections/EvenSection/EventDetails';
+import Profile from './components/Profile';
 import OrganizerDashboard from './pages/organizer/OrganizerDashboard';
 import ScanTicket from './pages/organizer/ScanTickets';
 import About from './pages/Sections/AboutSection';
 import FAQs from './pages/Sections/QASection';
 import Contact from './pages/Sections/ContactSection';
 import SplashScreen from './SplashScreen'; // Import the Splash Screen
-import CartPage from './pages/CartPage';
-import CartSuccessPage from './pages/CartSuccessPage';
+import CartPage from './components/CartPage';
+import CartSuccessPage from './components/CartSuccessPage';
 
 import './App.css';
 

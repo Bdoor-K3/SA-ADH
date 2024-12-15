@@ -16,11 +16,8 @@ router.get('/', authenticateToken, authorizeAdmin, async (req, res) => {
     // Fetch purchases for each user and attach them
     const usersWithPurchases = await Promise.all(
       users.map(async (user) => {
-        const purchases = await Purchase.find({ userId: user._id })
-          .populate('ticketId') // Populate ticket details
-          .populate('eventId'); // Populate event details
 
-        return { ...user._doc, purchaseHistory: purchases }; // Attach purchaseHistory dynamically
+        return { ...user._doc }; // Attach purchaseHistory dynamically
       })
     );
 
@@ -43,7 +40,7 @@ router.get('/email/:email', authenticateToken, authorizeAdmin, async (req, res) 
 
     // Fetch the user's purchases
     const purchases = await Purchase.find({ userId: user._id })
-      .populate('ticketId') // Populate ticket details
+      .populate('tickets') // Populate ticket details
       .populate('eventId'); // Populate event details
 
     res.status(200).json({ user, purchaseHistory: purchases });
@@ -102,7 +99,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
 
     const purchases = await Purchase.find({ userId: user._id })
       .populate({ path: 'eventIds', model: 'Event' }) // Populate `eventIds`
-      .populate({ path: 'tickets', model: 'Ticket' }) // Populate `ticketIds`
+      .populate({ path: 'tickets', model: 'Ticket' }) // Populate `tickets`
       .exec();
 
     res.status(200).json({ user, purchaseHistory: purchases });

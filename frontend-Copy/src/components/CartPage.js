@@ -4,17 +4,31 @@ import { useTranslation } from 'react-i18next';
 import './CartPage.css';
 import { purchaseTicket, verifyPayment } from '../services/api';
 
+/**
+ * CartPage Component
+ * Manages the shopping cart, allowing users to view, remove, and purchase tickets.
+ */
 function CartPage({ cart, setCart }) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [verifiedTickets, setVerifiedTickets] = useState([]);
-  const [isVerifying, setIsVerifying] = useState(false);
+  const { t } = useTranslation(); // Translation hook for multi-language support
+  const navigate = useNavigate(); // Navigation hook for redirection
+  const location = useLocation(); // Access to URL parameters
 
+  const [verifiedTickets, setVerifiedTickets] = useState([]); // Stores tickets after successful payment
+  const [isVerifying, setIsVerifying] = useState(false); // Tracks payment verification state
+
+  /**
+   * Calculates the total cost of items in the cart.
+   * @returns {number} - The total cart amount.
+   */
   const calculateCartTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  /**
+   * Handles removing an item from the cart.
+   * Updates both the cart state and localStorage.
+   * @param {number} index - The index of the item to remove.
+   */
   const handleRemoveItem = (index) => {
     setCart((prevCart) => {
       const updatedCart = prevCart.filter((_, i) => i !== index);
@@ -23,6 +37,10 @@ function CartPage({ cart, setCart }) {
     });
   };
 
+  /**
+   * Handles purchasing tickets in the cart.
+   * Redirects to the payment gateway or processes free tickets.
+   */
   const handlePurchaseCart = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -60,7 +78,10 @@ function CartPage({ cart, setCart }) {
     }
   };
 
-  // Handle payment verification from URL
+  /**
+   * Handles payment verification from the URL query parameters.
+   * Clears the cart and displays verified tickets on success.
+   */
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const tap_id = queryParams.get('tap_id');
@@ -87,10 +108,16 @@ function CartPage({ cart, setCart }) {
     }
   }, [location.search, t, setCart]);
 
+  /**
+   * Displays a loading message during payment verification.
+   */
   if (isVerifying) {
     return <p className="loading">{t('cart.verifyingPayment')}</p>;
   }
 
+  /**
+   * Displays a success message and the list of verified tickets.
+   */
   if (verifiedTickets.length > 0) {
     return (
       <div className="cart-page-container">
@@ -114,10 +141,16 @@ function CartPage({ cart, setCart }) {
     );
   }
 
+  /**
+   * Displays a message if the cart is empty.
+   */
   if (cart.length === 0) {
     return <p className="cart-empty-message">{t('cart.empty')}</p>;
   }
 
+  /**
+   * Displays the cart items and total cost, with an option to purchase.
+   */
   return (
     <div className="cart-page-container">
       <h2>{t('cart.title')}</h2>

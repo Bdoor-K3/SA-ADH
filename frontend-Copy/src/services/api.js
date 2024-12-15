@@ -1,12 +1,14 @@
 // Import axios for making HTTP requests
 import axios from 'axios';
 
-// Set up a base instance with the backend URL from .env
+/**
+ * Axios instance setup
+ */
 const api = axios.create({
-  baseURL:'http://localhost:5001',
-});//'http://localhost:5000'
-// process.env.REACT_APP_BACKEND_URL
-// Add a request interceptor to include the Authorization header
+  baseURL: 'http://localhost:5001', // Replace with process.env.REACT_APP_BACKEND_URL in production
+});
+
+// Add Authorization header interceptor
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -15,12 +17,42 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Get All Events
+/**
+ * API Endpoints
+ */
+
+// Authentication APIs
+export const registerUser = async (userData) => {
+  return await api.post('/api/auth/register', userData);
+};
+
+export const loginUser = async (credentials) => {
+  return await api.post('/api/auth/login', credentials);
+};
+
+export const forgotPassword = async (data) => {
+  try {
+    const response = await api.post('/api/auth/forgot-password', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error sending forgot password email:', error);
+    throw error;
+  }
+};
+
+export const resetPassword = async ({ token, password }) => {
+  try {
+    const response = await api.post('/api/auth/reset-password', { token, password });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Event APIs
 export const fetchEvents = async () => {
   try {
     const response = await api.get('/api/events');
@@ -31,23 +63,14 @@ export const fetchEvents = async () => {
   }
 };
 
-// Get All Events
 export const fetchEventsAdmin = async () => {
   try {
     const response = await api.get('/api/events/admin');
     return response.data;
   } catch (error) {
-    console.error('Error fetching events:', error);
+    console.error('Error fetching events for admin:', error);
     throw error;
   }
-};
-
-export const registerUser = async (userData) => {
-  return await api.post('/api/auth/register', userData);
-};
-
-export const loginUser = async (credentials) => {
-  return await api.post('/api/auth/login', credentials);
 };
 
 export const createEvent = async (eventData) => {
@@ -60,7 +83,6 @@ export const createEvent = async (eventData) => {
   }
 };
 
-// Get Event by ID
 export const getEventById = async (id) => {
   try {
     const response = await api.get(`/api/events/${id}`);
@@ -81,75 +103,8 @@ export const updateEvent = async (eventId, updates) => {
   }
 };
 
-// Delete an Event
 export const deleteEvent = async (eventId) => {
   return await api.delete(`/api/events/${eventId}`);
-};
-
-// Fetch Logs
-export const fetchLogs = async () => {
-  try {
-    const response = await api.get('/api/logs');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching logs:', error);
-    throw error;
-  }
-};
-
-// Fetch All Users
-export const fetchUsers = async () => {
-  try {
-    const response = await api.get('/api/users');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    throw error;
-  }
-};
-
-// Fetch User by Email
-export const fetchUserByEmail = async (email) => {
-  try {
-    const response = await api.get(`/api/users/email/${email}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching user by email:', error);
-    throw error;
-  }
-};
-
-// Update User
-export const updateUser = async (id, updates) => {
-  return await api.put(`/api/users/${id}`, updates);
-};
-
-// Delete User
-export const deleteUser = async (id) => {
-  return await api.delete(`/api/users/${id}`);
-};
-
-
-// Fetch User Profile
-export const fetchUserProfile = async () => {
-  try {
-    const response = await api.get('/api/users/profile');
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-    throw error;
-  }
-};
-
-export const fetchOrganizers = async () => {
-  try {
-    const response = await api.get('/api/users/organizers');
-    return response.data; // This includes _id, fullName, and email
-  } catch (error) {
-    console.error('Error fetching organizers:', error);
-    throw error;
-  }
 };
 
 export const fetchEventsForOrganizer = async () => {
@@ -162,6 +117,7 @@ export const fetchEventsForOrganizer = async () => {
   }
 };
 
+// Ticket APIs
 export const validateTicket = async (qrCodeData, eventId) => {
   try {
     const response = await api.post('/api/tickets/validate', { qrCodeData, eventId });
@@ -171,48 +127,19 @@ export const validateTicket = async (qrCodeData, eventId) => {
   }
 };
 
-//Correct API 
-
 export const purchaseTicket = async (eventIds, tickets) => {
   try {
     const response = await api.post('/api/tickets/purchase', { eventIds, tickets });
-    return response.data; // Expecting { paymentUrl?, tickets? }
+    return response.data;
   } catch (error) {
     console.error('Error purchasing tickets:', error);
     throw error;
   }
 };
 
-export const verifyPayment = async (tap_id) => {
-  try {
-    const response = await api.get(`/api/tickets/payment/callback`, { params: { tap_id } });
-    return response.data; // Expecting ticket details or error message
-  } catch (error) {
-    console.error('Error verifying payment:', error);
-    throw error;
-  }
-};
-
-
-
-
-// Forgot Password
-export const forgotPassword = async (data) => {
-  try {
-    const response = await api.post('/api/auth/forgot-password', data);
-    return response.data;
-  } catch (error) {
-    console.error('Error sending forgot password email:', error);
-    throw error;
-  }
-};
-
-// Purchase Free Ticket
 export const purchaseFreeTicket = async ({ eventId, ticketClass, quantity }) => {
   try {
-    const response = await api.post('/api/tickets/purchase/free', {  eventId,
-      ticketClass,
-      quantity, });
+    const response = await api.post('/api/tickets/purchase/free', { eventId, ticketClass, quantity });
     return response.data;
   } catch (error) {
     console.error('Error purchasing free ticket:', error);
@@ -220,16 +147,6 @@ export const purchaseFreeTicket = async ({ eventId, ticketClass, quantity }) => 
   }
 };
 
-
-// Reset Password
-export const resetPassword = async ({ token, password }) => {
-  try {
-    const response = await api.post('/api/auth/reset-password', { token, password });
-    return response; // Return the response from the server
-  } catch (error) {
-    throw error; // Pass any errors to the caller
-  }
-};
 export const fetchTickets = async (queryParams = '') => {
   try {
     const response = await api.get(`/api/tickets?${queryParams}`);
@@ -239,6 +156,7 @@ export const fetchTickets = async (queryParams = '') => {
     throw error;
   }
 };
+
 export const markTicketAsUsed = async (ticketId) => {
   try {
     const response = await api.put(`/api/tickets/${ticketId}/use`);
@@ -248,6 +166,67 @@ export const markTicketAsUsed = async (ticketId) => {
     throw error;
   }
 };
+
+export const verifyPayment = async (tap_id) => {
+  try {
+    const response = await api.get(`/api/tickets/payment/callback`, { params: { tap_id } });
+    return response.data;
+  } catch (error) {
+    console.error('Error verifying payment:', error);
+    throw error;
+  }
+};
+
+// User APIs
+export const fetchUsers = async () => {
+  try {
+    const response = await api.get('/api/users');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
+};
+
+export const fetchUserByEmail = async (email) => {
+  try {
+    const response = await api.get(`/api/users/email/${email}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user by email:', error);
+    throw error;
+  }
+};
+
+export const fetchUserProfile = async () => {
+  try {
+    const response = await api.get('/api/users/profile');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    throw error;
+  }
+};
+
+export const fetchOrganizers = async () => {
+  try {
+    const response = await api.get('/api/users/organizers');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching organizers:', error);
+    throw error;
+  }
+};
+
+export const updateUser = async (id, updates) => {
+  return await api.put(`/api/users/${id}`, updates);
+};
+
+export const deleteUser = async (id) => {
+  return await api.delete(`/api/users/${id}`);
+};
+
+// Contact APIs
 export const submitContactForm = async (formData) => {
   try {
     const response = await api.post('/api/contact', formData);
@@ -257,10 +236,10 @@ export const submitContactForm = async (formData) => {
     throw error;
   }
 };
-// Fetch all contacts
+
 export const fetchContacts = async () => {
   try {
-    const response = await api.get('/api/contact'); // Adjust the endpoint as per your backend
+    const response = await api.get('/api/contact');
     return response.data;
   } catch (error) {
     console.error('Error fetching contacts:', error);
@@ -268,7 +247,6 @@ export const fetchContacts = async () => {
   }
 };
 
-// Delete a contact
 export const deleteContact = async (contactId) => {
   try {
     const response = await api.delete(`/api/contact/${contactId}`);
@@ -279,6 +257,7 @@ export const deleteContact = async (contactId) => {
   }
 };
 
-
-// Export the instance for custom requests if needed
+/**
+ * Export the axios instance for custom requests if needed.
+ */
 export default api;

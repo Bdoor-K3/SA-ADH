@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './QASection.css';
 
+/**
+ * QASection Component
+ * Displays a list of FAQs with expandable answers.
+ */
 function QASection() {
-  const { t, i18n } = useTranslation(); // Added i18n for direction handling
-  const [activeIndex, setActiveIndex] = useState(null);
+  const { t, i18n } = useTranslation(); // Translation hook with support for language direction
+  const [activeIndex, setActiveIndex] = useState(null); // Tracks the currently active FAQ
 
+  // FAQ data
   const faqs = [
     {
       question: t('qaSection.faqs.howToBuyTicket.question'),
@@ -25,29 +30,40 @@ function QASection() {
     },
   ];
 
+  /**
+   * Toggles the active FAQ item.
+   * @param {number} index - The index of the clicked FAQ item.
+   */
   const toggleFAQ = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
+    setActiveIndex(activeIndex === index ? null : index); // Collapse if the same item is clicked
   };
 
   return (
     <section className={`qa-section ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container">
+        {/* Section title and subtitle */}
         <h2 className="qa-title">{t('qaSection.title')}</h2>
         <h3 className="qa-subtitle">{t('qaSection.subtitle')}</h3>
 
+        {/* FAQ list */}
         <div className="faq-list">
           {faqs.map((faq, index) => (
             <div
               key={index}
               className={`faq-item ${activeIndex === index ? 'active' : ''}`}
-              onClick={() => toggleFAQ(index)}
             >
-              <div className="faq-question">
+              {/* Question */}
+              <div
+                className="faq-question"
+                onClick={() => toggleFAQ(index)}
+              >
                 {faq.question}
                 <span className="faq-toggle-icon">
                   {activeIndex === index ? '▲' : '▼'}
                 </span>
               </div>
+
+              {/* Answer */}
               {activeIndex === index && (
                 <div className="faq-answer">
                   <strong>{t('qaSection.answerLabel')}</strong>
