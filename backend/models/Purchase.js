@@ -1,29 +1,37 @@
 const mongoose = require('mongoose');
 
 // Define valid GCC currencies
-const validGCCCurrencies = ['SAR', 'KWD', 'AED', 'OMR', 'BHD', 'QAR']; // Saudi Riyal, Kuwaiti Dinar, UAE Dirham, Omani Rial, Bahraini Dinar, Qatari Riyal
+const validGCCCurrencies = ['SAR', 'KWD', 'AED', 'OMR', 'BHD', 'QAR'];
 
+// Ticket Detail Schema for embedded ticket details
+const ticketDetailsSchema = new mongoose.Schema({
+  ticketClass: { type: String, required: true },
+  ticketId: {type: mongoose.Schema.Types.ObjectId, ref: 'Ticket', required: true },
+  eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
+  quantity: { type: Number, required: true },
+  price: { type: Number, required: true },
+  QRCodeImage: { type: String },
+});
 const purchaseSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the user
-    ticketId: { type: mongoose.Schema.Types.ObjectId, ref: 'Ticket', required: true }, // Reference to the ticket
-    eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true }, // Reference to the event
+    tickets: [ticketDetailsSchema], // Array of ticket details
+    eventIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true }], // Array of event references
     purchaseDate: { type: Date, default: Date.now }, // Date of purchase
-    amount: { type: Number, required: true }, // Total amount paid
+    amount: { type: Number, required: true }, // Total amount for the purchase
     currency: {
       type: String,
       required: true,
       enum: validGCCCurrencies, // Restrict to GCC currencies
       validate: {
         validator: function (value) {
-          return validGCCCurrencies.includes(value); // Custom validation (optional redundancy)
+          return validGCCCurrencies.includes(value);
         },
         message: (props) => `${props.value} is not a valid GCC currency. Allowed currencies: ${validGCCCurrencies.join(', ')}.`,
       },
     },
-    paid: { type: Boolean, default: true }, // Whether the ticket was paid for
-    used: { type: Boolean, default: false }, // Whether the ticket has been used
-    useDate: { type: Date }, // Date when the ticket was used
+    paid: { type: Boolean, default: false }, // Whether the purchase is paid
+    tapId: { type: String, default: null }, // Tap payment ID for tracking the transaction
   },
   { timestamps: true }
 );

@@ -13,9 +13,8 @@ function EventsTab() {
     dateOfEvent: '',
     timeStart: '',
     timeEnd: '',
-    price: '',
+    tickets: [], // Updated to handle tickets array
     currency: 'SAR',
-    ticketsAvailable: '',
     purchaseStartDate: '',
     purchaseEndDate: '',
     organizers: [],
@@ -27,7 +26,6 @@ function EventsTab() {
     eventListImage: null,
     isAlphantom: false,
     hide: false, // Add this field to formData
-
   });
   const [editEventId, setEditEventId] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -65,10 +63,14 @@ function EventsTab() {
 
     const eventData = new FormData();
     Object.keys(formData).forEach((key) => {
-      if (key === 'organizers') {
+      if (key === 'tickets') {
+        eventData.append(key, JSON.stringify(formData[key])); // Convert tickets to JSON string
+      } else if (key === 'organizers') {
         formData.organizers.forEach((organizer, index) => {
           eventData.append(`organizers[${index}]`, organizer);
         });
+      } else if (['bannerImage', 'mainImage', 'eventListImage'].includes(key) && formData[key]) {
+        eventData.append(key, formData[key]);
       } else {
         eventData.append(key, formData[key]);
       }
@@ -97,9 +99,8 @@ function EventsTab() {
       dateOfEvent: '',
       timeStart: '',
       timeEnd: '',
-      price: '',
+      tickets: [], // Reset tickets
       currency: 'SAR',
-      ticketsAvailable: '',
       purchaseStartDate: '',
       purchaseEndDate: '',
       organizers: [],
@@ -110,6 +111,7 @@ function EventsTab() {
       mainImage: null,
       eventListImage: null,
       isAlphantom: false,
+      hide: false, // Reset hide
     });
     setEditEventId(null);
   };
@@ -127,9 +129,8 @@ function EventsTab() {
       dateOfEvent: event.dateOfEvent.slice(0, 10),
       timeStart: event.timeStart || '',
       timeEnd: event.timeEnd || '',
-      price: event.price,
+      tickets: event.tickets || [], // Initialize tickets array
       currency: event.currency,
-      ticketsAvailable: event.ticketsAvailable,
       purchaseStartDate: event.purchaseStartDate.slice(0, 10),
       purchaseEndDate: event.purchaseEndDate.slice(0, 10),
       organizers: event.organizers,
@@ -140,8 +141,7 @@ function EventsTab() {
       mainImage: null,
       eventListImage: null,
       isAlphantom: event.isAlphantom || false,
-      hide: event.hide || false, // Add this to handle the hide field
-
+      hide: event.hide || false, // Handle the hide field
     });
   };
 
@@ -165,6 +165,29 @@ function EventsTab() {
         ? prevFormData.organizers.filter((id) => id !== organizerId)
         : [...prevFormData.organizers, organizerId];
       return { ...prevFormData, organizers };
+    });
+  };
+
+  const handleTicketsChange = (index, field, value) => {
+    setFormData((prevFormData) => {
+      const updatedTickets = [...prevFormData.tickets];
+      updatedTickets[index] = { ...updatedTickets[index], [field]: value };
+      return { ...prevFormData, tickets: updatedTickets };
+    });
+  };
+
+  const addTicket = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      tickets: [...prevFormData.tickets, { name: '', price: 0, quantity: 0 }],
+    }));
+  };
+
+  const removeTicket = (index) => {
+    setFormData((prevFormData) => {
+      const updatedTickets = [...prevFormData.tickets];
+      updatedTickets.splice(index, 1);
+      return { ...prevFormData, tickets: updatedTickets };
     });
   };
 
@@ -232,14 +255,6 @@ function EventsTab() {
           required
         />
 
-        <label>{t('eventsTab.form.price')}</label>
-        <input
-          type="number"
-          value={formData.price}
-          onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-          required
-        />
-
         <label>{t('eventsTab.form.currency')}</label>
         <select
           value={formData.currency}
@@ -254,13 +269,35 @@ function EventsTab() {
           <option value="QAR">QAR</option>
         </select>
 
-        <label>{t('eventsTab.form.ticketsAvailable')}</label>
-        <input
-          type="number"
-          value={formData.ticketsAvailable}
-          onChange={(e) => setFormData({ ...formData, ticketsAvailable: e.target.value })}
-          required
-        />
+        <label>{t('eventsTab.form.tickets')}</label>
+        {formData.tickets.map((ticket, index) => (
+          <div key={index} className="ticket-item">
+            <input
+              type="text"
+              placeholder="Name"
+              value={ticket.name}
+              onChange={(e) => handleTicketsChange(index, 'name', e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              value={ticket.price}
+              onChange={(e) => handleTicketsChange(index, 'price', parseFloat(e.target.value))}
+            />
+            <input
+              type="number"
+              placeholder="Quantity"
+              value={ticket.quantity}
+              onChange={(e) => handleTicketsChange(index, 'quantity', parseInt(e.target.value, 10))}
+            />
+            <button type="button" onClick={() => removeTicket(index)}>
+              {t('eventsTab.actions.removeTicket')}
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={addTicket}>
+          {t('eventsTab.actions.addTicket')}
+        </button>
 
         <label>{t('eventsTab.form.purchaseStartDate')}</label>
         <input
@@ -316,14 +353,13 @@ function EventsTab() {
           {t('eventsTab.form.isAlphantom')}
         </label>
         <label>
-  <input
-    type="checkbox"
-    checked={formData.hide}
-    onChange={(e) => setFormData({ ...formData, hide: e.target.checked })}
-  />
-  {t('eventsTab.form.hide')} {/* Add translation key for the label */}
-</label>
-
+          <input
+            type="checkbox"
+            checked={formData.hide}
+            onChange={(e) => setFormData({ ...formData, hide: e.target.checked })}
+          />
+          {t('eventsTab.form.hide')}
+        </label>
 
         <button type="submit" className="submit-button" disabled={loading}>
           {loading ? t('eventsTab.alerts.loading') : t(editEventId ? 'eventsTab.form.submit.update' : 'eventsTab.form.submit.create')}

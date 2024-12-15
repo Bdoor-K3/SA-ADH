@@ -3,7 +3,6 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const Contact = require('../models/Contact'); // Adjust the path if necessary
 const { authenticateToken, authorizeAdmin } = require('../middleware/auth');
-const nodemailer = require('nodemailer');
 
 // POST: Add a new contact message
 router.post('/', async (req, res) => {

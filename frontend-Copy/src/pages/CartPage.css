@@ -1,0 +1,109 @@
+/* General Page Container */
+.cart-page-container {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* Cart Title */
+  .cart-page-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Cart List */
+  .cart-list {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+  }
+  
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+  
+  .cart-item p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .cart-item button {
+    background: #ff6b81;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .cart-item button:hover {
+    background: #ff3b5f;
+    transform: scale(1.05);
+  }
+  
+  /* Cart Total */
+  .cart-total {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Purchase Button */
+  .purchase-button {
+    background: linear-gradient(to bottom, #00bfff, #007bff);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .purchase-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .cart-list {
+      padding: 15px;
+    }
+  
+    .cart-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .cart-item button {
+      margin-top: 10px;
+      align-self: flex-end;
+    }
+  
+    .purchase-button {
+      font-size: 16px;
+      padding: 12px 25px;
+    }
+  }
+  

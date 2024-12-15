@@ -18,6 +18,9 @@ import About from './pages/Sections/AboutSection';
 import FAQs from './pages/Sections/QASection';
 import Contact from './pages/Sections/ContactSection';
 import SplashScreen from './SplashScreen'; // Import the Splash Screen
+import CartPage from './pages/CartPage';
+import CartSuccessPage from './pages/CartSuccessPage';
+
 import './App.css';
 
 // ProtectedRoute Component
@@ -33,6 +36,11 @@ const ProtectedRoute = ({ children, role }) => {
 };
 
 function App() {
+  const [cart, setCart] = useState(() => {
+    // Initialize cart from localStorage
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -42,7 +50,13 @@ function App() {
     }, 1000); // Show splash screen for 1 second
 
     return () => clearTimeout(timer); // Cleanup the timer
+
   }, []);
+
+  useEffect(() => {
+    // Update localStorage whenever cart changes
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   if (isLoading) {
     return <SplashScreen />; // Show Splash Screen while loading
@@ -50,13 +64,15 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <Header cart={cart} />
       <Routes>
         {/* Public Routes */}
+        <Route path="/cart" element={<CartPage cart={cart} setCart={setCart} />} />
         <Route path="/" element={<Home />} />
-        <Route path="/event/:id" element={<EventDetails />} />
-        <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/event/:id" element={<EventDetails cart={cart} setCart={setCart} />} />
+        {/* Removed duplicate route */}
         <Route path="/ticket" element={<TicketPage />} />
+        <Route path="/cart/success" element={<CartSuccessPage setCart={setCart} />} />
         <Route path="/events" element={<Events />} />
         <Route path="/about" element={<About />} />
         <Route path="/faqs" element={<FAQs />} />
@@ -93,10 +109,9 @@ function App() {
           }
         />
       </Routes>
-    <Footer />
+      <Footer />
     </Router>
   );
 }
 
 export default App;
-// /   

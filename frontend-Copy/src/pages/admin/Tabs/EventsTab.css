@@ -107,4 +107,53 @@
       grid-template-columns: 1fr;
     }
   }
+  .ticket-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .ticket-item input[type="text"],
+  .ticket-item input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 120px;
+    font-size: 14px;
+  }
+  
+  .ticket-item button {
+    padding: 6px 12px;
+    background-color: #ff79c6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .ticket-item button:hover {
+    background-color: #ff79c6;
+  }
+  
+  button.submit-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff79c6;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button.submit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  button.submit-button:hover:not(:disabled) {
+    background-color: #ff79c6;
+  }
   

@@ -153,27 +153,32 @@ function EventsPage() {
           </p>
         </div>
         <div className="events-card-details">
-          <h3 className="event-category">{event.category}</h3>
-          <h2 className="event-title">{event.name}</h2>
-          <p className="event-location">{event.city}</p>
-          <p className="event-price">
-            {t("eventsPage.eventCard.price")} {event.price} {event.currency}
-          </p>
-          <div className="event-buttons">
-            <button
-              className="book-button"
-              onClick={() => handleViewDetails(event._id)}
-            >
-              {t("eventsPage.eventCard.bookNow")}
-            </button>
-            <button
-              className="details-button"
-              onClick={() => handleViewDetails(event._id)}
-            >
-              {t("eventsPage.eventCard.details")}
-            </button>
-          </div>
-        </div>
+  <h3 className="event-category">{event.category}</h3>
+  <h2 className="event-title">{event.name}</h2>
+  <p className="event-location">{event.city}</p>
+  <p className="event-price">
+    {t("eventsPage.eventCard.price")}{" "}
+    {event.tickets && event.tickets.length > 0
+      ? Math.min(...event.tickets.map((ticket) => ticket.price))
+      : t("eventsPage.eventCard.noPrice")}{" "}
+    {event.currency}
+  </p>
+  <div className="event-buttons">
+    <button
+      className="book-button"
+      onClick={() => handleViewDetails(event._id)}
+    >
+      {t("eventsPage.eventCard.bookNow")}
+    </button>
+    <button
+      className="details-button"
+      onClick={() => handleViewDetails(event._id)}
+    >
+      {t("eventsPage.eventCard.details")}
+    </button>
+  </div>
+</div>
+
         <div className="events-card-image-container">
           <img
             src={event.mainImage || "/assets/default-event.jpg"}

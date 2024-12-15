@@ -1,4 +1,12 @@
 const mongoose = require('mongoose');
+
+const ticketClassSchema = new mongoose.Schema({
+  name: { type: String, required: true },      // Name of the ticket type (e.g., VIP, Standard)
+  price: { type: Number, required: true },    // Price of the ticket
+  quantity: { type: Number, required: true }, // Total quantity of tickets for this class
+  sold: { type: Number, default: 0 },         // Tickets sold for this class
+});
+
 const eventSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -6,14 +14,13 @@ const eventSchema = new mongoose.Schema(
     dateOfEvent: { type: Date, required: true },
     timeStart: { type: String, required: true },
     timeEnd: { type: String, required: true },
-    price: { type: Number, required: true },
+    tickets: [ticketClassSchema], // Array of ticket classes
     currency: {
       type: String,
       enum: ['SAR', 'KWD', 'AED', 'BHD', 'OMR', 'QAR'],
       default: 'SAR',
       required: true,
     },
-    ticketsAvailable: { type: Number, required: true },
     purchaseStartDate: { type: Date, required: true },
     purchaseEndDate: { type: Date, required: true },
     category: { type: String, required: true },
@@ -24,7 +31,7 @@ const eventSchema = new mongoose.Schema(
     mainImage: { type: String },
     eventListImage: { type: String },
     isAlphantom: { type: Boolean, default: false },
-    hide: { type: Boolean, default: false }, // New hide field
+    hide: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

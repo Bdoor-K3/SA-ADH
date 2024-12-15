@@ -101,8 +101,9 @@ router.get('/profile', authenticateToken, async (req, res) => {
     }
 
     const purchases = await Purchase.find({ userId: user._id })
-      .populate('ticketId')
-      .populate('eventId');
+      .populate({ path: 'eventIds', model: 'Event' }) // Populate `eventIds`
+      .populate({ path: 'tickets', model: 'Ticket' }) // Populate `ticketIds`
+      .exec();
 
     res.status(200).json({ user, purchaseHistory: purchases });
   } catch (error) {

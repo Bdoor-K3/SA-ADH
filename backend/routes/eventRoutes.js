@@ -29,9 +29,8 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
       dateOfEvent,
       timeStart,
       timeEnd,
-      price,
+      tickets, // New tickets field
       currency,
-      ticketsAvailable,
       purchaseStartDate,
       purchaseEndDate,
       organizers,
@@ -39,8 +38,10 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
       location,
       city,
       isAlphantom,
-      hide, // New field
+      hide,
     } = req.body;
+
+    const parsedTickets = JSON.parse(tickets); // Parse tickets array from JSON string
 
     const newEvent = new Event({
       name,
@@ -48,9 +49,8 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
       dateOfEvent,
       timeStart,
       timeEnd,
-      price,
+      tickets: parsedTickets, // Add tickets to event schema
       currency,
-      ticketsAvailable,
       purchaseStartDate,
       purchaseEndDate,
       organizers,
@@ -61,16 +61,16 @@ router.post('/', authenticateToken, authorizeAdmin, upload, async (req, res) => 
       mainImage: req.files['mainImage'] ? req.files['mainImage'][0].path : null,
       eventListImage: req.files['eventListImage'] ? req.files['eventListImage'][0].path : null,
       isAlphantom: isAlphantom === 'true',
-      hide: hide === 'true', // Convert to boolean
+      hide: hide === 'true',
     });
 
     const savedEvent = await newEvent.save();
     res.status(201).json(savedEvent);
   } catch (error) {
+    console.error('Error creating event:', error);
     res.status(500).json({ message: error.message });
   }
 });
-
 
 
 router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) => {
@@ -81,9 +81,8 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
       dateOfEvent,
       timeStart,
       timeEnd,
-      price,
+      tickets, // New tickets field
       currency,
-      ticketsAvailable,
       purchaseStartDate,
       purchaseEndDate,
       organizers,
@@ -91,7 +90,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
       location,
       city,
       isAlphantom,
-      hide, // New field
+      hide,
     } = req.body;
 
     const updateFields = {
@@ -100,9 +99,8 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
       dateOfEvent,
       timeStart,
       timeEnd,
-      price,
+      tickets: tickets ? JSON.parse(tickets) : undefined, // Parse tickets if provided
       currency,
-      ticketsAvailable,
       purchaseStartDate,
       purchaseEndDate,
       organizers,
@@ -110,7 +108,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
       location,
       city,
       isAlphantom: isAlphantom === 'true',
-      hide: hide === 'true', // Convert to boolean
+      hide: hide === 'true',
     };
 
     if (req.files['bannerImage']) {
@@ -130,6 +128,7 @@ router.put('/:id', authenticateToken, authorizeAdmin, upload, async (req, res) =
 
     res.status(200).json(updatedEvent);
   } catch (error) {
+    console.error('Error updating event:', error);
     res.status(500).json({ message: error.message });
   }
 });

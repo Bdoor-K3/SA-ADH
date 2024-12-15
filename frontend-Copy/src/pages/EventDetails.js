@@ -1,95 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getEventById, purchaseTicket, purchaseFreeTicket, verifyPayment } from '../services/api';
+import { getEventById } from '../services/api';
 import './EventDetails.css';
 
-function EventDetails() {
+function EventDetails({ cart, setCart }) {
   const { id } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
   const [event, setEvent] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
-  // Fetch event details on load
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
         const data = await getEventById(id);
         setEvent(data);
+        if (data.tickets && data.tickets.length > 0) {
+          setSelectedPrice(data.tickets[0]); // Set default ticket
+        }
       } catch (err) {
-        setError(t('eventDetails.error.fetchDetails'));
-        console.error(err);
+        console.error('Error fetching event details:', err);
       }
     };
 
     fetchEventDetails();
-  }, [id, t]);
+  }, [id]);
 
-  // Handle payment verification if `tap_id` exists in the query string
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const tap_id = queryParams.get('tap_id');
+  const handleAddToCart = () => {
+    if (!selectedPrice || quantity < 1) return;
 
-    if (tap_id) {
-      setLoading(true);
-      const verifyPaymentStatus = async () => {
-        try {
-          const response = await verifyPayment(tap_id);
-          // Redirect to Ticket Page with ticket and event details
-          navigate('/ticket', { state: { ticket: response.data.ticket, event } });
-        } catch (err) {
-          console.error('Error verifying payment:', err);
-          setError(t('eventDetails.error.verifyPayment'));
-        } finally {
-          setLoading(false);
-        }
-      };
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (item) => item.eventId === id && item.ticketClass === selectedPrice.name
+      );
 
-      verifyPaymentStatus();
-    }
-  }, [location.search, t, navigate, event]);
-
-  const handlePurchaseTicket = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert(t('eventDetails.loginPrompt'));
-      navigate('/login');
-      return;
-    }
-
-    try {
-      if (event.price === 0) {
-        // Use the free ticket endpoint
-        const response = await purchaseFreeTicket(id);
-        // Redirect to Ticket Page with ticket details
-        navigate('/ticket', { state: { ticket: response.ticket, event } });
+      if (existingItem) {
+        // Update quantity for existing item
+        return prevCart.map((item) =>
+          item.eventId === id && item.ticketClass === selectedPrice.name
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
       } else {
-        // Use the payment-required endpoint
-        const response = await purchaseTicket(id);
-        if (response.url) {
-          window.location.href = response.url; // Redirect to payment URL
-        } else {
-          alert(t('eventDetails.error.noPaymentUrl'));
-        }
+        // Add new item to cart
+        const newItem = {
+          eventId: id,
+          eventName: event.name,
+          ticketClass: selectedPrice.name,
+          price: selectedPrice.price,
+          quantity,
+          currency: event.currency,
+        };
+        return [...prevCart, newItem];
       }
-    } catch (err) {
-      setError(err.response?.data?.message || t('eventDetails.error.purchaseTicket'));
-    }
-  };
-
-  const handleOpenLocation = () => {
-    const locationLink = event.location;
-    window.open(locationLink, '_blank');
+    });
   };
 
   if (!event) {
-    return <p className="loading">{t('eventDetails.loading')}</p>;
+    return <p>{t('eventDetails.loading')}</p>;
   }
-
   return (
     <div className={`event-details-container ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="event-details-header">
@@ -102,12 +73,36 @@ function EventDetails() {
       </div>
       <div className="event-details-content">
         <div className="ticket-purchase-box">
-          <p className="price-info">
-            {t('eventDetails.priceStart')} {event.price} {event.currency}{' '}
-            {t('eventDetails.taxIncluded')}
-          </p>
-          <button className="purchase-button" onClick={handlePurchaseTicket}>
-            {t('eventDetails.bookNow')}
+          <div className="price-list">
+            <label>{t('eventDetails.selectTicket')}</label>
+            <select
+              value={selectedPrice ? selectedPrice._id : ''}
+              onChange={(e) =>
+                setSelectedPrice(event.tickets.find((ticket) => ticket._id === e.target.value))
+              }
+            >
+              {event.tickets.map((ticket) => (
+                <option key={ticket._id} value={ticket._id}>
+                  {ticket.name} - {ticket.price} {event.currency}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="quantity-box">
+            <label>{t('eventDetails.quantity')}</label>
+            <input
+              type="number"
+              min="1"
+              value={quantity}
+              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10)))}
+            />
+          </div>
+          <button
+            className="add-to-cart-button"
+            onClick={handleAddToCart}
+            disabled={!selectedPrice || quantity < 1}
+          >
+            {t('eventDetails.addToCart')}
           </button>
         </div>
         <div className="event-info">
@@ -121,7 +116,7 @@ function EventDetails() {
                   <span> </span>{event.timeStart}-{event.timeEnd}
                 </p>
               </div>
-              <div className="location-box" onClick={handleOpenLocation}>
+              <div className="location-box">
                 <p className="location-label">{t('eventDetails.location')}</p>
                 <p className="location-value">{event.city}</p>
               </div>
@@ -136,14 +131,6 @@ function EventDetails() {
             </p>
           </div>
         </div>
-      </div>
-      <div className="fixed-price-box">
-        <p className="price-info">
-          {t('eventDetails.priceStart')} {event.price} {event.currency}
-        </p>
-        <button className="purchase-button" onClick={handlePurchaseTicket}>
-          {t('eventDetails.bookNow')}
-        </button>
       </div>
     </div>
   );

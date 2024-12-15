@@ -287,3 +287,126 @@
 2024-11-30T10:48:05.777Z [INFO]: Ticket already exists for this tap_id
 2024-12-02T15:52:38.178Z [ERROR]: Rate limit exceeded: Too many requests to Tap Payments API.
 2024-12-10T12:41:12.390Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T18:51:02.233Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T18:51:53.996Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T18:52:26.463Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T18:55:13.757Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T18:56:03.877Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T19:53:57.857Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T19:54:17.234Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T19:54:18.020Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T19:56:19.427Z [ERROR]: Error initiating payment: Request failed with status code 400
+2024-12-12T20:07:30.501Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:07:30.906Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:07:32.339Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:07:32.688Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:09:52.308Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:09:52.310Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:09:52.315Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:12:36.657Z [ERROR]: Rate limit exceeded: Too many requests to Tap Payments API.
+2024-12-12T20:12:41.178Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:12:41.618Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:12:43.990Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:18:46.619Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:18:47.031Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:18:47.603Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:18:47.935Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:19:01.524Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:19:01.527Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:19:01.548Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:49:35.960Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:49:36.938Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:49:37.190Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:49:37.800Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:56:08.130Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:56:08.133Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:56:08.149Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:57:43.775Z [ERROR]: Rate limit exceeded: Too many requests to Tap Payments API.
+2024-12-12T20:57:47.423Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:57:48.131Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:57:48.594Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T20:58:09.623Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:58:09.625Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T20:58:09.650Z [INFO]: Ticket already exists for this tap_id
+2024-12-12T21:02:15.537Z [INFO]: Tickets already exist for this tap_id
+2024-12-12T21:02:15.542Z [INFO]: Tickets already exist for this tap_id
+2024-12-12T21:02:15.566Z [INFO]: Tickets already exist for this tap_id
+2024-12-12T21:03:24.367Z [ERROR]: Rate limit exceeded: Too many requests to Tap Payments API.
+2024-12-12T21:03:27.636Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T21:03:27.952Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T21:03:28.437Z [ERROR]: Error processing payment callback: Purchase validation failed: ticketId: Path `ticketId` is required.
+2024-12-12T21:08:59.666Z [ERROR]: Error processing payment callback: ticketClass is not defined
+2024-12-12T21:09:00.080Z [ERROR]: Error processing payment callback: ticketClass is not defined
+2024-12-12T21:09:00.534Z [ERROR]: Error processing payment callback: ticketClass is not defined
+2024-12-12T21:09:00.885Z [ERROR]: Error processing payment callback: ticketClass is not defined
+2024-12-12T21:11:52.334Z [INFO]: Tickets already exist for this tap_id
+2024-12-12T21:11:52.338Z [INFO]: Tickets already exist for this tap_id
+2024-12-12T21:11:52.351Z [INFO]: Tickets already exist for this tap_id
+2024-12-14T07:54:57.542Z [ERROR]: Error processing payment callback: transporter is not defined
+2024-12-14T07:54:57.546Z [INFO]: Tickets already exist for tap_id: chg_TS06A5220241052Ps531412481
+2024-12-14T07:54:57.549Z [INFO]: Tickets already exist for tap_id: chg_TS06A5220241052Ps531412481
+2024-12-14T09:54:04.112Z [ERROR]: Error processing payment callback: tapId is not defined
+2024-12-14T09:54:04.121Z [ERROR]: Error processing payment callback: tapId is not defined
+2024-12-14T09:55:48.183Z [ERROR]: Error processing payment callback: tapId is not defined
+2024-12-14T09:55:48.205Z [ERROR]: Error processing payment callback: tapId is not defined
+2024-12-14T10:09:35.139Z [ERROR]: Error processing payment callback: event is not defined
+2024-12-14T10:09:35.422Z [ERROR]: Error processing payment callback: event is not defined
+2024-12-14T10:10:04.565Z [ERROR]: Error processing payment callback: Request failed with status code 429
+2024-12-14T10:15:50.922Z [INFO]: Ticket already exists for this tap_id
+2024-12-14T10:15:50.926Z [INFO]: Ticket already exists for this tap_id
+2024-12-14T10:20:07.830Z [INFO]: Ticket already exists for this tap_id
+2024-12-14T10:20:07.834Z [INFO]: Ticket already exists for this tap_id
+2024-12-14T10:20:45.014Z [INFO]: Ticket already exists for this tap_id
+2024-12-14T10:20:45.015Z [INFO]: Ticket already exists for this tap_id
+2024-12-14T10:23:06.418Z [ERROR]: Error processing payment callback: Purchase validation failed: amount: Path `amount` is required., eventId: Path `eventId` is required., currency: `USD` is not a valid enum value for path `currency`.
+2024-12-14T10:23:06.803Z [ERROR]: Error processing payment callback: Purchase validation failed: amount: Path `amount` is required., eventId: Path `eventId` is required., currency: `USD` is not a valid enum value for path `currency`.
+2024-12-14T10:25:20.665Z [ERROR]: Error processing payment callback: Purchase validation failed: amount: Path `amount` is required., eventId: Path `eventId` is required., currency: `sar` is not a valid enum value for path `currency`.
+2024-12-14T10:25:20.668Z [ERROR]: Error processing payment callback: Purchase validation failed: amount: Path `amount` is required., eventId: Path `eventId` is required., currency: `sar` is not a valid enum value for path `currency`.
+2024-12-14T10:42:20.947Z [WARN]: No purchase found for tap_id: chg_TS05A0220241322o4PK1412782
+2024-12-14T10:42:20.950Z [WARN]: No purchase found for tap_id: chg_TS05A0220241322o4PK1412782
+2024-12-14T10:42:31.458Z [WARN]: No purchase found for tap_id: chg_TS05A0220241322o4PK1412782
+2024-12-14T10:42:31.459Z [WARN]: No purchase found for tap_id: chg_TS05A0220241322o4PK1412782
+2024-12-14T10:43:22.260Z [WARN]: No purchase found for tap_id: chg_TS06A3220241342Tt281412228
+2024-12-14T10:43:22.261Z [WARN]: No purchase found for tap_id: chg_TS06A3220241342Tt281412228
+2024-12-14T10:54:46.855Z [WARN]: No purchase found for tap_id: chg_TS01A5520241353l2P51412451
+2024-12-14T10:54:46.857Z [WARN]: No purchase found for tap_id: chg_TS01A5520241353l2P51412451
+2024-12-14T10:56:54.550Z [WARN]: No purchase found for tap_id: chg_TS01A5520241353l2P51412451
+2024-12-14T10:56:54.554Z [WARN]: No purchase found for tap_id: chg_TS01A5520241353l2P51412451
+2024-12-14T10:58:44.981Z [WARN]: No purchase found for tap_id: chg_TS01A5520241353l2P51412451
+2024-12-14T10:58:45.004Z [WARN]: No purchase found for tap_id: chg_TS01A5520241353l2P51412451
+2024-12-14T11:07:26.466Z [WARN]: No purchase found for tap_id: chg_TS05A2920241406x3FN1412022
+2024-12-14T11:07:26.469Z [WARN]: No purchase found for tap_id: chg_TS05A2920241406x3FN1412022
+2024-12-14T11:13:40.609Z [WARN]: No purchase found for tap_id: chg_TS02A3220241412Yn341412363
+2024-12-14T11:13:40.612Z [WARN]: No purchase found for tap_id: chg_TS02A3220241412Yn341412363
+2024-12-14T18:13:40.876Z [ERROR]: Error processing ticket purchase: Socket connection timeout
+2024-12-14T18:15:07.336Z [WARN]: No purchase found for tap_id: chg_TS03A5220242113w5Y71412924
+2024-12-14T18:15:07.338Z [WARN]: No purchase found for tap_id: chg_TS03A5220242113w5Y71412924
+2024-12-14T18:21:36.515Z [WARN]: No purchase found for tap_id: chg_TS03A1820242120Xt201412095
+2024-12-14T18:21:36.518Z [WARN]: No purchase found for tap_id: chg_TS03A1820242120Xt201412095
+2024-12-14T18:24:36.834Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:24:36.837Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:24:37.922Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-12-14T18:24:37.923Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-12-14T18:24:45.484Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:24:45.486Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:24:46.194Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-12-14T18:24:46.195Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-12-14T18:24:58.068Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:24:58.070Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:25:00.454Z [ERROR]: No purchase found for purchaseId: 675dcd194ee77ddbb18f64ba
+2024-12-14T18:25:01.557Z [ERROR]: No purchase found for purchaseId: 675dcd194ee77ddbb18f64ba
+2024-12-14T18:25:11.944Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:25:11.947Z [WARN]: No purchase found for tap_id: chg_TS03A1820242123l2L31412833
+2024-12-14T18:25:13.698Z [ERROR]: No purchase found for purchaseId: 675dcd194ee77ddbb18f64ba
+2024-12-14T18:25:14.107Z [ERROR]: No purchase found for purchaseId: 675dcd194ee77ddbb18f64ba
+2024-12-14T18:26:38.163Z [WARN]: No purchase found for tap_id: chg_TS03A3720242125u2O01412103
+2024-12-14T18:26:38.165Z [WARN]: No purchase found for tap_id: chg_TS03A3720242125u2O01412103
+2024-12-14T18:26:38.978Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-12-14T18:26:38.979Z [ERROR]: Error processing payment callback: Socket connection timeout
+2024-12-14T18:26:47.017Z [WARN]: No purchase found for tap_id: chg_TS03A3720242125u2O01412103
+2024-12-14T18:26:47.020Z [WARN]: No purchase found for tap_id: chg_TS03A3720242125u2O01412103
+2024-12-14T18:47:18.788Z [ERROR]: Error processing ticket purchase: Socket connection timeout
+2024-12-14T18:47:22.243Z [ERROR]: Error processing ticket purchase: Socket connection timeout
+2024-12-14T21:00:24.604Z [ERROR]: Error processing ticket purchase: metadata is not defined
+2024-12-14T21:00:34.731Z [ERROR]: Error processing ticket purchase: metadata is not defined
+2024-12-14T21:02:48.503Z [ERROR]: Error processing ticket purchase: metadata is not defined

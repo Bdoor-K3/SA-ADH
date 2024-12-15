@@ -5,13 +5,14 @@ import { FaBars, FaTimes, FaUser, FaHome, FaCalendarAlt, FaInfoCircle, FaQuestio
 import logo from '../pages/assets/saada.png';
 import './Header.css';
 
-function Header() {
+function Header({ cart = [] }) {
   const [menuVisible, setMenuVisible] = useState(window.innerWidth > 768); // Open on PC, closed on mobile
   const [userMenuVisible, setUserMenuVisible] = useState(false); // User menu visibility
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect if user is on mobile
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const cartItemCount = cart?.reduce((total, item) => total + item.quantity, 0) || 0;
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') || 'en';
@@ -96,6 +97,10 @@ function Header() {
                   <FaEnvelope /> {t('header.contact')}
                 </Link>
               </li>
+              <Link to="/cart" className="header-cart">
+            <i className="cart-icon fa fa-shopping-cart"></i>
+            {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+          </Link>
             </ul>
           </nav>
         )}

@@ -1,0 +1,48 @@
+.cart-success-container {
+    width: 100%;
+    padding: 20px;
+    background: #f9f9f9;
+    text-align: center;
+  }
+  
+  .cart-success-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .ticket-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 500px;
+  }
+  
+  .ticket-item {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+  }
+  
+  .ticket-item p {
+    margin: 5px 0;
+  }
+  
+  .return-to-cart-button {
+    background: #00bfff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .return-to-cart-button:hover {
+    background: #007bff;
+  }
+  

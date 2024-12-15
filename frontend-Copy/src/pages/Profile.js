@@ -32,19 +32,19 @@ function Profile() {
     gender: '',
   });
 
- // Extract country names from the countries dataset
- const countryOptions = countries.map((country) => ({
-  name: country.name.common,
-  code: country.cca2,
-}));
+  // Extract country names from the countries dataset
+  const countryOptions = countries.map((country) => ({
+    name: country.name.common,
+    code: country.cca2,
+  }));
 
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
         const data = await fetchUserProfile();
-        setUser(data.user);
-        setPurchaseHistory(data.purchaseHistory || []);
+        setUser(data.user);   
 
+        setPurchaseHistory(data.purchaseHistory || []);
         setFormData({
           fullName: data.user.fullName || '',
           email: data.user.email || '',
@@ -72,7 +72,7 @@ function Profile() {
 
   const handlePhoneChange = (value) => {
     if (value) {
-      const matches = value.match(/^(\+?\d{1,3})?\s?(.*)$/);
+      const matches = value.match(/^\+?(\d{1,3})?\s?(.*)$/);
       if (matches) {
         const countryCode = matches[1] || '';
         const phoneNumber = matches[2] || '';
@@ -125,7 +125,7 @@ function Profile() {
     setError('');
     setSuccessMessage('');
     try {
-      const response = await forgotPassword({ email: user.email }); // Ensure email is sent as an object
+      const response = await forgotPassword({ email: user.email });
       setSuccessMessage(response.message || t('profile.resetPasswordSuccess'));
     } catch (err) {
       const errorMessage = err.response?.data?.message || t('profile.resetPasswordError');
@@ -191,7 +191,7 @@ function Profile() {
                 onChange={handleInputChange}
                 required
               />
-               <div>
+              <div>
                 <label htmlFor="region">{t('profile.labels.country')}</label>
                 <select
                   id="region"
@@ -319,35 +319,73 @@ function Profile() {
           </button>
         )}
 
-        <div className="purchase-history">
-          <h2>{t('profile.sections.purchaseHistory')}</h2>
-          {purchaseHistory.length === 0 ? (
-            <p>{t('profile.placeholders.noTickets')}</p>
-          ) : (
-            <ul className="ticket-list">
-              {purchaseHistory.map((purchase, index) => {
-                const event = purchase.eventId;
-                if (!event) {
-                  return null;
-                }
-                return (
-                  <li key={index} className="ticket-item">
-                    <p><strong>{t('profile.labels.event')}:</strong> {event.name || t('profile.labels.noEvent')}</p>
-                    <p><strong>{t('profile.labels.date')}:</strong> {new Date(event.dateOfEvent).toLocaleDateString()}</p>
-                    <p><strong>{t('profile.labels.purchaseDate')}:</strong> {new Date(purchase.purchaseDate).toLocaleDateString()}</p>
-                    <p><strong>{t('profile.labels.amount')}:</strong> {`${purchase.amount} ${purchase.currency}`}</p>
-                    <button
-                      className="view-ticket-button"
-                      onClick={() => navigate('/ticket', { state: { ticket: purchase.ticketId, event } })}
-                    >
-                      {t('profile.buttons.viewTicket')}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
+<div className="purchase-history">
+  <h2>{t('profile.sections.purchaseHistory')}</h2>
+
+  {purchaseHistory.length === 0 ? (
+    <p>{t('profile.placeholders.noTickets')}</p>
+  ) : (
+    <ul className="ticket-list">
+      {purchaseHistory.map((purchase, index) => (
+        <li key={index} className="ticket-item">
+          <p>
+            <strong>{t('profile.labels.purchaseDate')}:</strong>{' '}
+            {new Date(purchase.purchaseDate).toLocaleDateString()}
+          </p>
+          <p>
+            <strong>{t('profile.labels.amount')}:</strong>{' '}
+            {`${purchase.amount || 0} ${purchase.currency}`}
+          </p>
+          {purchase.eventIds.map((event, eventIndex) => (
+            <div key={eventIndex} className="event-details">
+              <p>
+                <strong>{t('profile.labels.event')}:</strong> {event?.name || t('profile.labels.noEvent')}
+              </p>
+              <p>
+                <strong>{t('profile.labels.date')}:</strong>{' '}
+                {event?.dateOfEvent ? new Date(event.dateOfEvent).toLocaleDateString() : t('profile.labels.noDate')}
+              </p>
+            </div>
+          ))}
+          <ul className="ticket-sublist">
+            {purchase.tickets.length > 0 ? (
+              purchase.tickets.map((ticket, ticketIndex) => (
+                <li key={ticketIndex} className="ticket-subitem">
+                  <p>
+                    <strong>{t('profile.labels.ticketClass')}:</strong> {ticket.ticketClass}
+                  </p>
+                  <p>
+                    <strong>{t('profile.labels.quantity')}:</strong> {ticket.quantity}
+                  </p>
+                  <p>
+                    <strong>{t('profile.labels.price')}:</strong> {`${ticket.price || 0} ${purchase.currency}`}
+                  </p>
+                </li>
+              ))
+            ) : (
+              <p>{t('profile.placeholders.noTickets')}</p>
+            )}
+          </ul>
+          <button
+            className="view-ticket-button"
+            onClick={() =>
+              navigate('/ticket', {
+                state: {
+                  tickets: purchase.tickets,
+                  events: purchase.eventIds,
+                },
+              })
+            }
+          >
+            {t('profile.buttons.viewTicket')}
+          </button>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
+
       </div>
     </div>
   );

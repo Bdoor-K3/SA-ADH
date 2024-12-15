@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Set up a base instance with the backend URL from .env
 const api = axios.create({
-  baseURL:process.env.REACT_APP_BACKEND_URL,
+  baseURL:'http://localhost:5001',
 });//'http://localhost:5000'
 // process.env.REACT_APP_BACKEND_URL
 // Add a request interceptor to include the Authorization header
@@ -129,21 +129,12 @@ export const deleteUser = async (id) => {
   return await api.delete(`/api/users/${id}`);
 };
 
-// Purchase Ticket
-export const purchaseTicket = async (eventId) => {
-  try {
-    const response = await api.post('/api/tickets/purchase', { eventId });
-    return response.data;
-  } catch (error) {
-    console.error('Error purchasing ticket:', error);
-    throw error;
-  }
-};
 
 // Fetch User Profile
 export const fetchUserProfile = async () => {
   try {
     const response = await api.get('/api/users/profile');
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error('Error fetching user profile:', error);
@@ -181,14 +172,28 @@ export const validateTicket = async (qrCodeData, eventId) => {
 };
 
 //Correct API 
-export const verifyPayment = async (tap_id) => {
+
+export const purchaseTicket = async (eventIds, tickets) => {
   try {
-    const response = await api.get(`/api/tickets/payment/callback?tap_id=${tap_id}`);
-    return response;
+    const response = await api.post('/api/tickets/purchase', { eventIds, tickets });
+    return response.data; // Expecting { paymentUrl?, tickets? }
   } catch (error) {
+    console.error('Error purchasing tickets:', error);
     throw error;
   }
 };
+
+export const verifyPayment = async (tap_id) => {
+  try {
+    const response = await api.get(`/api/tickets/payment/callback`, { params: { tap_id } });
+    return response.data; // Expecting ticket details or error message
+  } catch (error) {
+    console.error('Error verifying payment:', error);
+    throw error;
+  }
+};
+
+
 
 
 // Forgot Password
@@ -203,9 +208,11 @@ export const forgotPassword = async (data) => {
 };
 
 // Purchase Free Ticket
-export const purchaseFreeTicket = async (eventId) => {
+export const purchaseFreeTicket = async ({ eventId, ticketClass, quantity }) => {
   try {
-    const response = await api.post('/api/tickets/purchase/free', { eventId });
+    const response = await api.post('/api/tickets/purchase/free', {  eventId,
+      ticketClass,
+      quantity, });
     return response.data;
   } catch (error) {
     console.error('Error purchasing free ticket:', error);
