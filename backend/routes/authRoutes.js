@@ -7,6 +7,39 @@ const router = express.Router();
 
 // Secret for JWT
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
+
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Create a new user account with fullName, email, phoneNumber, countryCode, and password.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fullName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phoneNumber:
+ *                 type: string
+ *               countryCode:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User registered successfully.
+ *       400:
+ *         description: All required fields must be provided or user already exists.
+ *       500:
+ *         description: Error registering user.
+ */
+
 // Registration Endpoint
 router.post('/register', async (req, res) => {
   const { fullName, email, phoneNumber, countryCode, password } = req.body;
@@ -42,6 +75,35 @@ router.post('/register', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Login a user
+ *     description: Authenticate a user with email and password, and return a JWT token.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful.
+ *       400:
+ *         description: Email and password are required.
+ *       404:
+ *         description: User not found.
+ *       401:
+ *         description: Invalid email or password.
+ *       500:
+ *         description: Error logging in.
+ */
 
 // Login a user
 router.post('/login', async (req, res) => {
@@ -100,6 +162,32 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS1_Contact, // Your email password or app password
   },
 });
+
+/**
+ * @swagger
+ * /api/auth/forgot-password:
+ *   post:
+ *     summary: Send password reset link
+ *     description: Send a password reset email to the provided user email address.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password reset link sent to your email.
+ *       400:
+ *         description: Email is required.
+ *       404:
+ *         description: User with this email does not exist.
+ *       500:
+ *         description: Error sending password reset email.
+ */
 
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
@@ -177,7 +265,33 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 
-// Reset password
+/**
+ * @swagger
+ * /api/auth/reset-password:
+ *   post:
+ *     summary: Reset user password
+ *     description: Reset the user's password using a valid reset token.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password reset successful.
+ *       400:
+ *         description: Reset token is required or password is invalid.
+ *       404:
+ *         description: Invalid or expired reset token.
+ *       500:
+ *         description: Error resetting password.
+ */
 // Reset password
 router.post('/reset-password', async (req, res) => {
   const { token, password } = req.body;

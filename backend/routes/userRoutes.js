@@ -121,4 +121,135 @@ router.get('/organizers', authenticateToken, authorizeAdmin, async (req, res) =>
   }
 });
 
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     description: Retrieve a list of all users. Admin authorization is required.
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of all users.
+ *       401:
+ *         description: Unauthorized - Admin access required.
+ *       500:
+ *         description: Error fetching users.
+ */
+
+/**
+ * @swagger
+ * /api/users/email/{email}:
+ *   get:
+ *     summary: Get user by email
+ *     description: Retrieve a user and their purchase history by email. Admin authorization is required.
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Email of the user to retrieve.
+ *     responses:
+ *       200:
+ *         description: User details with purchase history.
+ *       404:
+ *         description: User not found.
+ *       500:
+ *         description: Error fetching user by email.
+ */
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     summary: Update user details
+ *     description: Update user information, including the password if provided.
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the user to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fullName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *                 description: Leave empty to skip password update.
+ *     responses:
+ *       200:
+ *         description: User updated successfully.
+ *       404:
+ *         description: User not found.
+ *       500:
+ *         description: Error updating user.
+ */
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   delete:
+ *     summary: Delete a user
+ *     description: Delete a user by their ID. Admin authorization is required.
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the user to delete.
+ *     responses:
+ *       200:
+ *         description: User deleted successfully.
+ *       404:
+ *         description: User not found.
+ *       500:
+ *         description: Error deleting user.
+ */
+/**
+ * @swagger
+ * /api/users/profile:
+ *   get:
+ *     summary: Get user profile
+ *     description: Retrieve the profile and purchase history of the authenticated user.
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile and purchase history.
+ *       404:
+ *         description: User not found.
+ *       500:
+ *         description: Error fetching user profile.
+ */
+/**
+ * @swagger
+ * /api/users/organizers:
+ *   get:
+ *     summary: Get all organizers
+ *     description: Retrieve a list of all users with the 'organizer' role. Admin authorization is required.
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of all organizers.
+ *       500:
+ *         description: Error fetching organizers.
+ */
+
 module.exports = router;

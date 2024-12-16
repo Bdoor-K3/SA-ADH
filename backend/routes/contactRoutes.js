@@ -4,6 +4,43 @@ const nodemailer = require('nodemailer');
 const Contact = require('../models/Contact'); // Adjust the path if necessary
 const { authenticateToken, authorizeAdmin } = require('../middleware/auth');
 
+
+/**
+ * @swagger
+ * /api/contact:
+ *   post:
+ *     summary: Add a new contact message
+ *     description: Submit a contact form message with name, email, phone, and message content. Sends an acknowledgment email.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Full name of the contact.
+ *               email:
+ *                 type: string
+ *                 description: Email address of the contact.
+ *               phone:
+ *                 type: string
+ *                 description: Phone number of the contact.
+ *               message:
+ *                 type: string
+ *                 description: Message content provided by the contact.
+ *     responses:
+ *       201:
+ *         description: Your message has been received. Thank you!
+ *       400:
+ *         description: All fields are required or cooldown restriction applied.
+ *       429:
+ *         description: You can only submit once every 30 minutes.
+ *       500:
+ *         description: Server error. Please try again later.
+ */
+
 // POST: Add a new contact message
 router.post('/', async (req, res) => {
   const { name, email, phone, message } = req.body;
@@ -85,6 +122,48 @@ router.post('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/contact:
+ *   get:
+ *     summary: Retrieve all contact messages (Admin only)
+ *     description: Fetch all submitted contact messages. Admin authorization is required.
+ *     security:
+ *       - BearerAuth: [] # Requires Bearer Token
+ *     responses:
+ *       200:
+ *         description: List of all contact messages.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: Unique ID of the contact message.
+ *                   name:
+ *                     type: string
+ *                     description: Full name of the contact.
+ *                   email:
+ *                     type: string
+ *                     description: Email address of the contact.
+ *                   phone:
+ *                     type: string
+ *                     description: Phone number of the contact.
+ *                   message:
+ *                     type: string
+ *                     description: Content of the contact message.
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Timestamp when the message was created.
+ *       401:
+ *         description: Unauthorized - Admin access required.
+ *       500:
+ *         description: Server error. Please try again later.
+ */
 
 // GET: Retrieve all contact messages (Admin only)
 router.get('/', authenticateToken, authorizeAdmin, async (req, res) => {
@@ -96,6 +175,33 @@ router.get('/', authenticateToken, authorizeAdmin, async (req, res) => {
     res.status(500).json({ message: 'Server error. Please try again later.' });
   }
 });
+
+/**
+ * @swagger
+ * /api/contact/{id}:
+ *   delete:
+ *     summary: Delete a contact message by ID (Admin only)
+ *     description: Deletes a specific contact message based on its ID. Admin authorization is required.
+ *     security:
+ *       - BearerAuth: [] # Requires Bearer Token
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Unique ID of the contact message to delete.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Contact message deleted successfully.
+ *       404:
+ *         description: Contact message not found.
+ *       401:
+ *         description: Unauthorized - Admin access required.
+ *       500:
+ *         description: Server error. Please try again later.
+ */
+
 // DELETE: Delete a contact message by ID (Admin only)
 router.delete('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
     const { id } = req.params;
