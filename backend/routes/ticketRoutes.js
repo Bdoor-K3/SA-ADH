@@ -132,9 +132,7 @@ router.put("/:id/use", async (req, res) => {
       }
     }
 
-    res
-      .status(200)
-      .json({ message: "Ticket marked as used successfully.", ticket });
+    res.status(200).json({ message: "Ticket marked as used successfully.", ticket });
   } catch (error) {
     console.error("Error updating ticket status:", error);
     res.status(500).json({ message: "Error updating ticket status." });
@@ -400,9 +398,7 @@ router.get("/payment/callback", async (req, res) => {
     const { metadata } = chargeDetails;
     if (!metadata || !metadata.userId || !metadata.tickets) {
       console.error("Missing required metadata in payment details");
-      return res
-        .status(400)
-        .json({ status: "failed", message: "Missing metadata information." });
+      return res.status(400).json({ status: "failed", message: "Missing metadata information." });
     }
 
     const user = await User.findById(metadata.userId);

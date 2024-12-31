@@ -3,6 +3,10 @@
   display: grid;
   gap: 20px;
   padding: 20px;
+  min-height: 100vh;
+  background: url('../../assets/bg.png') no-repeat center center;
+  background-size: cover;
+  padding: 20px;
 }
 
 /* Search Bar Styling */
@@ -21,7 +25,8 @@
   max-width: 600px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ddd;
+  background:#dedada;
+  border: 1px solid #9e9898;
   border-radius: 5px;
 }
 /* Events Content Layout */
@@ -30,36 +35,43 @@
   flex-direction: row; /* Arrange filter box and events list side by side */
   gap: 20px;
 }
-
 /* Filter Box Styling */
 .events-filter-box {
   flex: 0 0 25%; /* Take 25% of the container width */
-  padding: 20px;
+  padding: 10px;
    border-radius: 10px;
   display: block; /* Visible by default on larger screens */
 }
-
 .events-filter-box.hidden {
   display: none;
 }
-
 .events-filter-box h3 {
   font-size: 18px;
-  margin-bottom: 15px;
+  margin-bottom: 1px;
 }
-
 .filter-options label {
-  display: block;
-  margin: 10px 0 5px;
+  display: inline-block; /* Align labels inline */
+  margin: 3px 3px 3px 0; /* Reduced margins */
+  width: 30%; /* Set a fixed width for labels */
+  vertical-align: middle; /* Align vertically with inputs */
 }
 
 .filter-options select,
 .filter-options input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
+  margin-bottom: 8px;
+  border: 1px solid #ff79c6;
   border-radius: 5px;
+  box-shadow: 0 0 8px rgba(255, 121, 198, 0.5);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-options select:focus,
+.filter-options input:focus {
+  box-shadow: 0 0 12px rgba(255, 121, 198, 0.8);
+  border-color: #e056b6;
+  outline: none;
 }
 
 .filter-button {
@@ -78,15 +90,14 @@
   border-radius: 5px;
   color: rgb(80, 80, 80);
   cursor: pointer;
-  margin-bottom: 10px;
 }
 
 .filter-button {
-  background: #e056b6;
+  background: #ff79c6;
 }
 
 .filter-button:hover {
-  background: #e056b6;
+  background: #ff79c6;
 }
 
 .clear-button {
@@ -94,7 +105,7 @@
 }
 
 .clear-button:hover {
-  background: #e056b6;
+  background: #ff79c6;
 }
 
 /* Events List */
@@ -107,37 +118,79 @@
 /* Event Card */
 .events-card {
   display: flex;
-  flex-direction: row; /* Arrange elements horizontally */
+  flex-direction: row;
   align-items: center;
   overflow: hidden;
-  position: relative;
-  background: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background-size: cover; 
+  background-position: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
   gap: 20px;
   padding: 20px;
-  width: 100%;
+  width: 90%;
   max-width: 800px;
   margin: auto;
+  height: 250px;
+  border-radius: 10px;
+}
+
+/* Event Image Section */
+.events-card-image-container {
+  flex: 1;
+  height: 250px;
+  width: 350px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+clip-path: polygon(
+  100% 0%, 95% 0%, 100% 5%, 95% 10%, 100% 15%, 95% 20%, 100% 25%, 95% 30%, 100% 35%, 95% 40%, 
+  100% 45%, 95% 50%, 100% 55%, 95% 60%, 100% 65%, 95% 70%, 100% 75%, 95% 80%, 100% 85%, 95% 90%, 
+  100% 95%, 95% 100%, 10% 100%, 0% 95%, 5% 90%, 0% 85%, 5% 80%, 0% 75%, 5% 70%, 0% 65%, 5% 60%, 
+  0% 55%, 5% 50%, 0% 45%, 5% 40%, 0% 35%, 5% 30%, 0% 25%, 5% 20%, 0% 15%, 5% 10%, 0% 5%, 5% 0%, 
+  100% 0%
+);
+  transform: scaleX(1.4); 
+  background-size: cover; 
+  background-position: center; 
+}
+
+.events-card-image-container .event-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  position: absolute; 
+
 }
 
 /* Event Date Section */
 .events-card-date {
-  background: linear-gradient(180deg, #00bfff, #ff79c6);
+  background: #ff79c6;
   color: white;
   padding: 10px;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 14px;
-  flex-shrink: 0;
+  flex-shrink:1;
   width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateX(0); 
+}
+
+.events-card-date::after {
+  content: ''; 
+  position: absolute;
+  bottom: -5px; 
+  left: 0;
+  right: 0;
+  height: 30px;
+  color: white; 
+  background: #00bfff; 
+  border-radius:2px; 
 }
 
 .events-card-date .date-day {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 5px;
 }
@@ -149,60 +202,53 @@
 
 .events-card-date .date-time {
   font-size: 14px;
-}
-
-/* Event Image Section */
-.events-card-image-container {
-  flex: 1;
-  width: 200px;
-  height: 150px;
-  overflow: hidden;
-  position: relative;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.events-card-image-container .event-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  margin-bottom: -8px;
+  z-index: 1;
 }
 
 /* Event Details */
 .events-card-details {
-  flex: 2;
-  padding: 15px;
+  flex: 1;
+  padding: 5px;
 }
 
 .events-card-details .event-category {
-  font-size: 12px;
+  font-size: 18px;
   color: #ffffff;
   font-weight: bold;
   background: #00bfff;
   display: inline-block;
-  padding: 5px 10px;
-  border-radius: 20px;
-  margin-bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 2px;
+  margin-top: -75px;
+  margin-right: 50px;
+  margin-left: 50px;
+  position: absolute;
+  z-index: 100;  
 }
 
 .events-card-details .event-title {
-  font-size: 18px;
+  font-size: 25px;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
 
 .events-card-details .event-location {
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
+  margin-right: 30px;
+  margin-left: 30px;
   margin-bottom: 5px;
 }
 
 .events-card-details .event-price {
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-bottom: 5px;
 }
 
 .events-card-details .event-buttons {
@@ -213,10 +259,17 @@
 
 .events-card-details .book-button,
 .events-card-details .details-button {
-  padding: 10px 20px;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
+  width: 220px; 
+  border-radius: 2px;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  top: 40px; 
+  right:20px ;
+  left: 27px;
 }
 
 .events-card-details .book-button {
@@ -226,15 +279,17 @@
 }
 
 .events-card-details .book-button:hover {
-  background: #e056b6;
+  background: #ff79c6;
 }
-
 .events-card-details .details-button {
   background: white;
-  color: #666;
-  border: 2px solid #ddd;
+  padding: 1px 2px;
+  border-radius: 2px;
+  border: 1px solid #ff79c6;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(255, 121, 198, 0.5);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
-
 .events-card-details .details-button:hover {
   background: #f9f9f9;
 }
@@ -274,8 +329,80 @@
   .events-filter-box {
     display: none;
   }
+    .events-card {
+      flex-direction: column;
+      height: 250px;
+      padding: 15px;
+    }
+  
+    .events-card-image-container {
+      width: 30px;
+      height: 200px;
+      transform: scaleX(1);
+    }
+  
+    .events-card-details {
+      padding: 10px;
+    }
+  
+    .events-card-details .event-category {
+      margin-top: -60px;
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+  
+    .events-card-details .event-title {
+      font-size: 20px;
+    }
+  
+    .events-card-details .event-location,
+    .events-card-details .event-price {
+      font-size: 14px;
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+  
+    .events-card-details .book-button,
+    .events-card-details .details-button {
+      width: 120px;
+      text-align: center;
+      top: 70px;
+    }
+
+.events-card-date {
+  width: 70px; 
+  font-size: 12px; 
+  padding: 8px; 
 }
 
+.events-card-date::after {
+content: ''; 
+position: absolute;
+left: 0;
+right: 0;
+height: 30px;
+color: white; 
+background: #00bfff; 
+border-radius: 2px; 
+}
+
+.events-card-date .date-day {
+font-size: 28px;
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+.events-card-date .date-month {
+font-size: 16px;
+margin-bottom: 5px;
+}
+
+.events-card-date .date-time {
+font-size: 14px;
+margin-bottom: -8px;
+z-index: 1;
+}
+}
 /* Popup Filter */
 .filter-popup {
   position: fixed;
@@ -303,7 +430,8 @@
   color: white;
   border: none;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-top: 15px;
   cursor: pointer;
 }
+

@@ -20,6 +20,7 @@ import Contact from './pages/Sections/ContactSection';
 import SplashScreen from './SplashScreen'; // Import the Splash Screen
 import CartPage from './components/CartPage';
 import CartSuccessPage from './components/CartSuccessPage';
+import Notification from './components/Notification'; 
 
 import './App.css';
 
@@ -42,6 +43,7 @@ function App() {
     return savedCart ? JSON.parse(savedCart) : [];
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [notification, setNotification] = useState({ message: '', type: '' });
 
   useEffect(() => {
     // Simulate a loading delay for the splash screen
@@ -58,59 +60,72 @@ function App() {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
+  const showNotification = (message, type = 'info') => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification({ message: '', type: '' });
+    }, 3000);
+  };
+
   if (isLoading) {
     return <SplashScreen />; // Show Splash Screen while loading
   }
 
   return (
-    <Router>
-      <Header cart={cart} />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/cart" element={<CartPage cart={cart} setCart={setCart} />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/event/:id" element={<EventDetails cart={cart} setCart={setCart} />} />
-        {/* Removed duplicate route */}
-        <Route path="/ticket" element={<TicketPage />} />
-        <Route path="/cart/success" element={<CartSuccessPage setCart={setCart} />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/faqs" element={<FAQs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+    <>
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: '', type: '' })}
+      />
+      <Router>
+        <Header cart={cart} />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/cart" element={<CartPage cart={cart} setCart={setCart} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/event/:id" element={<EventDetails cart={cart} setCart={setCart} />} />
+          <Route path="/ticket" element={<TicketPage />} />
+          <Route path="/cart/success" element={<CartSuccessPage setCart={setCart} />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/faqs" element={<FAQs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login onLoginError={(msg) => showNotification(msg, 'error')} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-        {/* Protected Routes */}
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/organizer"
-          element={
-            <ProtectedRoute role="organizer">
-              <OrganizerDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/organizer/scan/:id"
-          element={
-            <ProtectedRoute role="organizer">
-              <ScanTicket />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-      <Footer />
-    </Router>
+          {/* Protected Routes */}
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/organizer"
+            element={
+              <ProtectedRoute role="organizer">
+                <OrganizerDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/organizer/scan/:id"
+            element={
+              <ProtectedRoute role="organizer">
+                <ScanTicket />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <Footer />
+      </Router>
+    </>
   );
 }
 

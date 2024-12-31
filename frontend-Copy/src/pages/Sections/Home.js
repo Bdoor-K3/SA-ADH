@@ -8,7 +8,6 @@ import Categories from './HomeComponents/Categories';
 import AboutSaada from './HomeComponents/AboutSaada';
 import Sponsors from './HomeComponents/Sponsors';
 import './Home.css';
-
 /**
  * Home Component
  * Renders the homepage with event sliders, event lists, categories, and additional sections.

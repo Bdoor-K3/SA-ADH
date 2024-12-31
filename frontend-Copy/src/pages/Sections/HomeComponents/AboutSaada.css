@@ -8,9 +8,9 @@
 /* About Section */
 .about-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center; /* Center content vertically */
+  justify-content: flex-start;
   max-width: 1200px;
   margin: auto;
   gap: 2rem; /* Space between content sections */
@@ -49,17 +49,12 @@
   .about-container {
     flex-direction: row; /* Arrange content and image side by side */
     text-align: left;
-  }
+  }}
 
   .about-content {
     flex: 1; /* Take up equal space */
     margin-right: 2rem;
   }
-
-  .about-image img {
-    width: 220px; /* Larger size for desktop */
-  }
-}
 
 /* Statistics Section */
 .statistics-section {

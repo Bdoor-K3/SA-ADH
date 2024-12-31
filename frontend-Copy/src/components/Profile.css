@@ -7,27 +7,81 @@
 }
 
 .profile-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.profile-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;  
+  
 }
 
 .profile-details {
   background: #f9f9f9;
   padding: 20px;
+  display: block;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-right: 20px; 
+  margin-left: 30px; 
+  flex: 3;  
+  height: 550px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 40px;
+  direction: inherit;
+  position: relative;
+
+}
+
+
+.profile-header .profile-title {
+  text-align: center;
+  position: relative;
+  top: 35px;
+  font-size: 1.5rem;
+  display: inline-block; 
+  padding-bottom: 35px; 
+}
+
+.profile-header .profile-title-line {
+  content: "";
+  display: block;
+  width: 110%;
+  border-bottom: 1.5px solid #78787844;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profile-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: #00bfff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24px;
+}
+
+.profile-details-options {
+  background: #f9f9f9;
+  padding: 20px;  
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1;  
+  margin-left: 10px;  
+  min-height: 100vh;
+  height: auto;
 }
 
 .profile-card {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns for larger screens */
+  grid-template-columns:1fr; /* Two columns for larger screens */
   gap: 20px;
 }
 .profile-buttons {
@@ -59,17 +113,19 @@
 
 .profile-button {
   margin-top: 20px;
+  display: block;
+  width: 100%;
   padding: 10px;
-  background-color: #00bfff;
-  color: #fff;
+  color: #333;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
+  text-align: start;
 }
 
 .profile-button:hover {
-  background-color: #007bff;
+  background-color: #00bfff;
 }
 
 /* Purchase History Section */
@@ -110,52 +166,80 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .profile-card {
-    grid-template-columns: 1fr; /* Single column on smaller screens */
+@media screen and (max-width: 768px) {
+  .profile-container {
+    flex-direction: column; /* Stack profile details and options */
+    align-items: center;
   }
 
-  .profile-details,
+  .profile-details {
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%; /* Ensure profile details take full width */
+    flex: none;
+  }
+
+  .profile-header .profile-title-line {
+    width: 80%; /* Reduce the width of the line */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .profile-card {
+    grid-template-columns: 1fr; /* Stack cards vertically on smaller screens */
+  }
+
+  .profile-buttons {
+    grid-column: 1 / -1; /* Ensure buttons span the full width */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .profile-details-options {
+    flex-direction: row; /* Keep horizontal layout on very small screens */
+    width: 100%; /* Ensure profile options take full width */
+    margin-left: 0;
+  }
+
+  .profile-button {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .card-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-item i {
+    font-size: 2rem; /* Larger icons on small screens */
+  }
+
   .purchase-history {
     padding: 15px;
   }
 
-  .profile-title {
-    font-size: 1.8rem;
-  }
-
-  .card-item p {
-    font-size: 0.9rem;
-  }
-
-  .profile-button,
-  .view-ticket-button {
-    font-size: 0.9rem;
-    padding: 10px 12px;
-  }
-
   .ticket-item {
-    padding: 10px;
+    margin-bottom: 10px;
   }
 }
 
-@media (max-width: 480px) {
-  .profile-title {
-    font-size: 1.5rem;
+/* Media Queries for very small screens */
+@media screen and (max-width: 480px) {
+  .profile-header .profile-title {
+    font-size: 1.2rem; /* Adjust font size */
   }
 
-  .profile-details,
-  .purchase-history {
-    padding: 10px;
+  .profile-header .profile-title-line {
+    width: 60%; /* Further reduce the width of the line */
   }
 
-  .card-item p {
-    font-size: 0.85rem;
+  .profile-button {
+    font-size: 0.9rem; /* Adjust font size for buttons */
   }
 
-  .profile-button,
-  .view-ticket-button {
-    font-size: 0.8rem;
-    padding: 8px 10px;
+  .card-item {
+    padding: 10px; /* Reduce padding for smaller screens */
   }
 }

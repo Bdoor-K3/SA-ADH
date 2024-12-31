@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { fetchEvents } from "../../../services/api";
 import { useNavigate } from "react-router-dom";
 import "./EventsPage.css";
-
 /**
  * EventsPage Component
  * Displays a list of events with search, filter, and navigation functionalities.
@@ -18,7 +17,6 @@ function EventsPage() {
   const [filterPrice, setFilterPrice] = useState("");
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const navigate = useNavigate();
-
   /**
    * Fetches events from the API on component mount.
    * Handles errors gracefully.
@@ -162,13 +160,13 @@ function EventsPage() {
                   value={filterDate}
                   onChange={(e) => setFilterDate(e.target.value)}
                 />
-                <label>{t("eventsPage.filter.price")}</label>
+                <label>{t("Price")}</label>
                 <input
                   type="number"
-                  placeholder={t("eventsPage.filter.maxPrice")}
+                  placeholder={t("0")}
                   value={filterPrice}
                   onChange={(e) => setFilterPrice(e.target.value)}
-                  className="search-bar"
+                  className="search-bar-price"
                 />
                 <button
                   className="filter-button"
@@ -198,25 +196,16 @@ function EventsPage() {
             </div>
           </div>
         )}
-
         {/* Events List */}
         <div className="events-list-container">
+        <div class="background-layer"></div>
           {filteredEvents.map((event) => (
             <div className="events-card" key={event._id}>
-              <div className="events-card-date">
-                <p className="date-day">
-                  {new Date(event.dateOfEvent).toLocaleDateString("en", {
-                    day: "2-digit",
-                  })}
-                </p>
-                <p className="date-month">
-                  {new Date(event.dateOfEvent).toLocaleDateString("en", {
-                    month: "short",
-                  })}
-                </p>
-                <p className="date-time">
-                  {event.timeStart}-{event.timeEnd}
-                </p>
+              <div className="events-card-image-container">
+                <img
+                  src={event.mainImage || require("../../assets/37.jpg")}
+                  alt={event.name}
+                  className="event-image"/>
               </div>
               <div className="events-card-details">
                 <h3 className="event-category">{event.category}</h3>
@@ -238,24 +227,29 @@ function EventsPage() {
                   </button>
                   <button
                     className="details-button"
-                    onClick={() => handleViewDetails(event._id)}
-                  >
+                    onClick={() => handleViewDetails(event._id)}>
                     {t("eventsPage.eventCard.details")}
                   </button>
                 </div>
               </div>
-
-              <div className="events-card-image-container">
-                <img
-                  src={event.mainImage || "/assets/default-event.jpg"}
-                  alt={event.name}
-                  className="event-image"
-                />
+              <div className="events-card-date">
+                <p className="date-day">
+                  {new Date(event.dateOfEvent).toLocaleDateString("en", {
+                    day: "2-digit",
+                  })}
+                </p>
+                <p className="date-month">
+                  {new Date(event.dateOfEvent).toLocaleDateString("en", {
+                    month: "short",
+                  })}
+                </p>
+                <p className="date-time">
+                  {event.timeStart}-{event.timeEnd}
+                </p>
               </div>
             </div>
           ))}
         </div>
-
         {/* Filter Box for Desktop Users */}
         <div className="events-filter-box">
           <h3>{t("eventsPage.filter.title")}</h3>
@@ -281,14 +275,14 @@ function EventsPage() {
               value={filterDate}
               onChange={(e) => setFilterDate(e.target.value)}
             />
-            <label>{t("eventsPage.filter.price")}</label>
+            <label>{t("Price")}</label>
             <input
               type="number"
-              placeholder={t("eventsPage.filter.maxPrice")}
+              placeholder={t("0")}
               value={filterPrice}
               onChange={(e) => setFilterPrice(e.target.value)}
-              className="search-bar"
-            />
+              className="search-bar-price"
+              />
             <button className="filter-button" onClick={handleFilter}>
               {t("eventsPage.filter.apply")}
             </button>

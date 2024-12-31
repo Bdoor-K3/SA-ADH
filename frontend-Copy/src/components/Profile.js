@@ -14,13 +14,13 @@ import './Profile.css';
 function Profile() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-
   const [user, setUser] = useState(null);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
   const [errorMessages, setErrorMessages] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [activeContent, setActiveContent] = useState("profile");
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -35,6 +35,7 @@ function Profile() {
     birthdate: '',
     gender: '',
   });
+  const [showPurchaseHistory, setShowPurchaseHistory] = useState(false);
 
   /**
    * Extracts country options from the dataset for dropdown menu.
@@ -81,6 +82,12 @@ function Profile() {
 
     loadUserProfile();
   }, [t]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate('/login');
+  };
 
   /**
    * Validates and sets error messages for individual fields.
@@ -176,7 +183,6 @@ function Profile() {
       setErrorMessages({ resetPassword: t('profile.resetPasswordError') });
     }
   };
-
   /**
    * Render loading state if data is still being fetched.
    */
@@ -186,15 +192,68 @@ function Profile() {
 
   return (
     <div className={`profile ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
-      <h1>{t('profile.title')}</h1>
       <div className="profile-container">
+        <div className="profile-details-options">
+        <div class="profile-header">
+        <div class="profile-icon-container">
+            <i class="fas fa-user"></i>
+             </div>
+             <h2 className="profile-title">{t('profile.title')}</h2>
+             <div class="profile-title-line"></div>
+             </div>
+          <button
+            className="profile-button"
+            onClick={() => setIsEditing(true)}>
+            {t('profile.buttons.edit')}
+          </button>
+          <button
+            className="profile-button reset-password-button"
+            onClick={handleResetPassword}
+          >
+            {t('profile.buttons.resetPassword')}
+          </button>
+
+          {user.role === 'organizer' && (
+            <button
+              className="profile-button"
+              onClick={() => window.location.href = '/organizer'}
+            >
+              {t('profile.buttons.goToOrganizer')}
+            </button>
+          )}
+          {user.role === 'admin' && (
+            <button
+              className="profile-button"
+              onClick={() => window.location.href = '/admin'}
+            >
+              {t('profile.buttons.goToAdmin')}
+            </button>
+          )}
+
+          <button
+            className="profile-button"
+            onClick={() => {
+              setShowPurchaseHistory((prev) => !prev); 
+              setActiveContent((prev) => prev === "profile" ? "purchaseHistory" : "profile");
+            }} 
+          >
+            {t('profile.buttons.showPurchaseHistory')}
+          </button>
+
+          <button
+          onClick={handleLogout}
+          className="profile-button"
+          >
+          {t('header.logout')} </button>
+        </div>
+
         <div className="profile-details">
           <h2>{t('profile.sections.personalDetails')}</h2>
           {successMessage && <p className="success-message">{successMessage}</p>}
           {Object.values(errorMessages).map((msg, index) => (
             msg && <p key={index} className="error-message">{msg}</p>
           ))}
-          {isEditing ? (
+          {isEditing ?(
             <form onSubmit={handleUpdate} className="profile-update-form">
               <input
                 type="text"
@@ -289,7 +348,7 @@ function Profile() {
               </div>
               <div className="card-item">
                 <i className="fas fa-phone"></i>
-                <p><strong>{t('profile.labels.phone')}:</strong> {user.phoneNumber || t('profile.placeholders.noPhone')}</p>
+                <p><strong>{t('profile.labels.phone')}:</strong> {user.phoneNumber}</p>
               </div>
               <div className="card-item">
                 <i className="fas fa-map-marker-alt"></i>
@@ -305,107 +364,77 @@ function Profile() {
                 <i className="fas fa-venus-mars"></i>
                 <p><strong>{t('profile.labels.gender')}:</strong> {user.gender || t('profile.placeholders.noGender')}</p>
               </div>
-              <button
-                className="profile-button"
-                onClick={() => setIsEditing(true)}
-              >
-                {t('profile.buttons.edit')}
-              </button>
-              <button
-                className="profile-button reset-password-button"
-                onClick={handleResetPassword}
-              >
-                {t('profile.buttons.resetPassword')}
-              </button>
             </div>
           )}
-        </div>
 
-        {user.role === 'organizer' && (
-          <button
-            className="profile-button"
-            onClick={() => window.location.href = '/organizer'}
-          >
-            {t('profile.buttons.goToOrganizer')}
-          </button>
-        )}
-        {user.role === 'admin' && (
-          <button
-            className="profile-button"
-            onClick={() => window.location.href = '/admin'}
-          >
-            {t('profile.buttons.goToAdmin')}
-          </button>
-        )}
-
-<div className="purchase-history">
-  <h2>{t('profile.sections.purchaseHistory')}</h2>
-
-  {purchaseHistory.length === 0 ? (
-    <p>{t('profile.placeholders.noTickets')}</p>
-  ) : (
-    <ul className="ticket-list">
-      {purchaseHistory.map((purchase, index) => (
-        <li key={index} className="ticket-item">
-          <p>
-            <strong>{t('profile.labels.purchaseDate')}:</strong>{' '}
-            {new Date(purchase.purchaseDate).toLocaleDateString()}
-          </p>
-          <p>
-            <strong>{t('profile.labels.amount')}:</strong>{' '}
-            {`${purchase.amount || 0} ${purchase.currency}`}
-          </p>
-          {purchase.eventIds.map((event, eventIndex) => (
-            <div key={eventIndex} className="event-details">
-              <p>
-                <strong>{t('profile.labels.event')}:</strong> {event?.name || t('profile.labels.noEvent')}
-              </p>
-              <p>
-                <strong>{t('profile.labels.date')}:</strong>{' '}
-                {event?.dateOfEvent ? new Date(event.dateOfEvent).toLocaleDateString() : t('profile.labels.noDate')}
-              </p>
-            </div>
-          ))}
-          <ul className="ticket-sublist">
-            {purchase.tickets.length > 0 ? (
-              purchase.tickets.map((ticket, ticketIndex) => (
-                <li key={ticketIndex} className="ticket-subitem">
-                  <p>
-                    <strong>{t('profile.labels.ticketClass')}:</strong> {ticket.ticketClass}
-                  </p>
-                  <p>
-                    <strong>{t('profile.labels.quantity')}:</strong> {ticket.quantity}
-                  </p>
-                  <p>
-                    <strong>{t('profile.labels.price')}:</strong> {`${ticket.price || 0} ${purchase.currency}`}
-                  </p>
-                </li>
-              ))
-            ) : (
-              <p>{t('profile.placeholders.noTickets')}</p>
-            )}
+         {showPurchaseHistory && (
+        <div className="purchase-history">
+          <h3>{t('profile.sections.purchaseHistory')}</h3>
+          {purchaseHistory.length === 0 ? (
+          <p>{t('profile.placeholders.noTickets')}</p>
+        ) : (
+          <ul className="ticket-list">
+            {purchaseHistory.map((purchase, index) => (
+              <li key={index} className="ticket-item">
+                <p>
+                  <strong>{t('profile.labels.purchaseDate')}:</strong>{' '}
+                  {new Date(purchase.purchaseDate).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>{t('profile.labels.amount')}:</strong>{' '}
+                  {`${purchase.amount || 0} ${purchase.currency}`}
+                </p>
+                {purchase.eventIds.map((event, eventIndex) => (
+                  <div key={eventIndex} className="event-details">
+                    <p>
+                      <strong>{t('profile.labels.event')}:</strong> {event?.name || t('profile.labels.noEvent')}
+                    </p>
+                    <p>
+                      <strong>{t('profile.labels.date')}:</strong>{' '}
+                      {event?.dateOfEvent ? new Date(event.dateOfEvent).toLocaleDateString() : t('profile.labels.noDate')}
+                    </p>
+                  </div>
+                ))}
+                <ul className="ticket-sublist">
+                  {purchase.tickets.length > 0 ? (
+                    purchase.tickets.map((ticket, ticketIndex) => (
+                      <li key={ticketIndex} className="ticket-subitem">
+                        <p>
+                          <strong>{t('profile.labels.ticketClass')}:</strong> {ticket.ticketClass}
+                        </p>
+                        <p>
+                          <strong>{t('profile.labels.quantity')}:</strong> {ticket.quantity}
+                        </p>
+                        <p>
+                          <strong>{t('profile.labels.price')}:</strong> {`${ticket.price || 0} ${purchase.currency}`}
+                        </p>
+                      </li>
+                    ))
+                  ) : (
+                    <p>{t('profile.placeholders.noTickets')}</p>
+                  )}
+                </ul>
+                <button
+                  className="view-ticket-button"
+                  onClick={() =>
+                    navigate('/ticket', {
+                      state: {
+                        tickets: purchase.tickets,
+                        events: purchase.eventIds,
+                      },
+                    })
+                  }
+                >
+                  {t('profile.buttons.viewTicket')}
+                </button>
+              </li>
+            ))}
           </ul>
-          <button
-            className="view-ticket-button"
-            onClick={() =>
-              navigate('/ticket', {
-                state: {
-                  tickets: purchase.tickets,
-                  events: purchase.eventIds,
-                },
-              })
-            }
-          >
-            {t('profile.buttons.viewTicket')}
-          </button>
-        </li>
-      ))}
-    </ul>
-  )}
-</div>
-
-
+        )}
       </div>
+          )}
+      </div>    
+       </div>
     </div>
   );
 }

@@ -16,10 +16,6 @@ function EventDetails({ cart, setCart }) {
   const [selectedPrice, setSelectedPrice] = useState(null); // Tracks the selected ticket price.
   const [quantity, setQuantity] = useState(1); // Tracks the ticket quantity.
 
-  /**
-   * Fetches event details when the component mounts.
-   * Handles errors gracefully and sets the default ticket selection.
-   */
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
@@ -36,10 +32,6 @@ function EventDetails({ cart, setCart }) {
     fetchEventDetails();
   }, [id]);
 
-  /**
-   * Handles adding tickets to the cart.
-   * Ensures valid input values and updates the cart appropriately.
-   */
   const handleAddToCart = () => {
     if (!selectedPrice || quantity < 1) {
       console.error('Invalid ticket selection or quantity');
@@ -52,14 +44,12 @@ function EventDetails({ cart, setCart }) {
       );
 
       if (existingItem) {
-        // Update quantity for an existing item.
         return prevCart.map((item) =>
           item.eventId === id && item.ticketClass === selectedPrice.name
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       } else {
-        // Add a new item to the cart.
         const newItem = {
           eventId: id,
           eventName: event.name,
@@ -73,10 +63,10 @@ function EventDetails({ cart, setCart }) {
     });
   };
 
-  /**
-   * Validates and ensures quantity is at least 1.
-   * @param {Event} e - The change event.
-   */
+const [standardQuantity, setStandardQuantity] = useState(1);
+const [premiumQuantity, setPremiumQuantity] = useState(1);
+const [vipQuantity, setVipQuantity] = useState(1);
+
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value, 10);
     setQuantity(Math.max(1, isNaN(value) ? 1 : value));
@@ -88,21 +78,17 @@ function EventDetails({ cart, setCart }) {
 
   return (
     <div className={`event-details-container ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
-      {/* Breadcrumb and Event Name */}
       <div className="event-details-header">
         <h2>
           {t('eventDetails.breadcrumb')} &gt; {event.name}
         </h2>
       </div>
 
-      {/* Event Banner */}
       <div className="event-banner" style={{ backgroundImage: `url(${event.bannerImage})` }}>
         <div className="banner-overlay"></div>
       </div>
 
-      {/* Main Content */}
       <div className="event-details-content">
-        {/* Ticket Purchase Box */}
         <div className="ticket-purchase-box">
           <div className="price-list">
             <label>{t('eventDetails.selectTicket')}</label>
@@ -122,12 +108,7 @@ function EventDetails({ cart, setCart }) {
 
           <div className="quantity-box">
             <label>{t('eventDetails.quantity')}</label>
-            <input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
+            <input type="number" min="1" value={quantity} onChange={handleQuantityChange} />
           </div>
 
           <button
@@ -139,25 +120,31 @@ function EventDetails({ cart, setCart }) {
           </button>
         </div>
 
-        {/* Event Information */}
         <div className="event-info">
           <div className="event-info-box">
-            <div className="event-date-location">
-              <div className="date-box">
-                <p className="date-label">{t('eventDetails.date')}</p>
-                <p className="date-value">
+            <div className="event-cards">
+              <div className="event-card">
+                <i className="fas fa-calendar-alt"></i>
+                <p>{t('eventDetails.date')}</p>
+                <p>
                   {new Date(event.purchaseStartDate).toLocaleDateString()} -{' '}
-                  {new Date(event.purchaseEndDate).toLocaleDateString()} <span> </span>
-                  {event.timeStart}-{event.timeEnd}
+                  {new Date(event.purchaseEndDate).toLocaleDateString()}
                 </p>
               </div>
-              <div className="location-box">
-                <p className="location-label">{t('eventDetails.location')}</p>
-                <p className="location-value">{event.city}</p>
+              <div className="event-card">
+                <i className="fas fa-map-marker-alt"></i>
+                <p>{t('eventDetails.location')}</p>
+                <p>{event.city}</p>
+              </div>
+              <div className="event-card">
+                <i className="fas fa-clock"></i>
+                <p>{t('eventDetails.time')}</p>
+                <p>
+                  {event.timeStart} - {event.timeEnd}
+                </p>
               </div>
             </div>
           </div>
-
           <div className="event-description">
             <h3>{t('eventDetails.about')}</h3>
             <p>{event.description}</p>
@@ -167,6 +154,81 @@ function EventDetails({ cart, setCart }) {
               {t('eventDetails.terms')} {new Date(event.purchaseStartDate).toLocaleDateString()}.
             </p>
           </div>
+        </div>
+      </div>
+
+      <div className="event-details-header">
+        <h2>{t('eventDetails.eventsCategories')}</h2>
+        <div className="pricing-container">
+          <div className="pricing-card">
+            <div className="card-header">Standard</div>
+            <div className="card-price">88SR</div>
+            <div className="card-content">
+              <p>Support seats? Yes</p>
+              <div className="quantity-box1">
+              <label>{t('eventDetails.quantity')}</label>
+              <input
+                type="number"
+                min="1"
+                value={standardQuantity}
+                onChange={(e) => setStandardQuantity(e.target.value)}
+              />
+            </div>
+            <button
+              className="card-button"
+              onClick={() => handleAddToCart('Standard', standardQuantity)}
+              disabled={standardQuantity < 1}
+            >
+              {t('eventDetails.addToCart')}
+            </button>
+          </div>
+        </div>
+          <div className="pricing-card">
+            <div className="card-header">Premium</div>
+            <div className="card-price">188SR</div>
+            <div className="card-content">
+              <p>Support seats? Yes</p>
+              <div className="quantity-box1">
+              <label>{t('eventDetails.quantity')}</label>
+        <input
+          type="number"
+          min="1"
+          value={premiumQuantity}
+          onChange={(e) => setPremiumQuantity(e.target.value)}
+        />
+      </div>
+            <button
+              className="card-button"
+              onClick={() => handleAddToCart('Premium', premiumQuantity)}
+              disabled={premiumQuantity < 1}
+            >
+              {t('eventDetails.addToCart')}
+            </button>
+          </div>
+        </div>
+          <div className="pricing-card">
+            <div className="card-header">VIP</div>
+            <div className="card-price">288SR</div>
+            <div className="card-content">
+              <p>Support seats? Yes</p>
+              <div className="quantity-box1">
+              <label>{t('eventDetails.quantity')}</label>
+              <input
+                type="number"
+                min="1"
+                value={vipQuantity}
+                onChange={(e) => setVipQuantity(e.target.value)}
+              />
+            </div>
+            <button
+              className="card-button"
+              onClick={() => handleAddToCart('VIP', vipQuantity)}
+              disabled={vipQuantity < 1}
+            >
+              {t('eventDetails.addToCart')}
+            </button>
+          </div>
+        </div>
         </div>
       </div>
     </div>

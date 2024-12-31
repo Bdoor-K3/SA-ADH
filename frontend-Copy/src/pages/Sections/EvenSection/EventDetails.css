@@ -24,7 +24,7 @@
 
 /* Event Header */
 .event-details-header {
-  padding: 10px 0;
+  padding: 10px 10px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -40,7 +40,7 @@
 /* Right Section: Ticket Purchase Box */
 .ticket-purchase-box {
   flex: 0 0 20%; /* Keep the box size */
-  background: linear-gradient(to bottom, #ff79c6, #00bfff);
+  background: #ff79c6;
   padding: 20px; /* Adjust padding for spacing */
   border-radius: 10px;
   text-align: center;
@@ -49,9 +49,69 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content horizontally */
-  justify-content: center; /* Center content vertically */
-  height: 240px; /* Ensure enough space for text and button */
+  align-items: center; 
+  justify-content: center; 
+  height: 240px; 
+  margin: 0;
+}
+
+.event-details-content .add-to-cart-button{
+  font-size: 18px; /* Larger text */
+  background: #00bfff;
+  content: ''; 
+  position: absolute;
+  bottom: -170px; 
+  height: 30px;
+  color: white; 
+  border-radius: 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  width: 245px;
+  height: 50px;
+  border: none;
+  margin: 0;
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+}
+
+.event-details-content .add-to-cart-button:hover {
+  background: #009adf; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.05); 
+}
+
+.event-details-content .add-to-cart-button:focus {
+  outline: none; 
+  background: #009adf;
+}
+
+.ticket-purchase-box label,
+.ticket-purchase-box select,
+.ticket-purchase-box input {
+  display: block; 
+  margin-bottom: 6px; 
+  font-size: 18px; 
+  color: #fbfafa;
+}
+
+.ticket-purchase-box .price-list,
+.ticket-purchase-box .quantity-box {
+  font-size: 18px; 
+  transform: translateY(-30px); 
+  color: #fbfafa;
+}
+
+.ticket-purchase-box label {
+  margin-bottom: 5px; 
+}
+
+.ticket-purchase-box select,
+.ticket-purchase-box input {
+  width: 195px; 
+  padding: 10px; 
+  font-size: 14px; 
+  color: #494949; 
+  border-radius: 30px; 
 }
 
 .ticket-purchase-box .price-info {
@@ -76,6 +136,43 @@
 .purchase-button:hover {
   background: #007bff;
   transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.quantity-box1 {
+  width: 150px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 5px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px auto;
+}
+
+.quantity-box1 label {
+  margin-top: -15px; 
+}
+
+.quantity-box1 input {
+  width: 50%; 
+  text-align: center; 
+  border: none;
+  outline: none; 
+  margin-top: 15px;
+}
+
+.quantity-box1 button {
+  background-color: #007bff;
+  color: white;
+  border: none; 
+  border-radius: 40px; 
+  padding: 5px 10px; 
+  cursor: pointer; 
+}
+
+.quantity-box1 button:hover {
+  background-color: #0056b3;
 }
 
 .cart-box {
@@ -139,24 +236,21 @@
   padding: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+
 }
 
-.event-date-location {
+.event-info-box i {
+  color: #00bfff;
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.event-card {
+  color: #0f1112;
+  font-size: 15px;
+  margin-top: 20px;
   display: flex;
-  gap: 20px;
-}
-
-.date-label,
-.location-label {
-  font-size: 14px;
-  color: #666;
-}
-
-.date-value,
-.location-value {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
+  gap: 5px;
 }
 
 /* Event Description */
@@ -182,15 +276,150 @@
   display: none;
 }
 
+/* Ticket Categories Section */
+.ticket-categories {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.ticket-categories h3 {
+  font-size: 250px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.ticket-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Container for cards */
+.pricing-container {
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  margin-top: 50px;
+}
+
+/* Card design */
+.pricing-card {
+  background-color: #f0f8ff; /* Light blue */
+  border: 1px solid #00bfff; /* Blue border */
+  border-radius: 10px;
+  width: 250px;
+  height: 350px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+/* Scale effect on click */
+.pricing-card:hover {
+  transform: scale(0.98);
+  border-radius: 20px;
+    background-color: #00bfff; 
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    box-shadow: 0px 0px 30px 1px #ff79c6(0, 255, 117, 0.30);
+}
+/* Card header */
+.card-header {
+  background-color: #00bfff; 
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  width: 100%;
+  height: 30%;
+  margin-left: auto; 
+  margin-right: auto;
+  margin-top:-1%;   
+  box-sizing: border-box; 
+}
+
+/* Card price */
+.card-price {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 15px 0;
+  text-align: center;
+}
+
+/* Card content */
+.card-content {
+  text-align: center;
+}
+
+/* Button */
+.card-button {
+  background-color: #ff79c6;
+  color: white;
+  border: none;
+  margin: 19px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: white; 
+  color: #0f1112;
+}
+
+
 /* Responsive Styles for Mobile */
 @media (max-width: 768px) {
   .event-details-content {
     flex-direction: column; /* Stack sections vertically */
   }
+/*
+  .ticket-purchase-box {
+    display: none;  Hide the ticket purchase box for mobile 
+  } */
 
   .ticket-purchase-box {
-    display: none; /* Hide the ticket purchase box for mobile */
+    flex: 0 0 90%; 
+    height: auto; 
+    padding:15px; 
+    width: 60%;
+    margin: 15px auto; 
   }
+
+  .event-details-content .add-to-cart-button {
+    position: relative; 
+    bottom: -15px;
+    width: 113%;
+    height: 60px; 
+    font-size: 16px; 
+  }
+  .pricing-container {
+    flex-direction: column; 
+    gap: 20px; 
+  }
+  
+  .pricing-card {
+    width: 100%; 
+    height: auto; 
+  }
+
+  .card-price {
+    font-size: 20px; 
+  }
+
+  .card-button {
+    font-size: 14px; 
+    width: 50%; 
+    padding: 8px 16px;
+  }
+}
 
   /* Fixed Bottom Price Box */
   .fixed-price-box {
@@ -223,4 +452,5 @@
     cursor: pointer;
     font-size: 16px;
   }
-}
+
+  

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { loginUser } from '../../services/api';
+import Notification from '../../components/Notification';
 import './Auth.css';
 
 /**
@@ -13,6 +14,7 @@ function Login() {
   const [email, setEmail] = useState(''); // State to store email input
   const [password, setPassword] = useState(''); // State to store password input
   const [error, setError] = useState(''); // State to manage error messages
+  const [notification, setNotification] = useState({ message: '', type: '' }); // notification alert
   const navigate = useNavigate();
 
   /**
@@ -23,15 +25,18 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setNotification({ message: '', type: '' }); //
 
     // Input validation
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError(t('login.validation.invalidEmail'));
+      setNotification({ message: t('login.validation.invalidEmail'), type: 'error' }); // error alert will show
       return;
     }
 
     if (password.trim().length < 6) {
       setError(t('login.validation.shortPassword'));
+      setNotification({ message: t('login.validation.shortPassword'), type: 'error' }); // error alert will show
       return;
     }
 
@@ -39,10 +44,14 @@ function Login() {
       const response = await loginUser({ email, password });
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.user.role);
+      setNotification({ message: t('login.success'), type: 'success' }); // success alert will show
       navigate('/');
     } catch (err) {
       const errorMessage = err.response?.data?.message || t('login.error.invalidCredentials');
       setError(errorMessage);
+      setNotification({ message: errorMessage, type: 'error' }); // error alert will show
+      return;
+
     }
   };
 
@@ -53,10 +62,15 @@ function Login() {
     navigate('/signup');
   };
 
+  const closeNotification = () => {
+    setNotification({ message: '', type: '' }); // close notfication
+  };
+
   return (
     <div className="auth-page">
       <div className="auth-container">
         <h2 className="auth-title">{t('login.title')}</h2>
+        <Notification message={notification.message} type={notification.type} onClose={closeNotification} />
 
         {/* Login Form */}
         <form onSubmit={handleLogin} noValidate>
